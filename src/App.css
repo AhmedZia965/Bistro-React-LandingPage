@@ -1,0 +1,218 @@
+/* ================= BODY - CSS ================= */
+body {
+    background-color: white;
+    color: #0D0D0D;
+}
+
+/* ================= NAVBAR - CSS ================= */
+.navbar {
+    background-color: #0D0D0D !important;
+    min-height: 80px;
+}
+.navbar-brand {
+    color: #C98F9A !important;
+    font-size: 24px;
+    font-weight: bold;
+}
+.nav-link {
+    color: #F5F0E6 !important;
+    font-size: 23px;
+    padding: 10px 20px !important;
+    margin: 0 8px;
+    transition: 0.3s;
+}
+.nav-link:hover {
+    color: #C98F9A !important;
+}
+.Loginbtn {
+    background-color: transparent;
+    color: #F5F0E6;
+    border: 1px solid #F5F0E6;
+    padding: 7px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-style: italic;
+}
+.Loginbtn:hover {
+    background-color: #F5F0E6;
+    color: #C98F9A;
+}
+.Signupbtn {
+    background-color: #C98F9A;
+    color: #F5F0E6;
+    border: 1px solid #C98F9A;
+    padding: 7px 22px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-style: italic;
+}
+.Signupbtn:hover {
+    background-color: #F5F0E6;
+    color: #C98F9A;
+    border-color: #F5F0E6;
+}
+.navbar-nav .nav-item {
+    margin-Left: 12px;
+}
+.navbar-nav.ms-auto .dropdown {
+    margin-left: -15px;
+}
+.bi-globe {
+    color: white !important;
+}
+
+/* ================= HERO IMAGE - CSS ================= */
+.FirstImage {
+    margin-top: 30px;
+    width: 90%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+}
+.hero {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+/* ================= HERO TEXT - CSS ================= */
+.heroText {
+    position: absolute;
+    top: 25%;
+    left: 10%;
+    text-align: left;
+    color: #800020;
+}
+.welcomeText {
+    font-size: 18px;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+}
+.heroText h1 {
+    font-size: 45px;
+    font-weight: bold;
+    margin: 0;
+}
+.heroText p {
+    font-size: 22px;
+}
+.heroDescription {
+    font-size: 17px !important;
+    max-width: 400px;
+}
+
+/* ================= HERO BUTTONS - CSS ================= */
+.LearnMoreBtn {
+    border: 1px solid #F5F0E6 !important;
+    border-radius: 20px !important;
+    padding: 8px 20px !important;
+    font-weight: bold;
+    font-size: large;
+    margin-right: 10px;
+    background-color: #800020 !important;
+    color: #F5F0E6 !important;
+}
+
+.LearnMoreBtn:hover {
+    background-color: beige !important;
+    color: #0D0D0D !important;
+    transition: 0.3s;
+}
+
+.OrderBtn {
+    border: 1px solid #F5F0E6 !important;
+    border-radius: 20px !important;
+    padding: 8px 20px !important;
+    font-weight: bold;
+    font-size: large;
+    background-color: transparent !important;
+    color: #F5F0E6 !important;
+}
+
+.OrderBtn:hover {
+    background-color: #F5F0E6 !important;
+    color: #0D0D0D !important;
+}
+
+/* ================= CHEF SPECIAL - CSS ================= */
+.ChefSpecial {
+    position: absolute;
+    bottom: 30px;
+    right: 10%;
+    color: #F5F0E6;
+    background-color: rgba(13, 13, 13, 0.8);
+    padding: 12px 18px;
+    border-radius: 10px;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* ================= WHAT WE OFFER - CSS ================= */
+
+.sectionSubtitle {
+    color: #C98F9A;
+    font-size: 16px;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+}
+
+.sectionTitle {
+    color: #D2CDC3;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.offerCard {
+    background-color: #151515;
+    border: 1px solid #800020;
+    border-radius: 15px;
+    height: 100%;
+    transition: 0.3s;
+}
+
+.offerCard:hover {
+    transform: translateY(-8px);
+    border-color: #C98F9A;
+}
+
+.offerIcon {
+    color: #C98F9A;
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.offerCard h3 {
+    color: #F5F0E6;
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.offerCard p {
+    color: #cfcfcf;
+    font-size: 16px;
+}
+
+
+/* ================= Footer - CSS ================= */
+
+footer {
+    background-color: #0D0D0D !important;
+    color: #F5F0E6;
+}
+
+.MenuLinks a {
+    color: white !important;
+    transition: 0.3s;
+}
+
+.MenuLinks a:hover {
+    color: #C98F9A !important;
+}
+.CafeLinks a {
+    color: white !important;
+    transition: 0.3s;
+}
