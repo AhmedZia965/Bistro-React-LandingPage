@@ -3,7 +3,9 @@ import './App.css'
 
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import About from './components/About'
 import Offers from './components/Offers'
+import Menu from './components/Menu'
 import Footer from './components/Footer'
 
 function App() {
@@ -27,6 +29,10 @@ function App() {
 
       {/* These components only need to know the current language */}
       <Hero language={language} />
+
+      <Menu language={language} />
+
+      <About language={language} />
 
       <Offers language={language} />
 
