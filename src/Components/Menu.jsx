@@ -45,7 +45,7 @@ function Menu({ language }) {
               </p>
 
               <span className="MenuPrice">
-                KWD 3.750
+                PKR 1400
               </span>
 
             </div>
@@ -76,7 +76,7 @@ function Menu({ language }) {
               </p>
 
               <span className="MenuPrice">
-                KWD 1.750
+                PKR 650
               </span>
 
             </div>
@@ -107,7 +107,7 @@ function Menu({ language }) {
               </p>
 
               <span className="MenuPrice">
-                KWD 2.250
+                PKR 850
               </span>
 
             </div>

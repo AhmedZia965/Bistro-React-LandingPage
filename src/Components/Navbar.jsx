@@ -1,6 +1,19 @@
 import '../App.css'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 function Navbar({ language, setLanguage }) {
+
+  const navigate = useNavigate()
+
+  // Gets the current URL
+  const location = useLocation()
+
+  // Checks if we are currently on Signup page
+  const isSignupPage = location.pathname === '/signup'
+
+  // Checks if we are currently on Login page
+  const isLoginPage = location.pathname === '/login'
+
 
   return (
     <nav className="navbar navbar-expand-lg sticky-top">
@@ -17,9 +30,10 @@ function Navbar({ language, setLanguage }) {
           <ul className="navbar-nav">
 
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                {language === 'EN' ? 'Home' : 'الرئيسية'}
-              </a>
+              <a className="nav-link"href="#"
+                    onClick={() => navigate('/')}>
+                      {language === 'EN' ? 'Home' : 'الرئيسية'}
+                    </a>
             </li>
 
             <li className="nav-item">
@@ -52,15 +66,41 @@ function Navbar({ language, setLanguage }) {
           <ul className="navbar-nav ms-auto">
 
             <li className="nav-item">
-              <button type="button" className="Loginbtn">
+              <button
+                type="button"
+                className="Loginbtn"
+                disabled={isLoginPage}
+                style={{
+                  pointerEvents: isLoginPage ? 'none' : 'auto'
+                }}
+                onClick={() => {
+                  if (!isLoginPage) {
+                    navigate('/login')
+                  }
+                }}
+              >
                 {language === 'EN' ? 'Login' : 'تسجيل الدخول'}
               </button>
             </li>
 
             <li className="nav-item">
-              <button type="button" className="Signupbtn">
+
+              <button
+                type="button"
+                className="Signupbtn"
+                disabled={isSignupPage}
+                style={{
+                  pointerEvents: isSignupPage ? 'none' : 'auto'
+                }}
+                onClick={() => {
+                  if (!isSignupPage) {
+                    navigate('/signup')
+                  }
+                }}
+              >
                 {language === 'EN' ? 'Signup' : 'إنشاء حساب'}
               </button>
+
             </li>
 
             {/* Language Dropdown */}
@@ -76,7 +116,6 @@ function Navbar({ language, setLanguage }) {
 
                 <i className="bi bi-globe"></i>
 
-                {/* Shows the selected language */}
                 <span>{language}</span>
 
               </a>

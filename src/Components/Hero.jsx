@@ -17,7 +17,7 @@ function Hero({ language }) {
           {language === 'EN' ? 'MONARCH BISTRO' : 'مونارك بيسترو'}
         </h1>
 
-        <p>
+        <p >
           {language === 'EN'
             ? 'Where every bite feels like home.'
             : 'حيث كل لقمة تشعرك وكأنك في منزلك'}

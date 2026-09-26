@@ -69,8 +69,9 @@ body {
 
 /* ================= HERO IMAGE - CSS ================= */
 .FirstImage {
-    margin-top: 30px;
-    width: 90%;
+    filter: brightness(80%);
+    margin-top: -100px;
+    width: 100%;
     height: auto;
     justify-content: center;
     align-items: center;
@@ -81,10 +82,12 @@ body {
     text-align: center;
 }
 
+
+
 /* ================= HERO TEXT - CSS ================= */
 .heroText {
     position: absolute;
-    top: 25%;
+    top: 15%;
     left: 10%;
     text-align: left;
     color: #800020;
@@ -288,4 +291,175 @@ footer {
 .AboutBtn:hover {
     background-color: #C98F9A;
     border-color: #C98F9A;
+}
+
+
+/* ================= SignUp-Page - CSS ================= */
+
+
+.signup-page {
+    min-height: calc(100vh - 300px);
+    background-color: #808080;
+    color: #0d0c0a;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+
+
+.signup-card {
+    background-color: #161616;
+    border: 1px solid #3a2529;
+    border-radius: 15px;
+}
+
+
+.signup-card h2 {
+    color: #C98F9A;
+    font-weight: bold;
+}
+
+
+
+.signup-card .form-label {
+    color: #F5F0E6;
+    font-weight: 500;
+}
+
+
+
+.signup-card .form-control {
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    border: 1px solid #555;
+    border-radius: 8px;
+}
+
+
+
+.signup-card .form-control::placeholder {
+    color: #999;
+}
+
+
+.signup-card .form-control:focus {
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    border-color: #C98F9A;
+    box-shadow: 0 0 0 0.2rem rgba(201, 143, 154, 0.2);
+}
+
+
+.signup-card .btn-dark {
+    background-color: #800020;
+    border-color: #800020;
+    color: #F5F0E6;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+
+
+.signup-card .btn-dark:hover {
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+    color: #0D0D0D;
+}
+
+
+.Signupbtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+.signup-image {
+    width: 100%;
+    height: 72.5%;
+    object-fit: cover;
+    
+    border-radius: 15px;
+}
+
+
+
+/* ================= Login-Page - CSS ================= */
+
+
+
+.login-page {
+    min-height: calc(100vh - 100px);
+    background-color: #808080;
+    color: #0d0c0a;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+/* Login card */
+.login-card {
+    background-color: #161616;
+    border: 1px solid #3a2529;
+    border-radius: 15px;
+}
+
+/* Login heading */
+.login-card h2 {
+    color: #C98F9A;
+    font-weight: bold;
+}
+
+/* Form labels */
+.login-card .form-label {
+    color: #F5F0E6;
+    font-weight: 500;
+}
+
+/* Input boxes */
+.login-card .form-control {
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    border: 1px solid #555;
+    border-radius: 8px;
+}
+
+/* Placeholder text */
+.login-card .form-control::placeholder {
+    color: #999;
+}
+
+/* Input when selected */
+.login-card .form-control:focus {
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    border-color: #C98F9A;
+    box-shadow: 0 0 0 0.2rem rgba(201, 143, 154, 0.2);
+}
+
+/* Login button */
+.login-card .btn-dark {
+    background-color: #800020;
+    border-color: #800020;
+    color: #F5F0E6;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+/* Login button hover */
+.login-card .btn-dark:hover {
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+    color: #0D0D0D;
+}
+
+.login-link {
+    color: #C98F9A;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link:hover {
+    color: #800020;
+    text-decoration: underline;
 }
