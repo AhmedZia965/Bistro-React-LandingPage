@@ -1,0 +1,818 @@
+/* ================= NAVBAR - CSS ================= */
+
+.navbar {
+    background-color: #0D0D0D !important;
+    min-height: 80px;
+    width: 100%;
+}
+
+.navbar-brand {
+    color: #C98F9A !important;
+    font-size: 24px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.nav-link {
+    color: #F5F0E6 !important;
+    font-size: 19px;
+    padding: 10px 15px !important;
+    margin: 0 3px;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: #C98F9A !important;
+}
+
+
+/* Login Button */
+
+.Loginbtn {
+    margin-top: 8px;
+    background-color: transparent;
+    color: #F5F0E6;
+    border: 1px solid #F5F0E6;
+    padding: 7px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-style: italic;
+    white-space: nowrap;
+}
+
+.Loginbtn:hover {
+    background-color: #F5F0E6;
+    color: #C98F9A;
+}
+
+
+/* Signup Button */
+
+.Signupbtn {
+    margin-top: 8px;
+    background-color: #C98F9A;
+    color: #F5F0E6;
+    border: 1px solid #C98F9A;
+    padding: 7px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-style: italic;
+    white-space: nowrap;
+}
+
+.Signupbtn:hover {
+    background-color: #F5F0E6;
+    color: #C98F9A;
+    border-color: #F5F0E6;
+}
+
+
+/* Navbar item spacing */
+
+.navbar-nav .nav-item {
+    margin-left: 5px;
+}
+
+
+/* Language dropdown */
+
+.navbar-nav.ms-auto .dropdown {
+    margin-left: 0;
+}
+
+.bi-globe {
+    color: white !important;
+}
+
+
+/* Mobile Navbar Button */
+
+.navbar-toggler {
+    border: 1px solid #C98F9A !important;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.15rem rgba(201, 143, 154, 0.25) !important;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+
+/* ================= NAVBAR RESPONSIVE ================= */
+
+@media (max-width: 991px) {
+
+    .navbar {
+        padding: 10px 15px;
+    }
+
+    .navbar-collapse {
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    .navbar-nav {
+        width: 100%;
+    }
+
+    .navbar-nav .nav-item {
+        margin-left: 0;
+    }
+
+    .nav-link {
+        font-size: 18px;
+        padding: 8px 5px !important;
+        margin: 0;
+    }
+
+    .navbar-nav.ms-auto {
+        margin-top: 10px;
+    }
+
+    .Loginbtn,
+    .Signupbtn {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+}
+
+
+/* Smaller screens */
+
+@media (max-width: 576px) {
+
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    .navbar {
+        padding: 10px;
+    }
+
+}
+
+
+/* ================= HERO IMAGE - CSS ================= */
+
+.FirstImage {
+    filter: brightness(80%);
+    margin-top: -100px;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+
+/* ================= HERO TEXT - CSS ================= */
+
+.heroText {
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    text-align: left;
+    color: #800020;
+}
+
+.welcomeText {
+    font-size: 18px;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+}
+
+.heroText h1 {
+    font-size: 45px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.heroText p {
+    font-size: 22px;
+}
+
+.heroDescription {
+    font-size: 17px !important;
+    max-width: 400px;
+}
+
+
+/* ================= HERO BUTTONS - CSS ================= */
+
+.LearnMoreBtn {
+    border: 1px solid #F5F0E6 !important;
+    border-radius: 20px !important;
+    padding: 8px 20px !important;
+    font-weight: bold;
+    font-size: large;
+    margin-right: 10px;
+    background-color: #800020 !important;
+    color: #F5F0E6 !important;
+}
+
+.LearnMoreBtn:hover {
+    background-color: beige !important;
+    color: #0D0D0D !important;
+    transition: 0.3s;
+}
+
+.OrderBtn {
+    border: 1px solid #F5F0E6 !important;
+    border-radius: 20px !important;
+    padding: 8px 20px !important;
+    font-weight: bold;
+    font-size: large;
+    background-color: transparent !important;
+    color: #F5F0E6 !important;
+}
+
+.OrderBtn:hover {
+    background-color: #F5F0E6 !important;
+    color: #0D0D0D !important;
+}
+
+
+/* ================= CHEF SPECIAL - CSS ================= */
+
+.ChefSpecial {
+    position: absolute;
+    bottom: 30px;
+    right: 10%;
+    color: #F5F0E6;
+    background-color: rgba(13, 13, 13, 0.8);
+    padding: 12px 18px;
+    border-radius: 10px;
+    text-align: left;
+    font-weight: bold;
+}
+
+
+/* ================= WHAT WE OFFER - CSS ================= */
+
+.sectionSubtitle {
+    color: #C98F9A;
+    font-size: 16px;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+}
+
+.sectionTitle {
+    color: #D2CDC3;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.offerCard {
+    background-color: #151515;
+    border: 1px solid #800020;
+    border-radius: 15px;
+    height: 100%;
+    transition: 0.3s;
+}
+
+.offerCard:hover {
+    transform: translateY(-8px);
+    border-color: #C98F9A;
+}
+
+.offerIcon {
+    color: #C98F9A;
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.offerCard h3 {
+    color: #F5F0E6;
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.offerCard p {
+    color: #cfcfcf;
+    font-size: 16px;
+}
+
+
+/* ================= FOOTER - CSS ================= */
+
+footer {
+    background-color: #0D0D0D !important;
+    color: #F5F0E6;
+}
+
+.MenuLinks a {
+    color: white !important;
+    transition: 0.3s;
+}
+
+.MenuLinks a:hover {
+    color: #C98F9A !important;
+}
+
+.CafeLinks a {
+    color: white !important;
+    transition: 0.3s;
+}
+
+
+/* ================= MENU - CSS ================= */
+
+.menuCard {
+    background-color: #151515;
+    border: 1px solid #800020;
+    border-radius: 15px;
+    overflow: hidden;
+    height: 100%;
+    transition: 0.3s;
+}
+
+.menuCard:hover {
+    transform: translateY(-8px);
+    border-color: #C98F9A;
+}
+
+.MenuImage {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.menuCard h3 {
+    color: #F5F0E6;
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.menuCard p {
+    color: #cfcfcf;
+    font-size: 16px;
+}
+
+.MenuPrice {
+    color: #C98F9A;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* ================= ABOUT - CSS ================= */
+
+.AboutImage {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.AboutBtn {
+    background-color: #800020;
+    color: #F5F0E6;
+    border: 1px solid #800020;
+    padding: 10px 22px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.AboutBtn:hover {
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+}
+
+
+/* ================= NAVBAR RESPONSIVE - CSS ================= */
+
+@media (max-width: 1200px) {
+
+    .nav-link {
+        font-size: 18px;
+        padding: 10px 12px !important;
+        margin: 0 3px;
+    }
+
+    .navbar-nav .nav-item {
+        margin-left: 3px;
+    }
+
+}
+
+
+/* ================= REWARDS PAGE - CSS ================= */
+
+.rewards-page {
+    min-height: calc(100vh - 100px);
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+
+/* ================= REWARDS HEADING ================= */
+
+.rewards-heading {
+    margin-bottom: 50px;
+}
+
+.rewards-subtitle {
+    color: #C98F9A;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.rewards-heading h1 {
+    color: #F5F0E6;
+    font-size: 42px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.rewards-heading p {
+    color: #B9B1AA;
+    margin-top: 12px;
+}
+
+
+/* ================= POINT VALUE ================= */
+
+.reward-value {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #251317;
+    border: 1px solid #3a2529;
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin-top: 15px;
+}
+
+.reward-value i {
+    color: #C98F9A;
+    font-size: 20px;
+}
+
+.reward-value strong {
+    color: #F5F0E6;
+    font-size: 15px;
+}
+
+
+/* ================= HOW IT WORKS ================= */
+
+.reward-card {
+    background-color: #161616;
+    border: 1px solid #3a2529;
+    border-radius: 18px;
+    padding: 30px;
+    height: 100%;
+    transition: 0.3s;
+}
+
+.reward-card:hover {
+    transform: translateY(-5px);
+    border-color: #C98F9A;
+}
+
+.reward-icon {
+    width: 60px;
+    height: 60px;
+    background-color: #800020;
+    color: #F5F0E6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    margin: 0 auto 20px;
+}
+
+.reward-card h3 {
+    color: #C98F9A;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.reward-card p {
+    color: #AAA0A2;
+    line-height: 1.7;
+    margin-bottom: 0;
+}
+
+
+/* ================= REWARD ITEMS SECTION ================= */
+
+.rewards-section {
+    margin-top: 20px;
+}
+
+.rewards-section h2 {
+    color: #F5F0E6;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.rewards-section p {
+    color: #999;
+}
+
+
+/* ================= REWARD ITEM CARDS ================= */
+
+.reward-item-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #161616;
+    border: 1px solid #3a2529;
+    border-radius: 15px;
+    padding: 20px;
+    height: 100%;
+    transition: 0.3s;
+}
+
+.reward-item-card:hover {
+    transform: translateY(-5px);
+    border-color: #C98F9A;
+}
+
+.reward-item-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #800020;
+    color: #F5F0E6;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    flex-shrink: 0;
+}
+
+.reward-item-card h3 {
+    color: #F5F0E6;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.reward-item-card p {
+    color: #999;
+    font-size: 13px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.reward-item-card > strong {
+    color: #C98F9A;
+    font-size: 14px;
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+
+/* ================= REWARDS LOGIN ================= */
+
+.rewards-login {
+    background: linear-gradient(145deg, #251317, #111111);
+    border: 1px solid #3a2529;
+    border-radius: 18px;
+    padding: 40px 25px;
+    margin-top: 50px;
+}
+
+.reward-login-icon {
+    width: 65px;
+    height: 65px;
+    background-color: #800020;
+    color: #F5F0E6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 20px;
+}
+
+.rewards-login h2 {
+    color: #C98F9A;
+    font-size: 27px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.rewards-login p {
+    color: #B9B1AA;
+    max-width: 600px;
+    margin: 0 auto 25px;
+    line-height: 1.7;
+}
+
+.rewards-login-btn {
+    background-color: #800020;
+    color: #F5F0E6;
+    border: 1px solid #800020;
+    border-radius: 9px;
+    padding: 11px 25px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.rewards-login-btn:hover {
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+    color: #0D0D0D;
+}
+
+
+/* ================= REWARDS MOBILE ================= */
+
+@media (max-width: 576px) {
+
+    .rewards-page {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .rewards-heading {
+        margin-bottom: 35px;
+    }
+
+    .rewards-heading h1 {
+        font-size: 30px;
+    }
+
+    .reward-card {
+        padding: 25px;
+    }
+
+    .rewards-section h2 {
+        font-size: 26px;
+    }
+
+    .reward-item-card {
+        padding: 16px;
+    }
+
+    .reward-item-card > strong {
+        font-size: 12px;
+    }
+
+    .rewards-login {
+        padding: 30px 20px;
+        margin-top: 35px;
+    }
+
+}
+
+
+/* ================= MAIN MENU ================= */
+
+.main-menu-page {
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    min-height: calc(100vh - 80px);
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+
+/* ================= MENU HEADING ================= */
+
+.main-menu-heading {
+    margin-bottom: 45px;
+}
+
+.main-menu-heading span {
+    color: #C98F9A;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.main-menu-heading h1 {
+    color: #F5F0E6;
+    font-size: 45px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.main-menu-heading p {
+    color: #999;
+    margin-top: 10px;
+}
+
+
+/* ================= ALLERGEN WARNING ================= */
+
+.main-menu-warning {
+    background-color: #251317;
+    border: 1px solid #3a2529;
+    border-radius: 10px;
+    color: #C98F9A;
+    padding: 15px 20px;
+    margin-bottom: 45px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+
+/* ================= CATEGORIES ================= */
+
+.main-menu-categories {
+    margin-bottom: 50px;
+}
+
+.main-menu-categories h2 {
+    color: #F5F0E6;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.main-menu-category {
+    width: 100%;
+    background-color: #161616;
+    color: #F5F0E6;
+    border: 1px solid #3a2529;
+    border-radius: 10px;
+    padding: 15px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.main-menu-category:hover {
+    background-color: #800020;
+    border-color: #800020;
+    color: #F5F0E6;
+}
+
+.main-menu-category.active {
+    background-color: #800020;
+    border-color: #800020;
+    color: #F5F0E6;
+}
+
+
+/* ================= SELECTED CATEGORY ================= */
+
+.main-menu-selected {
+    background-color: #161616;
+    border: 1px solid #3a2529;
+    border-radius: 18px;
+    padding: 50px 20px;
+}
+
+.main-menu-selected h2 {
+    color: #C98F9A;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.main-menu-selected p {
+    color: #999;
+    margin-top: 10px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 576px) {
+
+    .main-menu-page {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .main-menu-heading h1 {
+        font-size: 35px;
+    }
+
+    .main-menu-warning {
+        font-size: 13px;
+        padding: 12px 15px;
+    }
+
+    .main-menu-category {
+        font-size: 14px;
+        padding: 12px 8px;
+    }
+
+}

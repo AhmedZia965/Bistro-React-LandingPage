@@ -1,9 +1,24 @@
-import Footer from '../../components/Footer'
 import { useNavigate } from 'react-router-dom'
 
 function CustomerLogin({ language }) {
 
   const navigate = useNavigate()
+
+
+  // Handles demo login
+  function handleLogin(event) {
+
+    // Prevents page refresh
+    event.preventDefault()
+
+    // Accepts any phone number and password
+    sessionStorage.setItem('isLoggedIn', 'true')
+
+    // Opens profile
+    navigate('/profile')
+
+  }
+
 
   return (
 
@@ -32,7 +47,7 @@ function CustomerLogin({ language }) {
                 </h2>
 
                 {/* Login form */}
-                <form>
+                <form onSubmit={handleLogin}>
 
                   {/* Phone Number */}
                   <div className="mb-3">
@@ -51,6 +66,7 @@ function CustomerLogin({ language }) {
                           ? 'Enter phone number'
                           : 'أدخل رقم الهاتف'
                       }
+                      required
                     />
 
                   </div>
@@ -72,6 +88,7 @@ function CustomerLogin({ language }) {
                           ? 'Enter password'
                           : 'أدخل كلمة المرور'
                       }
+                      required
                     />
 
                   </div>
@@ -113,7 +130,10 @@ function CustomerLogin({ language }) {
                   <a
                     href="#"
                     className="login-link"
-                    onClick={() => navigate('/signup')}
+                    onClick={(event) => {
+                      event.preventDefault()
+                      navigate('/signup')
+                    }}
                   >
                     {language === 'EN'
                       ? 'Sign Up'
@@ -131,9 +151,6 @@ function CustomerLogin({ language }) {
         </div>
 
       </div>
-
-      {/* Existing Footer */}
-      <Footer language={language} />
 
     </>
 

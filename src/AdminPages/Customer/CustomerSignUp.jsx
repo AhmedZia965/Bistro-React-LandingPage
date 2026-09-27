@@ -1,5 +1,3 @@
-import Footer from '../../components/Footer'
-
 function CustomerSignup({ language }) {
 
   return (
@@ -185,10 +183,6 @@ function CustomerSignup({ language }) {
         </div>
 
       </div>
-
-
-      {/* Existing Footer component receives the selected language */}
-      <Footer language={language} />
 
     </>
 
