@@ -1,0 +1,383 @@
+/* ================= ADMIN LOGIN ================= */
+
+/* Admin Login Page */
+
+.admin-login-page {
+    min-height: 100vh;
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+/* Admin Login Card */
+
+.admin-login-card {
+    width: 100%;
+    max-width: 500px;
+    background-color: #161616;
+    border: 1px solid #3a2529;
+    border-radius: 18px;
+    padding: 40px;
+}
+
+
+/* ================= ADMIN LOGIN HEADING ================= */
+
+/* Admin Login Heading */
+
+.admin-login-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-login-heading > i {
+    display: block;
+    color: #C98F9A;
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.admin-login-heading span {
+    color: #C98F9A;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.admin-login-heading h1 {
+    color: #F5F0E6;
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.admin-login-heading p {
+    color: #999;
+    margin-top: 10px;
+}
+
+
+/* ================= ADMIN INPUTS ================= */
+
+/* Admin Login Form Inputs */
+
+.admin-input-group {
+    margin-bottom: 20px;
+}
+
+.admin-input-group label {
+    display: block;
+    color: #F5F0E6;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.admin-input-group input {
+    width: 100%;
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    border: 1px solid #3a2529;
+    border-radius: 8px;
+    padding: 12px 15px;
+}
+
+.admin-input-group input:focus {
+    outline: none;
+    border-color: #C98F9A;
+}
+
+
+/* ================= ADMIN BUTTON ================= */
+
+/* Admin Login Button */
+
+.admin-login-btn {
+    width: 100%;
+    background-color: #800020;
+    color: #F5F0E6;
+    border: 1px solid #800020;
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin-top: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.admin-login-btn:hover {
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+    color: #0D0D0D;
+}
+
+
+/* ================= ADMIN MANAGEMENT ================= */
+
+/* Admin Management Page */
+
+.admin-management-page {
+    min-height: 100vh;
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    padding: 70px 20px;
+}
+
+
+/* ================= MANAGEMENT HEADING ================= */
+
+/* Management Heading */
+
+.admin-management-heading {
+    margin-bottom: 40px;
+}
+
+.admin-management-heading span {
+    color: #C98F9A;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.admin-management-heading h1 {
+    color: #F5F0E6;
+    font-size: 40px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.admin-management-heading p {
+    color: #999;
+    margin-top: 10px;
+}
+
+
+/* ================= MANAGEMENT FORM ================= */
+
+/* Management Form */
+
+.admin-management-form {
+    background-color: #161616;
+    border: 1px solid #3a2529;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 40px;
+}
+
+.admin-management-form h2 {
+    color: #F5F0E6;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+
+/* Management Form Labels */
+
+.admin-management-form label {
+    display: block;
+    color: #F5F0E6;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+
+/* Management Form Inputs */
+
+.admin-management-form .form-control {
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    border: 1px solid #3a2529;
+    border-radius: 8px;
+    padding: 11px 14px;
+}
+
+.admin-management-form .form-control:focus {
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    border-color: #C98F9A;
+    box-shadow: none;
+}
+
+.admin-management-form .form-control::placeholder {
+    color: #777;
+}
+
+
+/* ================= MANAGEMENT BUTTON ================= */
+
+/* Add / Update Button */
+
+.admin-management-btn {
+    background-color: #800020;
+    color: #F5F0E6;
+    border: 1px solid #800020;
+    border-radius: 8px;
+    padding: 11px 22px;
+    margin-top: 25px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.admin-management-btn:hover {
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+    color: #0D0D0D;
+}
+
+
+/* Cancel Button */
+
+.admin-cancel-btn {
+    background-color: transparent;
+    color: #F5F0E6;
+    border: 1px solid #555;
+    border-radius: 8px;
+    padding: 11px 22px;
+    margin-top: 25px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.admin-cancel-btn:hover {
+    background-color: #555;
+    border-color: #555;
+    color: #F5F0E6;
+}
+
+
+/* ================= MANAGEMENT TABLE ================= */
+
+/* Management Table */
+
+.admin-management-table {
+    background-color: #161616;
+    border: 1px solid #3a2529;
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.admin-management-table h2 {
+    color: #F5F0E6;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+
+/* Bootstrap Table */
+
+.admin-management-table .table {
+    margin-bottom: 0;
+    color: #F5F0E6;
+}
+
+.admin-management-table .table thead th {
+    background-color: #800020;
+    color: #F5F0E6;
+    border-bottom: 1px solid #3a2529;
+    padding: 14px;
+}
+
+.admin-management-table .table tbody td {
+    background-color: #161616;
+    color: #F5F0E6;
+    border-color: #3a2529;
+    padding: 14px;
+    vertical-align: middle;
+}
+
+
+/* Table Hover */
+
+.admin-management-table .table-hover tbody tr:hover td {
+    background-color: #21191b;
+}
+
+
+/* ================= EMPTY TABLE ================= */
+
+/* Empty Management Table */
+
+.admin-management-empty {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.admin-management-empty i {
+    display: block;
+    color: #C98F9A;
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.admin-management-empty p {
+    color: #999;
+    margin: 0;
+}
+
+
+/* ================= TABLE BUTTONS ================= */
+
+/* Edit Button */
+
+.admin-management-table .btn-warning {
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+    color: #0D0D0D;
+}
+
+.admin-management-table .btn-warning:hover {
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+}
+
+
+/* Delete Button */
+
+.admin-management-table .btn-danger {
+    background-color: #800020;
+    border-color: #800020;
+}
+
+.admin-management-table .btn-danger:hover {
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+    color: #0D0D0D;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 576px) {
+
+    .admin-management-page {
+        padding: 50px 15px;
+    }
+
+    .admin-management-heading h1 {
+        font-size: 30px;
+    }
+
+    .admin-management-form,
+    .admin-management-table {
+        padding: 20px;
+    }
+
+    .admin-management-form h2,
+    .admin-management-table h2 {
+        font-size: 21px;
+    }
+
+    .admin-management-table .table {
+        font-size: 14px;
+    }
+
+    .admin-management-btn,
+    .admin-cancel-btn {
+        width: 100%;
+        margin-left: 0 !important;
+    }
+
+}

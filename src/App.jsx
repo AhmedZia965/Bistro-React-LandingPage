@@ -3,6 +3,7 @@ import './App.css'
 import './Components/Component.css'
 import './AdminPages/Customer/Customer.css'
 import './AdminPages/Staff/Staff.css'
+import './AdminPages/Admin/Admin.css'
 
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 
@@ -23,7 +24,12 @@ import CustomerProfile from './AdminPages/Customer/CustomerProfile'
 import StaffLogin from './AdminPages/Staff/StaffLogin'
 import StaffDashboard from './AdminPages/Staff/StaffDashboard'
 import StaffMenu from './AdminPages/Staff/StaffMenu'
-import CustFeedBacks from './AdminPages/Staff/CustFeedBacks'
+import CustFeedBacks from './AdminPages/Staff/Reservations'
+
+import AdminLogin from './AdminPages/Admin/AdminLogin'
+import StaffManagement from './AdminPages/Admin/StaffManagement'
+import CustomerManagement from './AdminPages/Admin/CustomerManagement'
+import OffersManagement from './AdminPages/Admin/OffersManagement'
 
 
 function App() {
@@ -54,21 +60,21 @@ function AppContent({ language, setLanguage }) {
 
   const location = useLocation()
 
-  // Checks if the current page is a staff page
-  const isStaffPage =
-    location.pathname === '/staff-login' ||
-    location.pathname === '/staff-dashboard' ||
-    location.pathname === '/staff-menu' ||
-    location.pathname === '/staff-feedback'
+  // Checks if current page is Staff or Admin
+  const isStaffOrAdminPage =
+    location.pathname.startsWith('/staff') ||
+    location.pathname.startsWith('/admin') ||
+    location.pathname === '/customer-management' ||
+    location.pathname === '/offers-management'
 
 
   return (
 
     <>
 
-      {/* Customer Navbar is hidden on Staff pages */}
+      {/* Customer Navbar is hidden on Staff and Admin pages */}
 
-      {!isStaffPage && (
+      {!isStaffOrAdminPage && (
 
         <Navbar
           language={language}
@@ -171,6 +177,7 @@ function AppContent({ language, setLanguage }) {
           element={
             <>
               <CustomerProfile language={language} />
+              <Footer language={language} />
             </>
           }
         />
@@ -223,10 +230,10 @@ function AppContent({ language, setLanguage }) {
         />
 
 
-        {/* Staff Customer Feedback */}
+        {/* Staff Reservation */}
 
         <Route
-          path="/staff-feedback"
+          path="/staff-Reservation"
           element={
             <>
               <CustFeedBacks
@@ -237,9 +244,69 @@ function AppContent({ language, setLanguage }) {
           }
         />
 
+
+        {/* ================= ADMIN PAGES ================= */}
+
+        {/* Admin Login */}
+
+        <Route
+          path="/admin-login"
+          element={
+            <>
+              <AdminLogin
+                language={language}
+                setLanguage={setLanguage}
+              />
+            </>
+          }
+        />
+
+
+        {/* Staff Management */}
+
+        <Route
+          path="/staff-management"
+          element={
+            <>
+              <StaffManagement
+                language={language}
+              />
+            </>
+          }
+        />
+
+
+        {/* Customer Management */}
+
+        <Route
+          path="/customer-management"
+          element={
+            <>
+              <CustomerManagement
+                language={language}
+              />
+            </>
+          }
+        />
+
+
+        {/* Offers Management */}
+
+        <Route
+          path="/offers-management"
+          element={
+            <>
+              <OffersManagement
+                language={language}
+              />
+            </>
+          }
+        />
+
       </Routes>
 
     </>
+
   )
 }
 

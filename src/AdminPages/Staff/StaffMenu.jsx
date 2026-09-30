@@ -10,55 +10,51 @@ function StaffMenu({ language, setLanguage }) {
 
 
   // Stores menu items
-  const [menuItems, setMenuItems] = useState([
-
-    {
-      id: 1,
-      name: 'Classic Burger',
-      price: '4.500',
-      available: true
-    },
-
-    {
-      id: 2,
-      name: 'Cappuccino',
-      price: '2.000',
-      available: true
-    },
-
-    {
-      id: 3,
-      name: 'Creamy Pasta',
-      price: '5.000',
-      available: true
-    }
-
-  ])
+  const [menuItems, setMenuItems] = useState([])
 
 
   // Stores new item information
   const [name, setName] = useState('')
+  const [category, setCategory] = useState('Burgers')
   const [price, setPrice] = useState('')
+  const [description, setDescription] = useState('')
 
 
-  // Adds a new menu item
+  // Stores the new price
+  const [newPrice, setNewPrice] = useState('')
+
+
+  // Add Item button does nothing for now
   function handleAddItem(event) {
 
     event.preventDefault()
 
-    const newItem = {
+  }
 
-      id: Date.now(),
-      name: name,
-      price: price,
-      available: true
 
+  // Updates the price of a menu item
+  function handleUpdatePrice(id) {
+
+    if (newPrice === '') {
+      return
     }
 
-    setMenuItems([...menuItems, newItem])
+    setMenuItems(
 
-    setName('')
-    setPrice('')
+      menuItems.map(item =>
+
+        item.id === id
+          ? {
+              ...item,
+              price: newPrice
+            }
+          : item
+
+      )
+
+    )
+
+    setNewPrice('')
 
   }
 
@@ -99,6 +95,7 @@ function StaffMenu({ language, setLanguage }) {
     <>
 
       {/* Staff Navbar */}
+
       <StaffNavbar
         language={language}
         setLanguage={setLanguage}
@@ -135,8 +132,8 @@ function StaffMenu({ language, setLanguage }) {
             <p>
 
               {language === 'EN'
-                ? 'Add and manage menu items.'
-                : 'إضافة وإدارة عناصر القائمة.'}
+                ? 'Manage food and beverage items.'
+                : 'إدارة الأطعمة والمشروبات.'}
 
             </p>
 
@@ -161,29 +158,95 @@ function StaffMenu({ language, setLanguage }) {
               <div className="row g-3">
 
 
-                {/* Item Name */}
+                {/* Food Name */}
 
-                <div className="col-md-5">
+                <div className="col-md-4">
+
+                  <label>
+
+                    {language === 'EN'
+                      ? 'Food Name'
+                      : 'اسم الطعام'}
+
+                  </label>
 
                   <input
                     type="text"
                     className="form-control"
                     placeholder={
                       language === 'EN'
-                        ? 'Item Name'
-                        : 'اسم العنصر'
+                        ? 'Food Name'
+                        : 'اسم الطعام'
                     }
                     value={name}
                     onChange={(event) => setName(event.target.value)}
-                    required
                   />
+
+                </div>
+
+
+                {/* Category */}
+
+                <div className="col-md-3">
+
+                  <label>
+
+                    {language === 'EN'
+                      ? 'Category'
+                      : 'الفئة'}
+
+                  </label>
+
+                  <select
+                    className="form-control"
+                    value={category}
+                    onChange={(event) => setCategory(event.target.value)}
+                  >
+
+                    <option value="Burgers">
+                      {language === 'EN' ? 'Burgers' : 'برغر'}
+                    </option>
+
+                    <option value="Pizzas">
+                      {language === 'EN' ? 'Pizzas' : 'بيتزا'}
+                    </option>
+
+                    <option value="Pastas">
+                      {language === 'EN' ? 'Pastas' : 'معكرونة'}
+                    </option>
+
+                    <option value="Desserts">
+                      {language === 'EN' ? 'Desserts' : 'حلويات'}
+                    </option>
+
+                    <option value="Coffee">
+                      {language === 'EN' ? 'Coffee' : 'قهوة'}
+                    </option>
+
+                    <option value="Drinks">
+                      {language === 'EN' ? 'Drinks' : 'مشروبات'}
+                    </option>
+
+                    <option value="Sides">
+                      {language === 'EN' ? 'Sides' : 'أطباق جانبية'}
+                    </option>
+
+                  </select>
 
                 </div>
 
 
                 {/* Price */}
 
-                <div className="col-md-4">
+                <div className="col-md-2">
+
+                  <label>
+
+                    {language === 'EN'
+                      ? 'Price'
+                      : 'السعر'}
+
+                  </label>
 
                   <input
                     type="number"
@@ -196,7 +259,6 @@ function StaffMenu({ language, setLanguage }) {
                     }
                     value={price}
                     onChange={(event) => setPrice(event.target.value)}
-                    required
                   />
 
                 </div>
@@ -205,6 +267,10 @@ function StaffMenu({ language, setLanguage }) {
                 {/* Add Button */}
 
                 <div className="col-md-3">
+
+                  <label>
+                    &nbsp;
+                  </label>
 
                   <button
                     type="submit"
@@ -218,6 +284,33 @@ function StaffMenu({ language, setLanguage }) {
                       : 'إضافة عنصر'}
 
                   </button>
+
+                </div>
+
+
+                {/* Description */}
+
+                <div className="col-12">
+
+                  <label>
+
+                    {language === 'EN'
+                      ? 'Description'
+                      : 'الوصف'}
+
+                  </label>
+
+                  <textarea
+                    className="form-control"
+                    rows="2"
+                    placeholder={
+                      language === 'EN'
+                        ? 'Food description'
+                        : 'وصف الطعام'
+                    }
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
+                  ></textarea>
 
                 </div>
 
@@ -252,8 +345,20 @@ function StaffMenu({ language, setLanguage }) {
 
                     <th>
                       {language === 'EN'
-                        ? 'Item'
-                        : 'العنصر'}
+                        ? 'Food Name'
+                        : 'اسم الطعام'}
+                    </th>
+
+                    <th>
+                      {language === 'EN'
+                        ? 'Category'
+                        : 'الفئة'}
+                    </th>
+
+                    <th>
+                      {language === 'EN'
+                        ? 'Description'
+                        : 'الوصف'}
                     </th>
 
                     <th>
@@ -264,8 +369,8 @@ function StaffMenu({ language, setLanguage }) {
 
                     <th>
                       {language === 'EN'
-                        ? 'Status'
-                        : 'الحالة'}
+                        ? 'Availability'
+                        : 'التوفر'}
                     </th>
 
                     <th>
@@ -281,87 +386,152 @@ function StaffMenu({ language, setLanguage }) {
 
                 <tbody>
 
-                  {menuItems.map(item => (
+                  {menuItems.length === 0 ? (
 
-                    <tr key={item.id}>
+                    <tr>
 
-                      <td>
-                        {item.name}
-                      </td>
+                      <td
+                        colSpan="6"
+                        className="text-center"
+                      >
 
-
-                      <td>
-                        KD {item.price}
-                      </td>
-
-
-                      <td>
-
-                        <span
-                          className={
-                            item.available
-                              ? 'staff-available'
-                              : 'staff-unavailable'
-                          }
-                        >
-
-                          {item.available
-
-                            ? (
-                              language === 'EN'
-                                ? 'Available'
-                                : 'متاح'
-                            )
-
-                            : (
-                              language === 'EN'
-                                ? 'Unavailable'
-                                : 'غير متاح'
-                            )
-
-                          }
-
-                        </span>
-
-                      </td>
-
-
-                      <td>
-
-                        <button
-                          type="button"
-                          className="staff-availability-btn me-2"
-                          onClick={() => handleAvailability(item.id)}
-                        >
-
-                          <i className="bi bi-toggle-on me-1"></i>
-
-                          {language === 'EN'
-                            ? 'Availability'
-                            : 'التوفر'}
-
-                        </button>
-
-
-                        <button
-                          type="button"
-                          className="staff-delete-btn"
-                          onClick={() => handleDelete(item.id)}
-                        >
-
-                          <i className="bi bi-trash me-1"></i>
-
-                          {language === 'EN'
-                            ? 'Delete'
-                            : 'حذف'}
-
-                        </button>
+                        {language === 'EN'
+                          ? 'No menu items available.'
+                          : 'لا توجد عناصر في القائمة.'}
 
                       </td>
 
                     </tr>
 
-                  ))}
+                  ) : (
+
+                    menuItems.map(item => (
+
+                      <tr key={item.id}>
+
+                        <td>
+                          {item.name}
+                        </td>
+
+                        <td>
+                          {item.category}
+                        </td>
+
+                        <td>
+                          {item.description}
+                        </td>
+
+                        <td>
+                          KWD {item.price}
+                        </td>
+
+                        <td>
+
+                          <span
+                            className={
+                              item.available
+                                ? 'staff-available'
+                                : 'staff-unavailable'
+                            }
+                          >
+
+                            {item.available
+
+                              ? (
+                                language === 'EN'
+                                  ? 'Available'
+                                  : 'متاح'
+                              )
+
+                              : (
+                                language === 'EN'
+                                  ? 'Unavailable'
+                                  : 'غير متاح'
+                              )
+
+                            }
+
+                          </span>
+
+                        </td>
+
+
+                        <td>
+
+                          {/* Update Price */}
+
+                          <div className="d-flex gap-2 mb-2">
+
+                            <input
+                              type="number"
+                              step="0.001"
+                              className="form-control"
+                              placeholder={
+                                language === 'EN'
+                                  ? 'New Price'
+                                  : 'السعر الجديد'
+                              }
+                              value={newPrice}
+                              onChange={(event) => setNewPrice(event.target.value)}
+                            />
+
+                            <button
+                              type="button"
+                              className="staff-availability-btn"
+                              onClick={() => handleUpdatePrice(item.id)}
+                            >
+
+                              <i className="bi bi-pencil me-1"></i>
+
+                              {language === 'EN'
+                                ? 'Update'
+                                : 'تحديث'}
+
+                            </button>
+
+                          </div>
+
+
+                          {/* Availability */}
+
+                          <button
+                            type="button"
+                            className="staff-availability-btn me-2"
+                            onClick={() => handleAvailability(item.id)}
+                          >
+
+                            <i className="bi bi-toggle-on me-1"></i>
+
+                            {language === 'EN'
+                              ? 'Availability'
+                              : 'التوفر'}
+
+                          </button>
+
+
+                          {/* Delete */}
+
+                          <button
+                            type="button"
+                            className="staff-delete-btn"
+                            onClick={() => handleDelete(item.id)}
+                          >
+
+                            <i className="bi bi-trash me-1"></i>
+
+                            {language === 'EN'
+                              ? 'Delete'
+                              : 'حذف'}
+
+                          </button>
+
+                        </td>
+
+                      </tr>
+
+                    ))
+
+                  )}
 
                 </tbody>
 
@@ -399,6 +569,7 @@ function StaffMenu({ language, setLanguage }) {
 
 
       {/* Staff Footer */}
+
       <StaffFooter language={language} />
 
     </>

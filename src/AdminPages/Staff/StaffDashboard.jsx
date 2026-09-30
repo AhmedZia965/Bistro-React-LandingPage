@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import StaffNavbar from './StaffNavbar'
@@ -9,33 +8,12 @@ function StaffDashboard({ language, setLanguage }) {
   const navigate = useNavigate()
 
 
-  // Checks if the staff member is logged in
-  useEffect(() => {
-
-    const staffLoggedIn = sessionStorage.getItem('staffLoggedIn')
-
-    if (staffLoggedIn !== 'true') {
-      navigate('/staff-login')
-    }
-
-  }, [navigate])
-
-
-  // Handles logout
-  function handleLogout() {
-
-    sessionStorage.removeItem('staffLoggedIn')
-
-    navigate('/staff-login')
-
-  }
-
-
   return (
 
     <>
 
       {/* Staff Navbar */}
+
       <StaffNavbar
         language={language}
         setLanguage={setLanguage}
@@ -85,7 +63,58 @@ function StaffDashboard({ language, setLanguage }) {
           <div className="row g-4">
 
 
-            {/* Orders */}
+            
+
+
+            {/* Menu */}
+
+            <div className="col-md-6 col-lg-4">
+
+              <div className="staff-dashboard-card">
+
+                <div className="staff-dashboard-icon">
+
+                  <i className="bi bi-menu-button-wide"></i>
+
+                </div>
+
+
+                <h3>
+
+                  {language === 'EN'
+                    ? 'Menu Management'
+                    : 'إدارة القائمة'}
+
+                </h3>
+
+
+                <p>
+
+                  {language === 'EN'
+                    ? 'Add, edit and manage menu items.'
+                    : 'إضافة وتعديل وإدارة عناصر القائمة.'}
+
+                </p>
+
+
+                <button
+                  type="button"
+                  className="staff-dashboard-btn"
+                >
+
+                  {language === 'EN'
+                    ? 'Manage Menu'
+                    : 'إدارة القائمة'}
+
+                  <i className="bi bi-arrow-right ms-2"></i>
+
+                </button>
+
+              </div>
+
+            </div>
+
+             {/* Orders */}
 
             <div className="col-md-6 col-lg-4">
 
@@ -132,59 +161,8 @@ function StaffDashboard({ language, setLanguage }) {
               </div>
 
             </div>
-
-
-            {/* Menu */}
-
-            <div className="col-md-6 col-lg-4">
-
-              <div className="staff-dashboard-card">
-
-                <div className="staff-dashboard-icon">
-
-                  <i className="bi bi-menu-button-wide"></i>
-
-                </div>
-
-
-                <h3>
-
-                  {language === 'EN'
-                    ? 'Menu Management'
-                    : 'إدارة القائمة'}
-
-                </h3>
-
-
-                <p>
-
-                  {language === 'EN'
-                    ? 'Add, edit and manage menu items.'
-                    : 'إضافة وتعديل وإدارة عناصر القائمة.'}
-
-                </p>
-
-
-                <button
-                  type="button"
-                  className="staff-dashboard-btn"
-                  onClick={() => navigate('/staff-menu')}
-                >
-
-                  {language === 'EN'
-                    ? 'Manage Menu'
-                    : 'إدارة القائمة'}
-
-                  <i className="bi bi-arrow-right ms-2"></i>
-
-                </button>
-
-              </div>
-
-            </div>
-
-
-            {/* Feedback */}
+            
+            {/* Reservations */}
 
             <div className="col-md-6 col-lg-4">
 
@@ -192,7 +170,7 @@ function StaffDashboard({ language, setLanguage }) {
 
                 <div className="staff-dashboard-icon">
 
-                  <i className="bi bi-chat-left-text"></i>
+                  <i className="bi bi-calendar-check"></i>
 
                 </div>
 
@@ -200,8 +178,8 @@ function StaffDashboard({ language, setLanguage }) {
                 <h3>
 
                   {language === 'EN'
-                    ? 'Customer Feedback'
-                    : 'آراء العملاء'}
+                    ? 'Reservations'
+                    : 'الحجوزات'}
 
                 </h3>
 
@@ -209,8 +187,8 @@ function StaffDashboard({ language, setLanguage }) {
                 <p>
 
                   {language === 'EN'
-                    ? 'View customer feedback and reviews.'
-                    : 'عرض ملاحظات وتقييمات العملاء.'}
+                    ? 'View and manage customer table reservations.'
+                    : 'عرض وإدارة حجوزات طاولات العملاء.'}
 
                 </p>
 
@@ -218,12 +196,11 @@ function StaffDashboard({ language, setLanguage }) {
                 <button
                   type="button"
                   className="staff-dashboard-btn"
-                  onClick={() => navigate('/staff-feedback')}
                 >
 
                   {language === 'EN'
-                    ? 'View Feedback'
-                    : 'عرض التقييمات'}
+                    ? 'View Reservations'
+                    : 'عرض الحجوزات'}
 
                   <i className="bi bi-arrow-right ms-2"></i>
 
@@ -244,7 +221,6 @@ function StaffDashboard({ language, setLanguage }) {
             <button
               type="button"
               className="staff-logout-btn"
-              onClick={handleLogout}
             >
 
               <i className="bi bi-box-arrow-right me-2"></i>
@@ -264,6 +240,7 @@ function StaffDashboard({ language, setLanguage }) {
 
 
       {/* Staff Footer */}
+
       <StaffFooter language={language} />
 
     </>

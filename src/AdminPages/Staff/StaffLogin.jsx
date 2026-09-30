@@ -12,25 +12,12 @@ function StaffLogin({ language, setLanguage }) {
   const [password, setPassword] = useState('')
 
 
-  // Handles staff login
-  function handleLogin(event) {
-
-    event.preventDefault()
-
-    // Stores staff login status
-    sessionStorage.setItem('staffLoggedIn', 'true')
-
-    // Goes to Staff Dashboard
-    navigate('/staff-dashboard')
-
-  }
-
-
   return (
 
     <>
 
       {/* Staff Navbar */}
+
       <StaffNavbar
         language={language}
         setLanguage={setLanguage}
@@ -75,7 +62,7 @@ function StaffLogin({ language, setLanguage }) {
 
           {/* ================= LOGIN FORM ================= */}
 
-          <form onSubmit={handleLogin}>
+          <form>
 
 
             {/* Staff ID */}
@@ -135,7 +122,7 @@ function StaffLogin({ language, setLanguage }) {
             {/* Login Button */}
 
             <button
-              type="submit"
+              type="button"
               className="staff-login-btn"
             >
 
@@ -174,6 +161,7 @@ function StaffLogin({ language, setLanguage }) {
 
 
       {/* Staff Footer */}
+
       <StaffFooter language={language} />
 
     </>
