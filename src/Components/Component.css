@@ -1,3 +1,8 @@
+/* =========================================================
+   1. NAVBAR
+   ========================================================= */
+
+
 /* ================= NAVBAR - CSS ================= */
 
 .navbar {
@@ -26,7 +31,7 @@
 }
 
 
-/* Login Button */
+/* ================= LOGIN BUTTON ================= */
 
 .Loginbtn {
     margin-top: 8px;
@@ -48,7 +53,7 @@
 }
 
 
-/* Signup Button */
+/* ================= SIGNUP BUTTON ================= */
 
 .Signupbtn {
     margin-top: 8px;
@@ -71,14 +76,14 @@
 }
 
 
-/* Navbar item spacing */
+/* ================= NAVBAR ITEM SPACING ================= */
 
 .navbar-nav .nav-item {
     margin-left: 5px;
 }
 
 
-/* Language dropdown */
+/* ================= LANGUAGE DROPDOWN ================= */
 
 .navbar-nav.ms-auto .dropdown {
     margin-left: 0;
@@ -89,7 +94,7 @@
 }
 
 
-/* Mobile Navbar Button */
+/* ================= MOBILE NAVBAR BUTTON ================= */
 
 .navbar-toggler {
     border: 1px solid #C98F9A !important;
@@ -144,7 +149,7 @@
 }
 
 
-/* Smaller screens */
+/* ================= NAVBAR SMALLER SCREENS ================= */
 
 @media (max-width: 576px) {
 
@@ -157,6 +162,28 @@
     }
 
 }
+
+
+/* ================= NAVBAR RESPONSIVE - 1200PX ================= */
+
+@media (max-width: 1200px) {
+
+    .nav-link {
+        font-size: 18px;
+        padding: 10px 12px !important;
+        margin: 0 3px;
+    }
+
+    .navbar-nav .nav-item {
+        margin-left: 3px;
+    }
+
+}
+
+
+/* =========================================================
+   2. HERO
+   ========================================================= */
 
 
 /* ================= HERO IMAGE - CSS ================= */
@@ -259,7 +286,12 @@
 }
 
 
-/* ================= WHAT WE OFFER - CSS ================= */
+/* =========================================================
+   3. OFFERS
+   ========================================================= */
+
+
+/* ================= OFFERS - CSS ================= */
 
 .sectionSubtitle {
     color: #C98F9A;
@@ -269,7 +301,7 @@
 }
 
 .sectionTitle {
-    color: #D2CDC3;
+    color: #800020;
     font-size: 32px;
     font-weight: bold;
 }
@@ -305,26 +337,9 @@
 }
 
 
-/* ================= FOOTER - CSS ================= */
-
-footer {
-    background-color: #0D0D0D !important;
-    color: #F5F0E6;
-}
-
-.MenuLinks a {
-    color: white !important;
-    transition: 0.3s;
-}
-
-.MenuLinks a:hover {
-    color: #C98F9A !important;
-}
-
-.CafeLinks a {
-    color: white !important;
-    transition: 0.3s;
-}
+/* =========================================================
+   4. MENU
+   ========================================================= */
 
 
 /* ================= MENU - CSS ================= */
@@ -367,6 +382,11 @@ footer {
 }
 
 
+/* =========================================================
+   5. ABOUT
+   ========================================================= */
+
+
 /* ================= ABOUT - CSS ================= */
 
 .AboutImage {
@@ -394,21 +414,36 @@ footer {
 }
 
 
-/* ================= NAVBAR RESPONSIVE - CSS ================= */
+/* =========================================================
+   6. FOOTER
+   ========================================================= */
 
-@media (max-width: 1200px) {
 
-    .nav-link {
-        font-size: 18px;
-        padding: 10px 12px !important;
-        margin: 0 3px;
-    }
+/* ================= FOOTER - CSS ================= */
 
-    .navbar-nav .nav-item {
-        margin-left: 3px;
-    }
-
+footer {
+    background-color: #0D0D0D !important;
+    color: #F5F0E6;
 }
+
+.MenuLinks a {
+    color: white !important;
+    transition: 0.3s;
+}
+
+.MenuLinks a:hover {
+    color: #C98F9A !important;
+}
+
+.CafeLinks a {
+    color: white !important;
+    transition: 0.3s;
+}
+
+
+/* =========================================================
+   7. REWARDS
+   ========================================================= */
 
 
 /* ================= REWARDS PAGE - CSS ================= */
@@ -681,6 +716,11 @@ footer {
 }
 
 
+/* =========================================================
+   8. MAIN MENU
+   ========================================================= */
+
+
 /* ================= MAIN MENU ================= */
 
 .main-menu-page {
@@ -718,6 +758,39 @@ footer {
 }
 
 
+/* ================= CART BUTTON ================= */
+
+.main-menu-cart-btn {
+    position: relative;
+    left: 1020px;
+    bottom: 25px;
+
+    background-color: #800020;
+    color: #F5F0E6;
+
+    border: none;
+    border-radius: 8px;
+
+    padding: 12px 20px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.3s;
+
+    z-index: 1000;
+}
+
+
+/* ================= CART BUTTON HOVER ================= */
+
+.main-menu-cart-btn:hover {
+    background-color: #C98F9A;
+    color: #0D0D0D;
+}
+
+
 /* ================= ALLERGEN WARNING ================= */
 
 .main-menu-warning {
@@ -732,42 +805,98 @@ footer {
 }
 
 
-/* ================= CATEGORIES ================= */
+/* ================= MENU LAYOUT ================= */
+
+.main-menu-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+
+/* ================= CART ICON ================= */
+
+.main-menu-cart {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.main-menu-cart i {
+    color: #F5F0E6;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.main-menu-cart i:hover {
+    color: #C98F9A;
+}
+
+
+/* ================= MENU CATEGORIES ================= */
 
 .main-menu-categories {
-    margin-bottom: 50px;
+    background-color: #161616;
+    border: 1px solid #3a2529;
+    border-radius: 10px;
+    padding: 25px;
 }
 
 .main-menu-categories h2 {
     color: #F5F0E6;
-    font-size: 28px;
+    font-size: 18px;
     font-weight: bold;
-    text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
+
+
+/* ================= CATEGORY LIST ================= */
+
+.main-menu-category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+/* ================= CATEGORY BUTTON ================= */
 
 .main-menu-category {
     width: 100%;
-    background-color: #161616;
+    background-color: transparent;
     color: #F5F0E6;
-    border: 1px solid #3a2529;
-    border-radius: 10px;
-    padding: 15px 10px;
-    font-size: 16px;
-    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 10px;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
     transition: 0.3s;
 }
 
+
+/* ================= CATEGORY HOVER ================= */
+
 .main-menu-category:hover {
-    background-color: #800020;
-    border-color: #800020;
-    color: #F5F0E6;
+    background-color: #251317;
+    color: #C98F9A;
 }
+
+
+/* ================= ACTIVE CATEGORY ================= */
 
 .main-menu-category.active {
     background-color: #800020;
-    border-color: #800020;
     color: #F5F0E6;
+    font-weight: bold;
+}
+
+
+/* ================= CATEGORY DOT ================= */
+
+.category-dot {
+    margin-right: 8px;
+    font-size: 9px;
 }
 
 
@@ -777,13 +906,26 @@ footer {
     background-color: #161616;
     border: 1px solid #3a2529;
     border-radius: 18px;
+    min-height: 450px;
     padding: 50px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ================= SELECTED CATEGORY CONTENT ================= */
+
+.main-menu-selected-content {
+    text-align: center;
 }
 
 .main-menu-selected h2 {
     color: #C98F9A;
     font-size: 32px;
     font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .main-menu-selected p {
@@ -792,9 +934,9 @@ footer {
 }
 
 
-/* ================= MOBILE ================= */
+/* ================= MAIN MENU MOBILE ================= */
 
-@media (max-width: 576px) {
+@media (max-width: 767px) {
 
     .main-menu-page {
         padding-top: 40px;
@@ -810,9 +952,246 @@ footer {
         padding: 12px 15px;
     }
 
+    .main-menu-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .main-menu-categories {
+        padding: 20px;
+    }
+
+    .main-menu-category-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+    }
+
     .main-menu-category {
         font-size: 14px;
         padding: 12px 8px;
+    }
+
+    .main-menu-selected {
+        min-height: 300px;
+        padding: 40px 20px;
+    }
+
+}
+
+
+/* =========================================================
+   9. PROFILE MANAGEMENT
+   ========================================================= */
+
+
+/* ================= PROFILE MANAGEMENT PAGE ================= */
+
+.profile-management-page {
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    min-height: calc(100vh - 80px);
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+
+/* ================= PROFILE MANAGEMENT HEADING ================= */
+
+.profile-management-heading {
+    margin-bottom: 40px;
+}
+
+.profile-management-heading span {
+    color: #C98F9A;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.profile-management-heading h1 {
+    color: #F5F0E6;
+    font-size: 42px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.profile-management-heading p {
+    color: #999;
+    margin-top: 10px;
+}
+
+
+/* ================= MANAGEMENT OPTIONS ================= */
+
+.profile-management-options {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+
+/* ================= MANAGEMENT OPTION ================= */
+
+.management-option {
+    background-color: #161616;
+    color: #F5F0E6;
+    border: 1px solid #3a2529;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.management-option i {
+    margin-right: 8px;
+}
+
+
+/* ================= MANAGEMENT OPTION HOVER ================= */
+
+.management-option:hover {
+    background-color: #251317;
+    color: #C98F9A;
+    border-color: #C98F9A;
+}
+
+
+/* ================= ACTIVE MANAGEMENT OPTION ================= */
+
+.management-option.active {
+    background-color: #800020;
+    color: #F5F0E6;
+    border-color: #800020;
+}
+
+
+/* ================= PROFILE MANAGEMENT CARD ================= */
+
+.profile-management-card {
+    background-color: #161616;
+    border: 1px solid #3a2529;
+    border-radius: 12px;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 35px;
+}
+
+
+/* ================= CARD HEADING ================= */
+
+.profile-management-card h2 {
+    color: #C98F9A;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.profile-management-card p {
+    color: #999;
+    margin-bottom: 25px;
+}
+
+
+/* ================= FORM LABEL ================= */
+
+.profile-management-card .form-label {
+    color: #F5F0E6;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+
+/* ================= FORM INPUT ================= */
+
+.profile-management-card .form-control {
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    border: 1px solid #3a2529;
+    border-radius: 6px;
+    padding: 11px 12px;
+}
+
+
+/* ================= FORM INPUT FOCUS ================= */
+
+.profile-management-card .form-control:focus {
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    border-color: #C98F9A;
+    box-shadow: none;
+}
+
+
+/* ================= TEXTAREA ================= */
+
+.profile-management-card textarea {
+    resize: vertical;
+}
+
+
+/* ================= MANAGEMENT BUTTON ================= */
+
+.profile-management-btn {
+    background-color: #800020;
+    color: #F5F0E6;
+    border: none;
+    border-radius: 6px;
+    padding: 11px 22px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+
+/* ================= MANAGEMENT BUTTON HOVER ================= */
+
+.profile-management-btn:hover {
+    background-color: #C98F9A;
+    color: #0D0D0D;
+}
+
+
+/* ================= ORDER HISTORY ================= */
+
+.order-management-list {
+    min-height: 100px;
+}
+
+
+/* ================= PROFILE MANAGEMENT MOBILE ================= */
+
+@media (max-width: 767px) {
+
+    .profile-management-page {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .profile-management-heading h1 {
+        font-size: 34px;
+    }
+
+    .profile-management-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .management-option {
+        width: 100%;
+        padding: 11px 10px;
+        font-size: 13px;
+    }
+
+    .profile-management-card {
+        padding: 25px 20px;
+    }
+
+    .profile-management-card h2 {
+        font-size: 24px;
     }
 
 }

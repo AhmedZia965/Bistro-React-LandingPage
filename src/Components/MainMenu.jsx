@@ -39,6 +39,7 @@ function MainMenu({ language }) {
 
           </span>
 
+
           <h1>
 
             {language === 'EN'
@@ -46,6 +47,7 @@ function MainMenu({ language }) {
               : 'قائمتنا'}
 
           </h1>
+
 
           <p>
 
@@ -71,30 +73,31 @@ function MainMenu({ language }) {
         </div>
 
 
-        {/* ================= CATEGORIES ================= */}
+        {/* ================= MENU LAYOUT ================= */}
 
-        <div className="main-menu-categories">
-
-          <h2>
-
-            {language === 'EN'
-              ? 'Choose a Category'
-              : 'اختر فئة'}
-
-          </h2>
+        <div className="main-menu-layout">
 
 
-          <div className="row g-3">
+          {/* ================= MENU CATEGORIES ================= */}
 
-            {categories.map((item) => (
+          <div className="main-menu-categories">
 
-              <div
-                className="col-6 col-md-4 col-lg-3"
-                key={item}
-              >
+            <h2>
+
+              {language === 'EN'
+                ? 'MENU CATEGORIES'
+                : 'فئات القائمة'}
+
+            </h2>
+
+
+            <div className="main-menu-category-list">
+
+              {categories.map((item) => (
 
                 <button
                   type="button"
+                  key={item}
                   className={
                     category === item
                       ? 'main-menu-category active'
@@ -103,38 +106,61 @@ function MainMenu({ language }) {
                   onClick={() => setCategory(item)}
                 >
 
+                  {category === item && (
+                    <span className="category-dot">●</span>
+                  )}
+
                   {item}
 
                 </button>
 
-              </div>
+              ))}
 
-            ))}
+            </div>
 
           </div>
 
+
+          {/* ================= SELECTED CATEGORY ================= */}
+
+          <div className="main-menu-selected">
+
+            <div className="main-menu-selected-content">
+
+              <h2>
+
+                {category}
+
+              </h2>
+
+
+              <p>
+
+                {language === 'EN'
+                  ? 'Menu items will appear here.'
+                  : 'ستظهر عناصر القائمة هنا.'}
+
+              </p>
+
+            </div>
+
+          </div>
+
+
         </div>
 
 
-        {/* ================= SELECTED CATEGORY ================= */}
+        {/* ================= CART BUTTON ================= */}
 
-        <div className="main-menu-selected text-center">
+        <button type="button" className="main-menu-cart-btn">
 
-          <h2>
+          <i className="bi bi-cart3 me-2"></i>
 
-            {category}
+          {language === 'EN'
+            ? 'Cart'
+            : 'السلة'}
 
-          </h2>
-
-          <p>
-
-            {language === 'EN'
-              ? 'Menu items will appear here.'
-              : 'ستظهر عناصر القائمة هنا.'}
-
-          </p>
-
-        </div>
+        </button>
 
 
       </div>
@@ -142,7 +168,6 @@ function MainMenu({ language }) {
     </div>
 
   )
-
 }
 
 export default MainMenu

@@ -738,3 +738,162 @@
     }
 
 }
+
+
+
+
+ 
+/* ================= STAFF ORDERS PAGE ================= */
+
+.staff-orders-page {
+    min-height: calc(100vh - 80px);
+    background-color: #0D0D0D;
+    color: #F5F0E6;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+
+/* ================= ORDERS HEADING ================= */
+
+.staff-orders-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.staff-orders-heading h1 {
+    color: #F5F0E6;
+    font-size: 42px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.staff-orders-heading p {
+    color: #999;
+    margin-top: 10px;
+}
+
+
+/* ================= ORDERS CONTAINER ================= */
+
+.staff-orders-items {
+    background-color: #161616;
+    border: 1px solid #3a2529;
+    border-radius: 18px;
+    padding: 30px;
+}
+
+.staff-orders-items h2 {
+    color: #C98F9A;
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.staff-order-count {
+    background-color: #3a2529;
+    color: #F5F0E6;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+
+/* ================= ORDERS TABLE ================= */
+
+.staff-orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #161616;
+    color: #F5F0E6;
+}
+
+.staff-orders-table th {
+    background-color: #800020;
+    color: #F5F0E6;
+    padding: 15px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.staff-orders-table td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #3a2529;
+}
+
+.staff-orders-table tr:hover {
+    background-color: #251317;
+}
+
+
+/* ================= EMPTY ORDERS ================= */
+
+.staff-orders-empty {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.staff-order-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background-color: #3a2529;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.staff-order-icon i {
+    color: #C98F9A;
+    font-size: 30px;
+}
+
+.staff-orders-empty h3 {
+    color: #F5F0E6;
+    margin-bottom: 8px;
+}
+
+.staff-orders-empty p {
+    color: #999;
+    margin-bottom: 0;
+}
+
+
+/* ================= ORDER STATUS ================= */
+
+.staff-order-status {
+    display: inline-block;
+    color: #F5F0E6;
+    background-color: #315b3b;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+
+/* ================= VIEW ORDER BUTTON ================= */
+
+.staff-order-view-btn {
+    background-color: #251317;
+    color: #C98F9A;
+    border: 1px solid #3a2529;
+    border-radius: 7px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.staff-order-view-btn:hover {
+    background-color: #C98F9A;
+    color: #0D0D0D;
+}
+
+
+/* ================= BACK BUTTON ================= */
+
+.staff-orders-back {
+    margin-top: 40px;
+}

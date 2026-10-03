@@ -20,10 +20,12 @@ import CustomerSignup from './AdminPages/Customer/CustomerSignUp'
 import CustomerLogin from './AdminPages/Customer/CustomerLogin'
 import CustomerFeedback from './AdminPages/Customer/CustomerFeedback'
 import CustomerProfile from './AdminPages/Customer/CustomerProfile'
+import ProfileManagement from './AdminPages/Customer/ProfileManagement'
 
 import StaffLogin from './AdminPages/Staff/StaffLogin'
 import StaffDashboard from './AdminPages/Staff/StaffDashboard'
 import StaffMenu from './AdminPages/Staff/StaffMenu'
+import StaffOrders from './AdminPages/Staff/StaffOrders'
 import CustFeedBacks from './AdminPages/Staff/Reservations'
 
 import AdminLogin from './AdminPages/Admin/AdminLogin'
@@ -183,6 +185,19 @@ function AppContent({ language, setLanguage }) {
         />
 
 
+        {/* Profile Management page */}
+
+        <Route
+          path="/profile-management"
+          element={
+            <>
+              <ProfileManagement language={language} />
+              <Footer language={language} />
+            </>
+          }
+        />
+
+
         {/* ================= STAFF PAGES ================= */}
 
         {/* Staff Login */}
@@ -222,6 +237,21 @@ function AppContent({ language, setLanguage }) {
           element={
             <>
               <StaffMenu
+                language={language}
+                setLanguage={setLanguage}
+              />
+            </>
+          }
+        />
+
+
+        {/* Staff Orders */}
+
+        <Route
+          path="/staff-orders"
+          element={
+            <>
+              <StaffOrders
                 language={language}
                 setLanguage={setLanguage}
               />

@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Footer from '../../components/Footer'
 
 function CustomerProfile({ language }) {
 
   const navigate = useNavigate()
 
-  const rewardPoints = 1000
+  // Gets reward points from local storage
+  const rewardPoints = localStorage.getItem('rewardPoints') || 0
+
 
   // Checks if the customer is logged in
   useEffect(() => {
@@ -98,7 +99,9 @@ function CustomerProfile({ language }) {
 
               <h2>
 
-                Ahmed Abdurrehman
+                {language === 'EN'
+                  ? 'Customer'
+                  : 'العميل'}
 
               </h2>
 
@@ -152,57 +155,72 @@ function CustomerProfile({ language }) {
                 </p>
 
 
+                {/* ================= PERSONAL DETAILS ================= */}
+
+                {/* These values will come from Signup / Database later */}
+
                 <div className="profile-info">
+
+
+                  {/* ================= FULL NAME ================= */}
 
                   <div>
 
-                    <strong>
+                    <span>
 
                       {language === 'EN'
                         ? 'Full Name'
                         : 'الاسم الكامل'}
 
-                    </strong>
-
-                    <span>
-                      Ahmed Abdurrehman
                     </span>
+
+
+                    <strong>
+
+                    </strong>
 
                   </div>
 
 
+                  {/* ================= EMAIL ================= */}
+
                   <div>
 
-                    <strong>
+                    <span>
 
                       {language === 'EN'
                         ? 'Email'
                         : 'البريد الإلكتروني'}
 
-                    </strong>
-
-                    <span>
-                      customer@example.com
                     </span>
+
+
+                    <strong>
+
+                    </strong>
 
                   </div>
 
 
+                  {/* ================= PHONE ================= */}
+
                   <div>
 
-                    <strong>
+                    <span>
 
                       {language === 'EN'
                         ? 'Phone'
                         : 'رقم الهاتف'}
 
-                    </strong>
-
-                    <span>
-                      +965 XXXXXXXX
                     </span>
 
+
+                    <strong>
+
+                    </strong>
+
                   </div>
+
 
                 </div>
 
@@ -256,6 +274,8 @@ function CustomerProfile({ language }) {
                 </p>
 
 
+                {/* ================= REWARD POINTS ================= */}
+
                 <div className="points-box">
 
                   <span>
@@ -268,7 +288,9 @@ function CustomerProfile({ language }) {
 
 
                   <strong>
+
                     {rewardPoints}
+
                   </strong>
 
 
@@ -283,11 +305,17 @@ function CustomerProfile({ language }) {
                 </div>
 
 
-               <button type="button" className="profile-dashboard-btn"
+                <button
+                  type="button"
+                  className="profile-dashboard-btn"
                   onClick={() => {
-                   localStorage.setItem('rewardPoints', rewardPoints)
-                     navigate('/rewards')
-                        }}>
+
+                    localStorage.setItem('rewardPoints', rewardPoints)
+
+                    navigate('/rewards')
+
+                  }}
+                >
 
                   {language === 'EN'
                     ? 'View Rewards'
@@ -333,54 +361,11 @@ function CustomerProfile({ language }) {
                 </p>
 
 
-                <div className="order-summary">
+                {/* ================= ORDER HISTORY ================= */}
 
-                  <div>
+                {/* Orders will come from the database later */}
 
-                    <strong>
-                      #MB1025
-                    </strong>
-
-                    <span>
-
-                      {language === 'EN'
-                        ? 'Classic Burger • Coffee'
-                        : 'برجر كلاسيك • قهوة'}
-
-                    </span>
-
-                  </div>
-
-
-                  <strong>
-                    KD 4.750
-                  </strong>
-
-                </div>
-
-
-                <div className="order-summary">
-
-                  <div>
-
-                    <strong>
-                      #MB1018
-                    </strong>
-
-                    <span>
-
-                      {language === 'EN'
-                        ? 'Pasta • Iced Tea'
-                        : 'باستا • شاي مثلج'}
-
-                    </span>
-
-                  </div>
-
-
-                  <strong>
-                    KD 5.250
-                  </strong>
+                <div className="order-history">
 
                 </div>
 
@@ -434,38 +419,11 @@ function CustomerProfile({ language }) {
                 </p>
 
 
-                <div className="address-box">
+                {/* ================= ADDRESS LIST ================= */}
 
-                  <div className="address-icon">
+                {/* Addresses will come from the database later */}
 
-                    <i className="bi bi-house"></i>
-
-                  </div>
-
-
-                  <div>
-
-                    <strong>
-
-                      {language === 'EN'
-                        ? 'Home'
-                        : 'المنزل'}
-
-                    </strong>
-
-
-                    <span>
-
-                      {language === 'EN'
-                        ? 'Saved home address'
-                        : 'عنوان المنزل المحفوظ'}
-
-                    </span>
-
-                  </div>
-
-
-                  <i className="bi bi-chevron-right ms-auto"></i>
+                <div className="address-list">
 
                 </div>
 
@@ -519,9 +477,17 @@ function CustomerProfile({ language }) {
                 </p>
 
 
+                {/* ================= SETTINGS LIST ================= */}
+
                 <div className="settings-list">
 
-                  <div>
+
+                  {/* ================= CHANGE PASSWORD ================= */}
+
+                  <div
+                    onClick={() => {}}
+                    style={{ cursor: 'pointer' }}
+                  >
 
                     <i className="bi bi-lock"></i>
 
@@ -538,7 +504,12 @@ function CustomerProfile({ language }) {
                   </div>
 
 
-                  <div>
+                  {/* ================= NOTIFICATIONS ================= */}
+
+                  <div
+                    onClick={() => {}}
+                    style={{ cursor: 'pointer' }}
+                  >
 
                     <i className="bi bi-bell"></i>
 
@@ -555,7 +526,12 @@ function CustomerProfile({ language }) {
                   </div>
 
 
-                  <div>
+                  {/* ================= LANGUAGE PREFERENCES ================= */}
+
+                  <div
+                    onClick={() => {}}
+                    style={{ cursor: 'pointer' }}
+                  >
 
                     <i className="bi bi-globe"></i>
 
@@ -570,6 +546,7 @@ function CustomerProfile({ language }) {
                     <i className="bi bi-chevron-right ms-auto"></i>
 
                   </div>
+
 
                 </div>
 
@@ -617,11 +594,6 @@ function CustomerProfile({ language }) {
         </div>
 
       </div>
-
-
-      {/* Existing Footer */}
-
-      <Footer language={language} />
 
     </>
 
