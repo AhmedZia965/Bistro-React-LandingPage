@@ -450,7 +450,7 @@ footer {
 
 .rewards-page {
     min-height: calc(100vh - 100px);
-    background-color: #0D0D0D;
+    background-color: #212121;
     color: #F5F0E6;
     padding-top: 60px;
     padding-bottom: 60px;
@@ -478,7 +478,7 @@ footer {
 }
 
 .rewards-heading p {
-    color: #B9B1AA;
+    color: #AAA39A;
     margin-top: 12px;
 }
 
@@ -489,8 +489,8 @@ footer {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background-color: #251317;
-    border: 1px solid #3a2529;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
     border-radius: 25px;
     padding: 10px 20px;
     margin-top: 15px;
@@ -510,8 +510,8 @@ footer {
 /* ================= HOW IT WORKS ================= */
 
 .reward-card {
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 18px;
     padding: 30px;
     height: 100%;
@@ -520,14 +520,16 @@ footer {
 
 .reward-card:hover {
     transform: translateY(-5px);
-    border-color: #C98F9A;
+    background-color: #2A151D;
+    border-color: #4A2832;
 }
 
 .reward-icon {
     width: 60px;
     height: 60px;
-    background-color: #800020;
-    color: #F5F0E6;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    color: #C98F9A;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -544,7 +546,7 @@ footer {
 }
 
 .reward-card p {
-    color: #AAA0A2;
+    color: #AAA39A;
     line-height: 1.7;
     margin-bottom: 0;
 }
@@ -563,7 +565,7 @@ footer {
 }
 
 .rewards-section p {
-    color: #999;
+    color: #77716B;
 }
 
 
@@ -573,8 +575,8 @@ footer {
     display: flex;
     align-items: center;
     gap: 15px;
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 15px;
     padding: 20px;
     height: 100%;
@@ -583,14 +585,16 @@ footer {
 
 .reward-item-card:hover {
     transform: translateY(-5px);
-    border-color: #C98F9A;
+    background-color: #2A151D;
+    border-color: #4A2832;
 }
 
 .reward-item-icon {
     width: 50px;
     height: 50px;
-    background-color: #800020;
-    color: #F5F0E6;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    color: #C98F9A;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -607,7 +611,7 @@ footer {
 }
 
 .reward-item-card p {
-    color: #999;
+    color: #77716B;
     font-size: 13px;
     margin: 0;
     line-height: 1.5;
@@ -624,8 +628,8 @@ footer {
 /* ================= REWARDS LOGIN ================= */
 
 .rewards-login {
-    background: linear-gradient(145deg, #251317, #111111);
-    border: 1px solid #3a2529;
+    background: linear-gradient(145deg, #2A151D, #111111);
+    border: 1px solid #4A2832;
     border-radius: 18px;
     padding: 40px 25px;
     margin-top: 50px;
@@ -634,8 +638,9 @@ footer {
 .reward-login-icon {
     width: 65px;
     height: 65px;
-    background-color: #800020;
-    color: #F5F0E6;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    color: #C98F9A;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -652,26 +657,27 @@ footer {
 }
 
 .rewards-login p {
-    color: #B9B1AA;
+    color: #AAA39A;
     max-width: 600px;
     margin: 0 auto 25px;
     line-height: 1.7;
 }
 
 .rewards-login-btn {
-    background-color: #800020;
-    color: #F5F0E6;
-    border: 1px solid #800020;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
     border-radius: 9px;
     padding: 11px 25px;
     font-weight: bold;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .rewards-login-btn:hover {
-    background-color: #C98F9A;
-    border-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
 }
 
 
@@ -724,7 +730,7 @@ footer {
 /* ================= MAIN MENU ================= */
 
 .main-menu-page {
-    background-color: #0D0D0D;
+    background-color: #212121;
     color: #F5F0E6;
     min-height: calc(100vh - 80px);
     padding-top: 60px;
@@ -753,7 +759,7 @@ footer {
 }
 
 .main-menu-heading p {
-    color: #999;
+    color: #77716B;
     margin-top: 10px;
 }
 
@@ -765,10 +771,10 @@ footer {
     left: 1020px;
     bottom: 25px;
 
-    background-color: #800020;
-    color: #F5F0E6;
+    background-color: #C98F9A;
+    color: #212121;
 
-    border: none;
+    border: 1px solid #C98F9A;
     border-radius: 8px;
 
     padding: 12px 20px;
@@ -786,16 +792,17 @@ footer {
 /* ================= CART BUTTON HOVER ================= */
 
 .main-menu-cart-btn:hover {
-    background-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
 }
 
 
 /* ================= ALLERGEN WARNING ================= */
 
 .main-menu-warning {
-    background-color: #251317;
-    border: 1px solid #3a2529;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
     border-radius: 10px;
     color: #C98F9A;
     padding: 15px 20px;
@@ -836,8 +843,8 @@ footer {
 /* ================= MENU CATEGORIES ================= */
 
 .main-menu-categories {
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 10px;
     padding: 25px;
 }
@@ -878,7 +885,7 @@ footer {
 /* ================= CATEGORY HOVER ================= */
 
 .main-menu-category:hover {
-    background-color: #251317;
+    background-color: #2A151D;
     color: #C98F9A;
 }
 
@@ -886,8 +893,8 @@ footer {
 /* ================= ACTIVE CATEGORY ================= */
 
 .main-menu-category.active {
-    background-color: #800020;
-    color: #F5F0E6;
+    background-color: #C98F9A;
+    color: #212121;
     font-weight: bold;
 }
 
@@ -903,8 +910,8 @@ footer {
 /* ================= SELECTED CATEGORY ================= */
 
 .main-menu-selected {
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 18px;
     min-height: 450px;
     padding: 50px 20px;
@@ -929,7 +936,7 @@ footer {
 }
 
 .main-menu-selected p {
-    color: #999;
+    color: #77716B;
     margin-top: 10px;
 }
 
@@ -988,7 +995,7 @@ footer {
 /* ================= PROFILE MANAGEMENT PAGE ================= */
 
 .profile-management-page {
-    background-color: #0D0D0D;
+    background-color: #212121;
     color: #F5F0E6;
     min-height: calc(100vh - 80px);
     padding-top: 60px;
@@ -1017,7 +1024,7 @@ footer {
 }
 
 .profile-management-heading p {
-    color: #999;
+    color: #77716B;
     margin-top: 10px;
 }
 
@@ -1036,9 +1043,9 @@ footer {
 /* ================= MANAGEMENT OPTION ================= */
 
 .management-option {
-    background-color: #161616;
+    background-color: #151515;
     color: #F5F0E6;
-    border: 1px solid #3a2529;
+    border: 1px solid #302026;
     border-radius: 8px;
     padding: 12px 20px;
     font-size: 14px;
@@ -1054,26 +1061,26 @@ footer {
 /* ================= MANAGEMENT OPTION HOVER ================= */
 
 .management-option:hover {
-    background-color: #251317;
+    background-color: #2A151D;
     color: #C98F9A;
-    border-color: #C98F9A;
+    border-color: #4A2832;
 }
 
 
 /* ================= ACTIVE MANAGEMENT OPTION ================= */
 
 .management-option.active {
-    background-color: #800020;
-    color: #F5F0E6;
-    border-color: #800020;
+    background-color: #C98F9A;
+    color: #212121;
+    border-color: #C98F9A;
 }
 
 
 /* ================= PROFILE MANAGEMENT CARD ================= */
 
 .profile-management-card {
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 12px;
     max-width: 700px;
     margin: 0 auto;
@@ -1091,7 +1098,7 @@ footer {
 }
 
 .profile-management-card p {
-    color: #999;
+    color: #77716B;
     margin-bottom: 25px;
 }
 
@@ -1108,9 +1115,9 @@ footer {
 /* ================= FORM INPUT ================= */
 
 .profile-management-card .form-control {
-    background-color: #0D0D0D;
+    background-color: #111111;
     color: #F5F0E6;
-    border: 1px solid #3a2529;
+    border: 1px solid #302026;
     border-radius: 6px;
     padding: 11px 12px;
 }
@@ -1119,7 +1126,7 @@ footer {
 /* ================= FORM INPUT FOCUS ================= */
 
 .profile-management-card .form-control:focus {
-    background-color: #0D0D0D;
+    background-color: #111111;
     color: #F5F0E6;
     border-color: #C98F9A;
     box-shadow: none;
@@ -1136,22 +1143,24 @@ footer {
 /* ================= MANAGEMENT BUTTON ================= */
 
 .profile-management-btn {
-    background-color: #800020;
-    color: #F5F0E6;
-    border: none;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
     border-radius: 6px;
     padding: 11px 22px;
     font-size: 14px;
     font-weight: bold;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 
 /* ================= MANAGEMENT BUTTON HOVER ================= */
 
 .profile-management-btn:hover {
-    background-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
 }
 
 

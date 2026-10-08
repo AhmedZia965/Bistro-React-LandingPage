@@ -1,9 +1,6 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 function CustomerProfile({ language }) {
-
-  const navigate = useNavigate()
 
   // Gets reward points from local storage
   const rewardPoints = localStorage.getItem('rewardPoints') || 0
@@ -14,19 +11,18 @@ function CustomerProfile({ language }) {
 
     const isLoggedIn = sessionStorage.getItem('isLoggedIn')
 
+    // Does not open another page if the customer is not logged in
     if (isLoggedIn !== 'true') {
-      navigate('/login')
+      return
     }
 
-  }, [navigate])
+  }, [])
 
 
   // Handles logout
   function handleLogout() {
 
     sessionStorage.removeItem('isLoggedIn')
-
-    navigate('/login')
 
   }
 
@@ -309,11 +305,7 @@ function CustomerProfile({ language }) {
                   type="button"
                   className="profile-dashboard-btn"
                   onClick={() => {
-
                     localStorage.setItem('rewardPoints', rewardPoints)
-
-                    navigate('/rewards')
-
                   }}
                 >
 

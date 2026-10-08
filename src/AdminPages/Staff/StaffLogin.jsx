@@ -124,6 +124,7 @@ function StaffLogin({ language, setLanguage }) {
             <button
               type="button"
               className="staff-login-btn"
+              onClick={() => navigate('/staff-dashboard')}
             >
 
               {language === 'EN'
@@ -136,23 +137,6 @@ function StaffLogin({ language, setLanguage }) {
 
 
           </form>
-
-
-          {/* Back to Website */}
-
-          <button
-            type="button"
-            className="staff-back-btn"
-            onClick={() => navigate('/')}
-          >
-
-            <i className="bi bi-arrow-left me-2"></i>
-
-            {language === 'EN'
-              ? 'Back to Website'
-              : 'العودة إلى الموقع'}
-
-          </button>
 
 
         </div>

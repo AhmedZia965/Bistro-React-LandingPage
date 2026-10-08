@@ -1,11 +1,9 @@
-import { useNavigate } from 'react-router-dom'
-
 function Rewards({ language }) {
 
-  const navigate = useNavigate()
-
+  // Checks if the customer is logged in
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'
 
+  // Gets the customer's reward points
   const rewardPoints = localStorage.getItem('rewardPoints') || 0
 
 
@@ -20,13 +18,13 @@ function Rewards({ language }) {
 
         <div className="rewards-heading text-center">
 
-            <span className="rewards-subtitle">
+          <span className="rewards-subtitle">
 
-               {language === 'EN'
-                   ? 'REWARD PROGRAM'
-                   : 'برنامج المكافآت'}
+            {language === 'EN'
+              ? 'REWARD PROGRAM'
+              : 'برنامج المكافآت'}
 
-                   </span>
+          </span>
 
 
           <h1>
@@ -205,8 +203,6 @@ function Rewards({ language }) {
           <div className="row g-4">
 
 
-           
-
           </div>
 
         </div>
@@ -244,25 +240,25 @@ function Rewards({ language }) {
           </h2>
 
 
-         <p>
+          <p>
 
-  {isLoggedIn
+            {isLoggedIn
 
-    ? (
-      language === 'EN'
-        ? `You currently have ${rewardPoints} reward points available.`
-        : `لديك حالياً ${rewardPoints} نقطة مكافآت متاحة.`
-    )
+              ? (
+                language === 'EN'
+                  ? `You currently have ${rewardPoints} reward points available.`
+                  : `لديك حالياً ${rewardPoints} نقطة مكافآت متاحة.`
+              )
 
-    : (
-      language === 'EN'
-        ? 'Log in to view your personal reward points and redeem your rewards.'
-        : 'سجل الدخول لعرض نقاط المكافآت الشخصية واستبدال مكافآتك.'
-    )
+              : (
+                language === 'EN'
+                  ? 'Log in to view your personal reward points and redeem your rewards.'
+                  : 'سجل الدخول لعرض نقاط المكافآت الشخصية واستبدال مكافآتك.'
+              )
 
-  }
+            }
 
-</p>
+          </p>
 
 
           {isLoggedIn ? (
@@ -282,7 +278,6 @@ function Rewards({ language }) {
             <button
               type="button"
               className="rewards-login-btn"
-              onClick={() => navigate('/login')}
             >
 
               {language === 'EN'
@@ -295,6 +290,7 @@ function Rewards({ language }) {
 
           )}
 
+
         </div>
 
 
@@ -305,5 +301,6 @@ function Rewards({ language }) {
   )
 
 }
+
 
 export default Rewards

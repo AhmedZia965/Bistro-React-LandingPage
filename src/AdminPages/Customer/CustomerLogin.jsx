@@ -1,9 +1,6 @@
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function CustomerLogin({ language }) {
-
-  const navigate = useNavigate()
-
 
   // Handles demo login
   function handleLogin(event) {
@@ -13,9 +10,6 @@ function CustomerLogin({ language }) {
 
     // Accepts any phone number and password
     sessionStorage.setItem('isLoggedIn', 'true')
-
-    // Opens profile
-    navigate('/profile')
 
   }
 
@@ -71,6 +65,7 @@ function CustomerLogin({ language }) {
 
                   </div>
 
+
                   {/* Password */}
                   <div className="mb-3">
 
@@ -93,16 +88,22 @@ function CustomerLogin({ language }) {
 
                   </div>
 
+
                   {/* Forgot Password */}
                   <div className="text-end mb-4">
 
-                    <a href="#" className="login-link">
+                    <a
+                      href="#"
+                      className="login-link"
+                      onClick={(event) => event.preventDefault()}
+                    >
                       {language === 'EN'
                         ? 'Forgot Password?'
                         : 'هل نسيت كلمة المرور؟'}
                     </a>
 
                   </div>
+
 
                   {/* Login button */}
                   <div className="d-grid">
@@ -120,6 +121,7 @@ function CustomerLogin({ language }) {
 
                 </form>
 
+
                 {/* Signup message */}
                 <p className="text-center mt-4">
 
@@ -127,18 +129,14 @@ function CustomerLogin({ language }) {
                     ? "Don't have an account? "
                     : 'ليس لديك حساب؟ '}
 
-                  <a
-                    href="#"
+                  <Link
+                    to="/signup"
                     className="login-link"
-                    onClick={(event) => {
-                      event.preventDefault()
-                      navigate('/signup')
-                    }}
                   >
                     {language === 'EN'
                       ? 'Sign Up'
                       : 'إنشاء حساب'}
-                  </a>
+                  </Link>
 
                 </p>
 

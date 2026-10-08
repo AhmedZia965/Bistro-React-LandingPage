@@ -1,6 +1,47 @@
 /* ================= BODY - CSS ================= */
 
 body {
-    background-color: white;
-    color: #0D0D0D;
+  background-color: white;
+  color: #0D0D0D;
+}
+/* ================= LOADING DELAY SCREEN ================= */
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #20030D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+
+/* Large Hollow Coffee Icon */
+
+.loading-logo {
+  font-size: 95px;
+  color: #FFFFFF;
+  font-weight: normal;
+  animation: logoBlink 2.5s ease-in-out infinite;
+}
+/* Slow blinking effect */
+
+@keyframes logoBlink {
+
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+
+  100% {
+    opacity: 1;
+  }
+
 }

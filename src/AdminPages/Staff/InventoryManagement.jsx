@@ -1,13 +1,11 @@
-// Remove this:
-// import { useNavigate } from 'react-router-dom'
-
 import StaffNavbar from './StaffNavbar'
 import StaffFooter from './StaffFooter'
 
-function StaffReservations({ language, setLanguage }) {
+function StaffInventory({ language, setLanguage }) {
 
-  // Stores reservations
-  const reservations = []
+  // Stores inventory items
+  const inventory = []
+
 
   return (
 
@@ -21,14 +19,14 @@ function StaffReservations({ language, setLanguage }) {
       />
 
 
-      <div className="staff-reservations-page">
+      <div className="staff-inventory-page">
 
         <div className="container">
 
 
           {/* ================= PAGE HEADING ================= */}
 
-          <div className="staff-reservations-heading text-center">
+          <div className="staff-inventory-heading text-center">
 
             <span className="staff-subtitle">
 
@@ -42,8 +40,8 @@ function StaffReservations({ language, setLanguage }) {
             <h1>
 
               {language === 'EN'
-                ? 'Reservations'
-                : 'الحجوزات'}
+                ? 'Inventory Management'
+                : 'إدارة المخزون'}
 
             </h1>
 
@@ -51,17 +49,17 @@ function StaffReservations({ language, setLanguage }) {
             <p>
 
               {language === 'EN'
-                ? 'View and manage customer table reservations.'
-                : 'عرض وإدارة حجوزات طاولات العملاء.'}
+                ? 'Manage ingredients, stock levels, and supplies.'
+                : 'إدارة المخزون والمكونات والمواد الغذائية.'}
 
             </p>
 
           </div>
 
 
-          {/* ================= RESERVATIONS TABLE ================= */}
+          {/* ================= INVENTORY TABLE ================= */}
 
-          <div className="staff-reservations-items">
+          <div className="staff-inventory-items">
 
 
             {/* Table Heading */}
@@ -71,21 +69,21 @@ function StaffReservations({ language, setLanguage }) {
               <h2 className="mb-0">
 
                 {language === 'EN'
-                  ? 'Current Reservations'
-                  : 'الحجوزات الحالية'}
+                  ? 'Current Inventory'
+                  : 'المخزون الحالي'}
 
               </h2>
 
 
-              <span className="staff-reservation-count">
+              <span className="staff-inventory-count">
 
-                {reservations.length}{' '}
+                {inventory.length}{' '}
 
                 {language === 'EN'
-                  ? reservations.length === 1
-                    ? 'Reservation'
-                    : 'Reservations'
-                  : 'حجوزات'}
+                  ? inventory.length === 1
+                    ? 'Item'
+                    : 'Items'
+                  : 'عناصر'}
 
               </span>
 
@@ -96,7 +94,8 @@ function StaffReservations({ language, setLanguage }) {
 
             <div className="table-responsive">
 
-              <table className="staff-reservations-table">
+              <table className="staff-inventory-table">
+
 
                 {/* ================= TABLE HEAD ================= */}
 
@@ -106,44 +105,32 @@ function StaffReservations({ language, setLanguage }) {
 
                     <th>
                       {language === 'EN'
-                        ? 'Reservation ID'
-                        : 'رقم الحجز'}
+                        ? 'Item ID'
+                        : 'رقم العنصر'}
                     </th>
 
                     <th>
                       {language === 'EN'
-                        ? 'Customer Name'
-                        : 'اسم العميل'}
+                        ? 'Item Name'
+                        : 'اسم العنصر'}
                     </th>
 
                     <th>
                       {language === 'EN'
-                        ? 'Phone'
-                        : 'الهاتف'}
+                        ? 'Category'
+                        : 'الفئة'}
                     </th>
 
                     <th>
                       {language === 'EN'
-                        ? 'Table'
-                        : 'الطاولة'}
+                        ? 'Quantity'
+                        : 'الكمية'}
                     </th>
 
                     <th>
                       {language === 'EN'
-                        ? 'Date'
-                        : 'التاريخ'}
-                    </th>
-
-                    <th>
-                      {language === 'EN'
-                        ? 'Time'
-                        : 'الوقت'}
-                    </th>
-
-                    <th>
-                      {language === 'EN'
-                        ? 'Guests'
-                        : 'الضيوف'}
+                        ? 'Unit'
+                        : 'الوحدة'}
                     </th>
 
                     <th>
@@ -167,20 +154,23 @@ function StaffReservations({ language, setLanguage }) {
 
                 <tbody>
 
-                  {reservations.length === 0 ? (
+                  {inventory.length === 0 ? (
 
                     <tr>
 
                       <td
-                        colSpan="9"
+                        colSpan="7"
                         className="text-center"
                       >
 
-                        <div className="staff-reservations-empty">
+                        <div className="staff-inventory-empty">
 
-                          <div className="staff-reservation-icon">
 
-                            <i className="bi bi-calendar-check"></i>
+                          {/* Empty Inventory Icon */}
+
+                          <div className="staff-inventory-icon">
+
+                            <i className="bi bi-box-seam"></i>
 
                           </div>
 
@@ -188,8 +178,8 @@ function StaffReservations({ language, setLanguage }) {
                           <h3>
 
                             {language === 'EN'
-                              ? 'No Reservations Yet'
-                              : 'لا توجد حجوزات بعد'}
+                              ? 'No Inventory Items Yet'
+                              : 'لا توجد عناصر في المخزون بعد'}
 
                           </h3>
 
@@ -197,8 +187,8 @@ function StaffReservations({ language, setLanguage }) {
                           <p>
 
                             {language === 'EN'
-                              ? 'Reservation records will appear here when the database is connected.'
-                              : 'ستظهر سجلات الحجوزات هنا عند ربط قاعدة البيانات.'}
+                              ? 'Inventory items will appear here when the database is connected.'
+                              : 'ستظهر عناصر المخزون هنا عند ربط قاعدة البيانات.'}
 
                           </p>
 
@@ -210,61 +200,57 @@ function StaffReservations({ language, setLanguage }) {
 
                   ) : (
 
-                    reservations.map((reservation, index) => (
+                    inventory.map((item, index) => (
 
                       <tr key={index}>
 
 
-                        {/* Reservation ID */}
+                        {/* Item ID */}
 
                         <td>
-                          {reservation.id}
+
+                          {item.id}
+
                         </td>
 
 
-                        {/* Customer Name */}
+                        {/* Item Name */}
 
                         <td>
 
                           <strong>
-                            {reservation.customerName}
+
+                            {item.name}
+
                           </strong>
 
                         </td>
 
 
-                        {/* Phone */}
+                        {/* Category */}
 
                         <td>
-                          {reservation.phone}
+
+                          {item.category}
+
                         </td>
 
 
-                        {/* Table */}
+                        {/* Quantity */}
 
                         <td>
-                          {reservation.table}
+
+                          {item.quantity}
+
                         </td>
 
 
-                        {/* Date */}
+                        {/* Unit */}
 
                         <td>
-                          {reservation.date}
-                        </td>
 
+                          {item.unit}
 
-                        {/* Time */}
-
-                        <td>
-                          {reservation.time}
-                        </td>
-
-
-                        {/* Guests */}
-
-                        <td>
-                          {reservation.guests}
                         </td>
 
 
@@ -274,13 +260,15 @@ function StaffReservations({ language, setLanguage }) {
 
                           <span
                             className={
-                              reservation.status === 'Confirmed'
-                                ? 'staff-reservation-confirmed'
-                                : 'staff-reservation-pending'
+                              item.status === 'Available'
+                                ? 'staff-inventory-available'
+                                : item.status === 'Low Stock'
+                                ? 'staff-inventory-low'
+                                : 'staff-inventory-out'
                             }
                           >
 
-                            {reservation.status}
+                            {item.status}
 
                           </span>
 
@@ -291,36 +279,37 @@ function StaffReservations({ language, setLanguage }) {
 
                         <td>
 
-                          {/* Confirm */}
+
+                          {/* Edit */}
 
                           <button
                             type="button"
-                            className="staff-reservation-confirm-btn me-1"
+                            className="staff-inventory-edit-btn me-1"
                             title={
                               language === 'EN'
-                                ? 'Confirm Reservation'
-                                : 'تأكيد الحجز'
+                                ? 'Edit Item'
+                                : 'تعديل العنصر'
                             }
                           >
 
-                            <i className="bi bi-check-lg"></i>
+                            <i className="bi bi-pencil"></i>
 
                           </button>
 
 
-                          {/* Cancel */}
+                          {/* Delete */}
 
                           <button
                             type="button"
-                            className="staff-reservation-cancel-btn"
+                            className="staff-inventory-delete-btn"
                             title={
                               language === 'EN'
-                                ? 'Cancel Reservation'
-                                : 'إلغاء الحجز'
+                                ? 'Delete Item'
+                                : 'حذف العنصر'
                             }
                           >
 
-                            <i className="bi bi-x-lg"></i>
+                            <i className="bi bi-trash"></i>
 
                           </button>
 
@@ -343,7 +332,7 @@ function StaffReservations({ language, setLanguage }) {
 
           {/* ================= BACK BUTTON ================= */}
 
-          <div className="text-center staff-reservations-back">
+          <div className="text-center staff-inventory-back">
 
             <button
               type="button"
@@ -376,4 +365,4 @@ function StaffReservations({ language, setLanguage }) {
 
 }
 
-export default StaffReservations
+export default StaffInventory

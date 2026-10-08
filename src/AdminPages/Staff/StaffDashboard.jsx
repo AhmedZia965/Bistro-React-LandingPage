@@ -8,6 +8,69 @@ function StaffDashboard({ language, setLanguage }) {
   const navigate = useNavigate()
 
 
+  // ================= DASHBOARD CARDS =================
+
+  const dashboardCards = [
+
+    {
+      icon: 'bi-menu-button-wide',
+
+      title: language === 'EN'
+        ? 'Menu Management'
+        : 'إدارة القائمة',
+
+      description: language === 'EN'
+        ? 'Add, edit and manage menu items.'
+        : 'إضافة وتعديل وإدارة عناصر القائمة.',
+
+      button: language === 'EN'
+        ? 'Manage Menu'
+        : 'إدارة القائمة',
+
+      path: '/staff-menu',
+    },
+
+
+    {
+      icon: 'bi-receipt',
+
+      title: language === 'EN'
+        ? 'Orders'
+        : 'الطلبات',
+
+      description: language === 'EN'
+        ? 'View and manage customer orders.'
+        : 'عرض وإدارة طلبات العملاء.',
+
+      button: language === 'EN'
+        ? 'View Orders'
+        : 'عرض الطلبات',
+
+      path: '/staff-orders',
+    },
+
+
+    {
+      icon: 'bi-box-seam',
+
+      title: language === 'EN'
+        ? 'Inventory Management'
+        : 'إدارة المخزون',
+
+     description: language === 'EN'
+  ? 'Manage ingredients and supplies.'
+  : 'إدارة المخزون والمكونات والمواد الغذائية.',
+
+      button: language === 'EN'
+        ? 'Manage Inventory'
+        : 'إدارة المخزون',
+
+      path: '/staff-inventory',
+    },
+
+  ]
+
+
   return (
 
     <>
@@ -62,154 +125,63 @@ function StaffDashboard({ language, setLanguage }) {
 
           <div className="row g-4">
 
+            {dashboardCards.map((card, index) => (
 
-            
+              <div
+                className="col-md-6 col-lg-4"
+                key={index}
+              >
+
+                <div className="staff-dashboard-card">
 
 
-            {/* Menu */}
+                  {/* Card Icon */}
 
-            <div className="col-md-6 col-lg-4">
+                  <div className="staff-dashboard-icon">
 
-              <div className="staff-dashboard-card">
+                    <i className={`bi ${card.icon}`}></i>
 
-                <div className="staff-dashboard-icon">
+                  </div>
 
-                  <i className="bi bi-menu-button-wide"></i>
+
+                  {/* Card Title */}
+
+                  <h3>
+
+                    {card.title}
+
+                  </h3>
+
+
+                  {/* Card Description */}
+
+                  <p>
+
+                    {card.description}
+
+                  </p>
+
+
+                  {/* Card Button */}
+
+                  <button
+                    type="button"
+                    className="staff-dashboard-btn"
+                    onClick={() => navigate(card.path)}
+                  >
+
+                    {card.button}
+
+                    <i className="bi bi-arrow-right ms-2"></i>
+
+                  </button>
+
 
                 </div>
 
-
-                <h3>
-
-                  {language === 'EN'
-                    ? 'Menu Management'
-                    : 'إدارة القائمة'}
-
-                </h3>
-
-
-                <p>
-
-                  {language === 'EN'
-                    ? 'Add, edit and manage menu items.'
-                    : 'إضافة وتعديل وإدارة عناصر القائمة.'}
-
-                </p>
-
-
-                <button
-                  type="button"
-                  className="staff-dashboard-btn"
-                >
-
-                  {language === 'EN'
-                    ? 'Manage Menu'
-                    : 'إدارة القائمة'}
-
-                  <i className="bi bi-arrow-right ms-2"></i>
-
-                </button>
-
               </div>
 
-            </div>
-
-             {/* Orders */}
-
-            <div className="col-md-6 col-lg-4">
-
-              <div className="staff-dashboard-card">
-
-                <div className="staff-dashboard-icon">
-
-                  <i className="bi bi-receipt"></i>
-
-                </div>
-
-
-                <h3>
-
-                  {language === 'EN'
-                    ? 'Orders'
-                    : 'الطلبات'}
-
-                </h3>
-
-
-                <p>
-
-                  {language === 'EN'
-                    ? 'View and manage customer orders.'
-                    : 'عرض وإدارة طلبات العملاء.'}
-
-                </p>
-
-
-                <button
-                  type="button"
-                  className="staff-dashboard-btn"
-                >
-
-                  {language === 'EN'
-                    ? 'View Orders'
-                    : 'عرض الطلبات'}
-
-                  <i className="bi bi-arrow-right ms-2"></i>
-
-                </button>
-
-              </div>
-
-            </div>
-            
-            {/* Reservations */}
-
-            <div className="col-md-6 col-lg-4">
-
-              <div className="staff-dashboard-card">
-
-                <div className="staff-dashboard-icon">
-
-                  <i className="bi bi-calendar-check"></i>
-
-                </div>
-
-
-                <h3>
-
-                  {language === 'EN'
-                    ? 'Reservations'
-                    : 'الحجوزات'}
-
-                </h3>
-
-
-                <p>
-
-                  {language === 'EN'
-                    ? 'View and manage customer table reservations.'
-                    : 'عرض وإدارة حجوزات طاولات العملاء.'}
-
-                </p>
-
-
-                <button
-                  type="button"
-                  className="staff-dashboard-btn"
-                >
-
-                  {language === 'EN'
-                    ? 'View Reservations'
-                    : 'عرض الحجوزات'}
-
-                  <i className="bi bi-arrow-right ms-2"></i>
-
-                </button>
-
-              </div>
-
-            </div>
-
+            ))}
 
           </div>
 

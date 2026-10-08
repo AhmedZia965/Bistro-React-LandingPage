@@ -1,10 +1,13 @@
-/* ================= STAFF LOGIN ================= */
 
-/* Staff Login Page */
+
+
+/* =========================================================
+   STAFF LOGIN
+========================================================= */
 
 .staff-login-page {
     min-height: calc(100vh - 80px);
-    background-color: #0D0D0D;
+    background-color: #212121;
     color: #F5F0E6;
     display: flex;
     align-items: center;
@@ -12,18 +15,14 @@
     padding: 60px 20px;
 }
 
-/* Staff Login Card */
-
 .staff-login-card {
     width: 100%;
     max-width: 500px;
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 18px;
     padding: 40px;
 }
-
-/* Staff Login Heading */
 
 .staff-login-heading {
     text-align: center;
@@ -53,14 +52,14 @@
 }
 
 .staff-login-heading p {
-    color: #999;
+    color: #AAA39A;
     margin-top: 10px;
 }
 
 
-/* ================= STAFF INPUTS ================= */
-
-/* Staff Login Form Inputs */
+/* =========================================================
+   STAFF INPUTS
+========================================================= */
 
 .staff-input-group {
     margin-bottom: 20px;
@@ -75,32 +74,39 @@
 
 .staff-input-group input {
     width: 100%;
-    background-color: #0D0D0D;
+    background-color: #111111;
     color: #F5F0E6;
-    border: 1px solid #3a2529;
+    border: 1px solid #302026;
     border-radius: 8px;
     padding: 12px 15px;
 }
 
 .staff-input-group input:focus {
     outline: none;
+    background-color: #111111;
+    color: #F5F0E6;
     border-color: #C98F9A;
 }
 
+.staff-input-group input::placeholder {
+    color: #77716B;
+}
 
-/* ================= STAFF BUTTONS ================= */
 
-/* Login and Add Item Buttons */
+/* =========================================================
+   STAFF BUTTONS
+========================================================= */
 
 .staff-login-btn,
 .staff-menu-add-btn {
-    background-color: #800020;
-    color: #F5F0E6;
-    border: 1px solid #800020;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
     border-radius: 8px;
     padding: 12px 20px;
     font-weight: bold;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .staff-login-btn {
@@ -110,41 +116,42 @@
 
 .staff-login-btn:hover,
 .staff-menu-add-btn:hover {
-    background-color: #C98F9A;
-    border-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
 }
 
-/* Back Button */
-
 .staff-back-btn {
-    background: none;
-    color: #C98F9A;
-    border: none;
+    background-color: #111111;
+    color: #AAA39A;
+    border: 1px solid #302026;
+    border-radius: 8px;
     font-weight: bold;
     margin-top: 20px;
+    padding: 10px 18px;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .staff-back-btn:hover {
-    color: #F5F0E6;
+    background-color: #C98F9A;
+    color: #212121;
+    border-color: #C98F9A;
 }
 
 
-/* ================= STAFF DASHBOARD ================= */
-
-/* Dashboard and Menu Page */
+/* =========================================================
+   STAFF DASHBOARD
+========================================================= */
 
 .staff-dashboard-page,
 .staff-menu-page {
     min-height: calc(100vh - 80px);
-    background-color: #0D0D0D;
+    background-color: #212121;
     color: #F5F0E6;
     padding-top: 60px;
     padding-bottom: 60px;
 }
-
-/* Dashboard and Menu Headings */
 
 .staff-dashboard-heading,
 .staff-menu-heading {
@@ -162,18 +169,18 @@
 
 .staff-dashboard-heading p,
 .staff-menu-heading p {
-    color: #999;
+    color: #AAA39A;
     margin-top: 10px;
 }
 
 
-/* ================= DASHBOARD CARDS ================= */
-
-/* Staff Dashboard Cards */
+/* =========================================================
+   DASHBOARD CARDS
+========================================================= */
 
 .staff-dashboard-card {
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 18px;
     padding: 30px;
     height: 100%;
@@ -183,16 +190,16 @@
 
 .staff-dashboard-card:hover {
     transform: translateY(-5px);
-    border-color: #C98F9A;
+    background-color: #2A151D;
+    border-color: #4A2832;
 }
-
-/* Dashboard Card Icons */
 
 .staff-dashboard-icon {
     width: 60px;
     height: 60px;
-    background-color: #800020;
-    color: #F5F0E6;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    color: #C98F9A;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -202,64 +209,73 @@
 }
 
 .staff-dashboard-card h3 {
-    color: #C98F9A;
+    color: #F5F0E6;
     font-size: 22px;
     font-weight: bold;
 }
 
 .staff-dashboard-card p {
-    color: #999;
+    color: #AAA39A;
     line-height: 1.6;
     margin-bottom: 20px;
 }
 
-/* Dashboard Buttons */
+
+/* =========================================================
+   DASHBOARD BUTTONS
+========================================================= */
 
 .staff-dashboard-btn {
-    background-color: #800020;
-    color: #F5F0E6;
-    border: 1px solid #800020;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
     border-radius: 8px;
     padding: 10px 20px;
     font-weight: bold;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .staff-dashboard-btn:hover {
-    background-color: #C98F9A;
-    border-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
 }
 
-/* Dashboard Logout */
+
+/* =========================================================
+   DASHBOARD LOGOUT
+========================================================= */
 
 .staff-logout {
     margin-top: 45px;
 }
 
 .staff-logout-btn {
-    background: none;
-    color: #C98F9A;
-    border: 1px solid #3a2529;
+    background-color: #111111;
+    color: #AAA39A;
+    border: 1px solid #302026;
     border-radius: 8px;
     padding: 10px 25px;
     font-weight: bold;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .staff-logout-btn:hover {
-    background-color: #800020;
-    color: #F5F0E6;
+    background-color: #C98F9A;
+    color: #212121;
+    border-color: #C98F9A;
 }
 
 
-/* ================= STAFF MENU FORM ================= */
-
-/* Add New Menu Item Section */
+/* =========================================================
+   STAFF MENU FORM
+========================================================= */
 
 .staff-menu-form {
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 18px;
     padding: 30px;
     margin-bottom: 50px;
@@ -267,66 +283,77 @@
 
 .staff-menu-form h2,
 .staff-menu-items h2 {
-    color: #C98F9A;
+    color: #F5F0E6;
     font-size: 27px;
     font-weight: bold;
     margin-bottom: 25px;
 }
 
-/* Menu Form Inputs */
-
 .staff-menu-form .form-control {
-    background-color: #0D0D0D;
+    background-color: #111111;
     color: #F5F0E6;
-    border: 1px solid #3a2529;
+    border: 1px solid #302026;
     padding: 12px;
 }
 
 .staff-menu-form .form-control:focus {
-    background-color: #0D0D0D;
+    background-color: #111111;
     color: #F5F0E6;
     border-color: #C98F9A;
     box-shadow: none;
 }
 
+.staff-menu-form .form-control::placeholder {
+    color: #77716B;
+}
 
-/* ================= STAFF MENU TABLE ================= */
 
-/* Menu Items Table */
+/* =========================================================
+   STAFF MENU TABLE
+========================================================= */
 
 .staff-menu-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #161616;
+    background-color: #151515;
     color: #F5F0E6;
 }
 
 .staff-menu-table th {
-    background-color: #800020;
+    background-color: #2A151D;
     color: #F5F0E6;
+    border-color: #4A2832;
     padding: 15px;
     text-align: center;
 }
 
 .staff-menu-table td {
+    background-color: #151515;
+    color: #AAA39A;
     padding: 15px;
     text-align: center;
-    border-bottom: 1px solid #3a2529;
+    border-bottom: 1px solid #302026;
 }
 
-.staff-menu-table tr:hover {
-    background-color: #251317;
+.staff-menu-table td strong {
+    color: #F5F0E6;
+}
+
+.staff-menu-table tr:hover td {
+    background-color: #2A151D;
+    color: #F5F0E6;
 }
 
 
-/* ================= AVAILABILITY ================= */
-
-/* Available and Unavailable Status */
+/* =========================================================
+   AVAILABILITY
+========================================================= */
 
 .staff-available {
     display: inline-block;
-    color: #F5F0E6;
-    background-color: #315b3b;
+    color: #C98F9A;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
     border-radius: 20px;
     padding: 5px 12px;
     font-size: 12px;
@@ -334,17 +361,18 @@
 
 .staff-unavailable {
     display: inline-block;
-    color: #F5F0E6;
-    background-color: #800020;
+    color: #AAA39A;
+    background-color: #111111;
+    border: 1px solid #302026;
     border-radius: 20px;
     padding: 5px 12px;
     font-size: 12px;
 }
 
 
-/* ================= MENU BUTTONS ================= */
-
-/* Availability and Delete Buttons */
+/* =========================================================
+   MENU BUTTONS
+========================================================= */
 
 .staff-availability-btn,
 .staff-delete-btn {
@@ -353,50 +381,49 @@
     font-size: 13px;
     font-weight: bold;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .staff-availability-btn {
-    background-color: #251317;
-    color: #C98F9A;
-    border: 1px solid #3a2529;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
 }
 
 .staff-availability-btn:hover {
-    background-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
 }
 
 .staff-delete-btn {
-    background-color: #800020;
-    color: #F5F0E6;
-    border: 1px solid #800020;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
 }
 
 .staff-delete-btn:hover {
-    background-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
 }
-
-/* Menu Back Button */
 
 .staff-menu-back {
     margin-top: 40px;
 }
 
 
-/* ================= STAFF NAVBAR ================= */
-
-/* Staff Navbar */
+/* =========================================================
+   STAFF NAVBAR
+========================================================= */
 
 .staff-navbar {
-    background-color: #0D0D0D;
-    border-bottom: 1px solid #3a2529;
+    background-color: #111111;
+    border-bottom: 1px solid #302026;
     min-height: 80px;
     display: flex;
     align-items: center;
 }
-
-/* Staff Navbar Container */
 
 .staff-navbar-container {
     width: 100%;
@@ -405,8 +432,6 @@
     align-items: center;
     justify-content: space-between;
 }
-
-/* Staff Navbar Brand */
 
 .staff-navbar-brand {
     color: #F5F0E6;
@@ -420,8 +445,6 @@
     color: #C98F9A;
 }
 
-/* Staff Portal Text */
-
 .staff-navbar-title {
     color: #C98F9A;
     font-size: 16px;
@@ -430,12 +453,12 @@
 }
 
 
-/* ================= STAFF LANGUAGE ================= */
-
-/* Language Button */
+/* =========================================================
+   STAFF LANGUAGE
+========================================================= */
 
 .staff-language-btn {
-    background-color: transparent;
+    background-color: #111111;
     color: #F5F0E6;
     border: 1px solid #C98F9A;
     border-radius: 25px;
@@ -447,14 +470,13 @@
 
 .staff-language-btn:hover {
     background-color: #C98F9A;
-    color: #0D0D0D;
+    color: #212121;
+    border-color: #C98F9A;
 }
 
-/* Language Dropdown */
-
 .staff-navbar .dropdown-menu {
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 8px;
     padding: 5px;
 }
@@ -466,20 +488,20 @@
 }
 
 .staff-navbar .dropdown-item:hover {
-    background-color: #800020;
-    color: #F5F0E6;
+    background-color: #C98F9A;
+    color: #212121;
 }
 
 
-/* ================= STAFF FOOTER ================= */
-
-/* Staff Footer */
+/* =========================================================
+   STAFF FOOTER
+========================================================= */
 
 .staff-footer {
-    background-color: #0D0D0D;
-    border-top: 1px solid #3a2529;
+    background-color: #111111;
+    border-top: 1px solid #302026;
     padding: 25px 0;
-    color: #999;
+    color: #AAA39A;
 }
 
 .staff-footer p {
@@ -496,19 +518,17 @@
 }
 
 
-/* ================= STAFF RESERVATIONS ================= */
-
-/* Reservations Page */
+/* =========================================================
+   STAFF RESERVATIONS
+========================================================= */
 
 .staff-reservations-page {
     min-height: calc(100vh - 80px);
-    background-color: #0D0D0D;
+    background-color: #212121;
     color: #F5F0E6;
     padding-top: 60px;
     padding-bottom: 60px;
 }
-
-/* Reservations Heading */
 
 .staff-reservations-heading {
     text-align: center;
@@ -523,67 +543,78 @@
 }
 
 .staff-reservations-heading p {
-    color: #999;
+    color: #AAA39A;
     margin-top: 10px;
 }
 
-
-/* Reservations Table Section */
-
 .staff-reservations-items {
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 18px;
     padding: 30px;
 }
 
 .staff-reservations-items h2 {
-    color: #C98F9A;
+    color: #F5F0E6;
     font-size: 27px;
     font-weight: bold;
 }
 
 .staff-reservation-count {
-    background-color: #3a2529;
-    color: #F5F0E6;
+    background-color: #2A151D;
+    color: #C98F9A;
+    border: 1px solid #4A2832;
     padding: 6px 14px;
     border-radius: 20px;
     font-size: 14px;
 }
 
 
-/* Reservations Table */
+/* =========================================================
+   RESERVATIONS TABLE
+========================================================= */
 
 .staff-reservations-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #161616;
+    background-color: #151515;
     color: #F5F0E6;
 }
 
 .staff-reservations-table th {
-    background-color: #800020;
+    background-color: #2A151D;
     color: #F5F0E6;
+    border-color: #4A2832;
     padding: 15px;
     text-align: center;
     white-space: nowrap;
 }
 
 .staff-reservations-table td {
+    background-color: #151515;
+    color: #AAA39A;
     padding: 15px;
     text-align: center;
-    border-bottom: 1px solid #3a2529;
+    border-bottom: 1px solid #302026;
 }
 
-.staff-reservations-table tr:hover {
-    background-color: #251317;
+.staff-reservations-table td strong {
+    color: #F5F0E6;
+}
+
+.staff-reservations-table tr:hover td {
+    background-color: #2A151D;
+    color: #F5F0E6;
 }
 
 
-/* Empty Reservations */
+/* =========================================================
+   EMPTY RESERVATIONS
+========================================================= */
 
 .staff-reservations-empty {
     padding: 50px 20px;
+    text-align: center;
 }
 
 .staff-reservation-icon {
@@ -591,7 +622,8 @@
     height: 70px;
     margin: 0 auto 15px;
     border-radius: 50%;
-    background-color: #3a2529;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -608,17 +640,20 @@
 }
 
 .staff-reservations-empty p {
-    color: #999;
+    color: #77716B;
     margin-bottom: 0;
 }
 
 
-/* Reservation Status */
+/* =========================================================
+   RESERVATION STATUS
+========================================================= */
 
 .staff-reservation-confirmed {
     display: inline-block;
-    color: #F5F0E6;
-    background-color: #315b3b;
+    color: #C98F9A;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
     border-radius: 20px;
     padding: 5px 12px;
     font-size: 12px;
@@ -626,15 +661,18 @@
 
 .staff-reservation-pending {
     display: inline-block;
-    color: #F5F0E6;
-    background-color: #800020;
+    color: #AAA39A;
+    background-color: #111111;
+    border: 1px solid #302026;
     border-radius: 20px;
     padding: 5px 12px;
     font-size: 12px;
 }
 
 
-/* Reservation Buttons */
+/* =========================================================
+   RESERVATION BUTTONS
+========================================================= */
 
 .staff-reservation-confirm-btn,
 .staff-reservation-cancel-btn {
@@ -643,41 +681,41 @@
     font-size: 13px;
     font-weight: bold;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .staff-reservation-confirm-btn {
-    background-color: #251317;
-    color: #C98F9A;
-    border: 1px solid #3a2529;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
 }
 
 .staff-reservation-confirm-btn:hover {
-    background-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
 }
 
 .staff-reservation-cancel-btn {
-    background-color: #800020;
-    color: #F5F0E6;
-    border: 1px solid #800020;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
 }
 
 .staff-reservation-cancel-btn:hover {
-    background-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
 }
-
-
-/* Reservations Back Button */
 
 .staff-reservations-back {
     margin-top: 40px;
 }
 
 
-/* ================= MOBILE ================= */
-
-/* Mobile Staff Pages */
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 576px) {
 
@@ -702,8 +740,6 @@
         padding: 20px;
     }
 
-    /* Mobile Staff Navbar */
-
     .staff-navbar-container {
         padding: 0 15px;
     }
@@ -721,15 +757,11 @@
         font-size: 13px;
     }
 
-    /* Mobile Menu Table */
-
     .staff-menu-table th,
     .staff-menu-table td {
         padding: 10px;
         font-size: 13px;
     }
-
-    /* Mobile Reservations Table */
 
     .staff-reservations-table th,
     .staff-reservations-table td {
@@ -740,21 +772,22 @@
 }
 
 
-
-
- 
-/* ================= STAFF ORDERS PAGE ================= */
+/* =========================================================
+   STAFF ORDERS PAGE
+========================================================= */
 
 .staff-orders-page {
     min-height: calc(100vh - 80px);
-    background-color: #0D0D0D;
+    background-color: #212121;
     color: #F5F0E6;
     padding-top: 60px;
     padding-bottom: 60px;
 }
 
 
-/* ================= ORDERS HEADING ================= */
+/* =========================================================
+   ORDERS HEADING
+========================================================= */
 
 .staff-orders-heading {
     text-align: center;
@@ -769,64 +802,79 @@
 }
 
 .staff-orders-heading p {
-    color: #999;
+    color: #AAA39A;
     margin-top: 10px;
 }
 
 
-/* ================= ORDERS CONTAINER ================= */
+/* =========================================================
+   ORDERS CONTAINER
+========================================================= */
 
 .staff-orders-items {
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 18px;
     padding: 30px;
 }
 
 .staff-orders-items h2 {
-    color: #C98F9A;
+    color: #F5F0E6;
     font-size: 27px;
     font-weight: bold;
 }
 
 .staff-order-count {
-    background-color: #3a2529;
-    color: #F5F0E6;
+    background-color: #2A151D;
+    color: #C98F9A;
+    border: 1px solid #4A2832;
     padding: 6px 14px;
     border-radius: 20px;
     font-size: 14px;
 }
 
 
-/* ================= ORDERS TABLE ================= */
+/* =========================================================
+   ORDERS TABLE
+========================================================= */
 
 .staff-orders-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #161616;
+    background-color: #151515;
     color: #F5F0E6;
 }
 
 .staff-orders-table th {
-    background-color: #800020;
+    background-color: #2A151D;
     color: #F5F0E6;
+    border-color: #4A2832;
     padding: 15px;
     text-align: center;
     white-space: nowrap;
 }
 
 .staff-orders-table td {
+    background-color: #151515;
+    color: #AAA39A;
     padding: 15px;
     text-align: center;
-    border-bottom: 1px solid #3a2529;
+    border-bottom: 1px solid #302026;
 }
 
-.staff-orders-table tr:hover {
-    background-color: #251317;
+.staff-orders-table td strong {
+    color: #F5F0E6;
+}
+
+.staff-orders-table tr:hover td {
+    background-color: #2A151D;
+    color: #F5F0E6;
 }
 
 
-/* ================= EMPTY ORDERS ================= */
+/* =========================================================
+   EMPTY ORDERS
+========================================================= */
 
 .staff-orders-empty {
     padding: 50px 20px;
@@ -838,7 +886,8 @@
     height: 70px;
     margin: 0 auto 15px;
     border-radius: 50%;
-    background-color: #3a2529;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
 
     display: flex;
     align-items: center;
@@ -856,44 +905,116 @@
 }
 
 .staff-orders-empty p {
-    color: #999;
+    color: #77716B;
     margin-bottom: 0;
 }
 
 
-/* ================= ORDER STATUS ================= */
+/* =========================================================
+   ORDER STATUS
+========================================================= */
 
 .staff-order-status {
     display: inline-block;
-    color: #F5F0E6;
-    background-color: #315b3b;
+    color: #C98F9A;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
     border-radius: 20px;
     padding: 5px 12px;
     font-size: 12px;
 }
 
 
-/* ================= VIEW ORDER BUTTON ================= */
+/* =========================================================
+   VIEW ORDER BUTTON
+========================================================= */
 
 .staff-order-view-btn {
-    background-color: #251317;
-    color: #C98F9A;
-    border: 1px solid #3a2529;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
     border-radius: 7px;
     padding: 8px 14px;
     font-size: 13px;
     font-weight: bold;
     transition: 0.3s;
+    cursor: pointer;
 }
 
 .staff-order-view-btn:hover {
-    background-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
 }
 
 
-/* ================= BACK BUTTON ================= */
+/* =========================================================
+   BACK BUTTON
+========================================================= */
 
 .staff-orders-back {
     margin-top: 40px;
+}
+
+
+/* =========================================================
+   BOOTSTRAP BUTTON OVERRIDE
+========================================================= */
+
+.staff-dashboard-page .btn-primary,
+.staff-dashboard-page .btn-success,
+.staff-dashboard-page .btn-danger,
+.staff-dashboard-page .btn-warning,
+.staff-dashboard-page .btn-info,
+.staff-dashboard-page .btn-secondary,
+.staff-menu-page .btn-primary,
+.staff-menu-page .btn-success,
+.staff-menu-page .btn-danger,
+.staff-menu-page .btn-warning,
+.staff-menu-page .btn-info,
+.staff-menu-page .btn-secondary,
+.staff-orders-page .btn-primary,
+.staff-orders-page .btn-success,
+.staff-orders-page .btn-danger,
+.staff-orders-page .btn-warning,
+.staff-orders-page .btn-info,
+.staff-orders-page .btn-secondary,
+.staff-reservations-page .btn-primary,
+.staff-reservations-page .btn-success,
+.staff-reservations-page .btn-danger,
+.staff-reservations-page .btn-warning,
+.staff-reservations-page .btn-info,
+.staff-reservations-page .btn-secondary {
+    background-color: #C98F9A;
+    color: #212121;
+    border-color: #C98F9A;
+}
+
+.staff-dashboard-page .btn-primary:hover,
+.staff-dashboard-page .btn-success:hover,
+.staff-dashboard-page .btn-danger:hover,
+.staff-dashboard-page .btn-warning:hover,
+.staff-dashboard-page .btn-info:hover,
+.staff-dashboard-page .btn-secondary:hover,
+.staff-menu-page .btn-primary:hover,
+.staff-menu-page .btn-success:hover,
+.staff-menu-page .btn-danger:hover,
+.staff-menu-page .btn-warning:hover,
+.staff-menu-page .btn-info:hover,
+.staff-menu-page .btn-secondary:hover,
+.staff-orders-page .btn-primary:hover,
+.staff-orders-page .btn-success:hover,
+.staff-orders-page .btn-danger:hover,
+.staff-orders-page .btn-warning:hover,
+.staff-orders-page .btn-info:hover,
+.staff-orders-page .btn-secondary:hover,
+.staff-reservations-page .btn-primary:hover,
+.staff-reservations-page .btn-success:hover,
+.staff-reservations-page .btn-danger:hover,
+.staff-reservations-page .btn-warning:hover,
+.staff-reservations-page .btn-info:hover,
+.staff-reservations-page .btn-secondary:hover {
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
 }

@@ -1,6 +1,9 @@
 import '../App.css'
+import { useNavigate } from 'react-router-dom'
 
 function Hero({ language }) {
+
+  const navigate = useNavigate()
 
   return (
     <div className="text-center hero">
@@ -17,7 +20,7 @@ function Hero({ language }) {
           {language === 'EN' ? 'MONARCH BISTRO' : 'مونارك بيسترو'}
         </h1>
 
-        <p >
+        <p>
           {language === 'EN'
             ? 'Where every bite feels like home.'
             : 'حيث كل لقمة تشعرك وكأنك في منزلك'}
@@ -29,11 +32,18 @@ function Hero({ language }) {
             : 'اكتشف أشهى المأكولات والقهوة الغنية وأجواءً صُممت للحظات الجميلة.'}
         </p>
 
-        <button type="button" className="LearnMoreBtn btn btn-danger">
+        <button type="button" className="LearnMoreBtn btn btn-danger"
+          onClick={() => navigate('/learn-more')}
+         >
+          
           {language === 'EN' ? 'Learn More' : 'اعرف المزيد'}
         </button>
 
-        <button type="button" className="OrderBtn btn">
+        <button
+          type="button"
+          className="OrderBtn btn"
+          onClick={() => navigate('/menu')}
+        >
           {language === 'EN' ? 'Order Now' : 'اطلب الآن'}
         </button>
 

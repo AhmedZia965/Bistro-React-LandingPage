@@ -4,8 +4,8 @@
 
 .signup-page {
     min-height: calc(100vh - 300px);
-    background-color: #808080;
-    color: #0d0c0a;
+    background-color: #212121;
+    color: #F5F0E6;
     padding-top: 50px;
     padding-bottom: 50px;
 }
@@ -14,8 +14,8 @@
 /* Signup Card */
 
 .signup-card {
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 15px;
 }
 
@@ -39,18 +39,18 @@
 /* Signup Form Inputs */
 
 .signup-card .form-control {
-    background-color: #0D0D0D;
+    background-color: #111111;
     color: #F5F0E6;
-    border: 1px solid #555;
+    border: 1px solid #302026;
     border-radius: 8px;
 }
 
 .signup-card .form-control::placeholder {
-    color: #999;
+    color: #77716B;
 }
 
 .signup-card .form-control:focus {
-    background-color: #0D0D0D;
+    background-color: #111111;
     color: #F5F0E6;
     border-color: #C98F9A;
     box-shadow: 0 0 0 0.2rem rgba(201, 143, 154, 0.2);
@@ -60,18 +60,18 @@
 /* Signup Button */
 
 .signup-card .btn-dark {
-    background-color: #800020;
-    border-color: #800020;
-    color: #F5F0E6;
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+    color: #212121;
     border-radius: 8px;
     padding: 10px;
     font-weight: bold;
 }
 
 .signup-card .btn-dark:hover {
-    background-color: #C98F9A;
-    border-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
 }
 
 
@@ -99,8 +99,8 @@
 
 .login-page {
     min-height: calc(100vh - 100px);
-    background-color: #808080;
-    color: #0d0c0a;
+    background-color: #212121;
+    color: #F5F0E6;
     padding-top: 60px;
     padding-bottom: 60px;
 }
@@ -109,8 +109,8 @@
 /* Login Card */
 
 .login-card {
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 15px;
 }
 
@@ -134,18 +134,18 @@
 /* Login Form Inputs */
 
 .login-card .form-control {
-    background-color: #0D0D0D;
+    background-color: #111111;
     color: #F5F0E6;
-    border: 1px solid #555;
+    border: 1px solid #302026;
     border-radius: 8px;
 }
 
 .login-card .form-control::placeholder {
-    color: #999;
+    color: #77716B;
 }
 
 .login-card .form-control:focus {
-    background-color: #0D0D0D;
+    background-color: #111111;
     color: #F5F0E6;
     border-color: #C98F9A;
     box-shadow: 0 0 0 0.2rem rgba(201, 143, 154, 0.2);
@@ -155,18 +155,18 @@
 /* Login Button */
 
 .login-card .btn-dark {
-    background-color: #800020;
-    border-color: #800020;
-    color: #F5F0E6;
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+    color: #212121;
     border-radius: 8px;
     padding: 10px;
     font-weight: bold;
 }
 
 .login-card .btn-dark:hover {
-    background-color: #C98F9A;
-    border-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
 }
 
 
@@ -179,7 +179,7 @@
 }
 
 .login-link:hover {
-    color: #800020;
+    color: #FFFFFF;
     text-decoration: underline;
 }
 
@@ -190,7 +190,7 @@
 
 .feedback-page {
     min-height: calc(100vh - 100px);
-    background-color: #0D0D0D;
+    background-color: #212121;
     color: #F5F0E6;
     padding-top: 60px;
     padding-bottom: 60px;
@@ -218,7 +218,7 @@
 }
 
 .feedback-heading p {
-    color: #B9B1AA;
+    color: #AAA39A;
     margin-top: 12px;
 }
 
@@ -226,8 +226,8 @@
 /* Feedback Welcome Section */
 
 .feedback-welcome {
-    background: linear-gradient(145deg, #251317, #111111);
-    border: 1px solid #3a2529;
+    background: linear-gradient(145deg, #2A151D, #151515);
+    border: 1px solid #4A2832;
     border-radius: 18px;
     padding: 35px 28px;
 }
@@ -235,8 +235,9 @@
 .feedback-icon {
     width: 58px;
     height: 58px;
-    background-color: #800020;
+    background-color: #2A151D;
     color: #F5F0E6;
+    border: 1px solid #4A2832;
     border-radius: 15px;
     display: flex;
     align-items: center;
@@ -253,12 +254,12 @@
 }
 
 .feedback-welcome p {
-    color: #C7BFC0;
+    color: #AAA39A;
     line-height: 1.8;
 }
 
 .feedback-welcome hr {
-    border-color: #68434A;
+    border-color: #4A2832;
     margin: 28px 0;
 }
 
@@ -284,7 +285,7 @@
 .feedback-quote {
     margin-top: 35px;
     padding-top: 20px;
-    border-top: 1px solid #3a2529;
+    border-top: 1px solid #302026;
     color: #C98F9A;
     font-style: italic;
     line-height: 1.7;
@@ -294,9 +295,9 @@
 /* Feedback Form Card */
 
 .feedback-card {
-    background-color: #161616;
+    background-color: #151515;
     color: #F5F0E6;
-    border: 1px solid #3a2529;
+    border: 1px solid #302026;
     border-radius: 18px;
     padding: 35px;
 }
@@ -308,7 +309,7 @@
 }
 
 .feedback-required-note {
-    color: #999;
+    color: #77716B;
     font-size: 13px;
     margin-bottom: 25px;
 }
@@ -326,27 +327,27 @@
 
 .feedback-card .form-control,
 .feedback-card .form-select {
-    background-color: #0D0D0D;
+    background-color: #111111;
     color: #F5F0E6;
-    border: 1px solid #494044;
+    border: 1px solid #302026;
     border-radius: 9px;
     padding: 11px 13px;
 }
 
 .feedback-card .form-control::placeholder {
-    color: #898184;
+    color: #77716B;
 }
 
 .feedback-card .form-control:focus,
 .feedback-card .form-select:focus {
-    background-color: #0D0D0D;
-    color: #e1d8c5;
+    background-color: #111111;
+    color: #F5F0E6;
     border-color: #C98F9A;
     box-shadow: 0 0 0 0.2rem rgba(201, 143, 154, 0.15);
 }
 
 .feedback-card .form-select option {
-    background-color: #161616;
+    background-color: #151515;
     color: #F5F0E6;
 }
 
@@ -354,17 +355,17 @@
 /* Feedback File Upload */
 
 .feedback-card input[type="file"] {
-    background-color: #0D0D0D;
+    background-color: #111111;
     color: #F5F0E6;
-    border: 1px solid #494044;
+    border: 1px solid #302026;
     border-radius: 9px;
     padding: 8px;
 }
 
 .feedback-card input[type="file"]::file-selector-button {
-    background-color: #800020;
-    color: #F5F0E6;
-    border: none;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
     border-radius: 7px;
     padding: 8px 15px;
     margin-right: 10px;
@@ -373,8 +374,9 @@
 }
 
 .feedback-card input[type="file"]::file-selector-button:hover {
-    background-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
 }
 
 
@@ -389,7 +391,7 @@
     background: transparent;
     border: none;
     padding: 0;
-    color: #51464A;
+    color: #77716B;
     font-size: 36px;
     cursor: pointer;
     transition: 0.2s;
@@ -420,8 +422,8 @@
 }
 
 .experience-btn {
-    background-color: #0D0D0D;
-    border: 1px solid #494044;
+    background-color: #111111;
+    border: 1px solid #302026;
     border-radius: 10px;
     padding: 13px 5px;
     color: #F5F0E6;
@@ -442,7 +444,8 @@
 
 .experience-btn:hover,
 .experience-btn.active {
-    background-color: #35171F;
+    background-color: #C98F9A;
+    color: #212121;
     border-color: #C98F9A;
 }
 
@@ -450,7 +453,7 @@
 /* Feedback Privacy Note */
 
 .feedback-privacy {
-    color: #AAA0A2;
+    color: #AAA39A;
     font-size: 13px;
     line-height: 1.7;
 }
@@ -464,9 +467,9 @@
 /* Feedback Submit Button */
 
 .feedback-submit-btn {
-    background-color: #800020;
-    border: 1px solid #800020;
-    color: #F5F0E6;
+    background-color: #C98F9A;
+    border: 1px solid #C98F9A;
+    color: #212121;
     border-radius: 9px;
     padding: 12px;
     font-weight: bold;
@@ -474,9 +477,9 @@
 }
 
 .feedback-submit-btn:hover {
-    background-color: #C98F9A;
-    border-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
 }
 
 
@@ -499,7 +502,7 @@
 }
 
 .feedback-success p {
-    color: #C7BFC0;
+    color: #AAA39A;
     line-height: 1.8;
     margin-bottom: 25px;
 }
@@ -547,7 +550,7 @@
 
 .profile-page {
     min-height: calc(100vh - 100px);
-    background-color: #0D0D0D;
+    background-color: #212121;
     color: #F5F0E6;
     padding-top: 60px;
     padding-bottom: 60px;
@@ -575,7 +578,7 @@
 }
 
 .profile-heading p {
-    color: #B9B1AA;
+    color: #AAA39A;
     margin-top: 10px;
 }
 
@@ -586,8 +589,8 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    background: linear-gradient(145deg, #251317, #161616);
-    border: 1px solid #3a2529;
+    background: linear-gradient(145deg, #2A151D, #151515);
+    border: 1px solid #4A2832;
     border-radius: 18px;
     padding: 25px 30px;
     margin-bottom: 30px;
@@ -596,8 +599,9 @@
 .profile-welcome-icon {
     width: 65px;
     height: 65px;
-    background-color: #800020;
+    background-color: #2A151D;
     color: #F5F0E6;
+    border: 1px solid #4A2832;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -620,7 +624,7 @@
 }
 
 .profile-welcome p {
-    color: #999;
+    color: #AAA39A;
     margin: 0;
 }
 
@@ -628,8 +632,8 @@
 /* Profile Dashboard Cards */
 
 .profile-dashboard-card {
-    background-color: #161616;
-    border: 1px solid #3a2529;
+    background-color: #151515;
+    border: 1px solid #302026;
     border-radius: 18px;
     padding: 30px;
     transition: 0.3s;
@@ -643,8 +647,9 @@
 .profile-dashboard-icon {
     width: 55px;
     height: 55px;
-    background-color: #800020;
+    background-color: #2A151D;
     color: #F5F0E6;
+    border: 1px solid #4A2832;
     border-radius: 13px;
     display: flex;
     align-items: center;
@@ -661,7 +666,7 @@
 }
 
 .profile-dashboard-card > p {
-    color: #AAA0A2;
+    color: #AAA39A;
     line-height: 1.6;
     margin-bottom: 25px;
 }
@@ -680,7 +685,7 @@
 }
 
 .profile-info strong {
-    color: #888;
+    color: #77716B;
     font-size: 12px;
     margin-bottom: 4px;
 }
@@ -695,9 +700,9 @@
 
 .profile-dashboard-btn {
     width: 100%;
-    background-color: transparent;
-    color: #C98F9A;
-    border: 1px solid #800020;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
     border-radius: 9px;
     padding: 10px;
     font-weight: bold;
@@ -705,16 +710,17 @@
 }
 
 .profile-dashboard-btn:hover {
-    background-color: #800020;
-    color: #F5F0E6;
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
 }
 
 
 /* Profile Rewards */
 
 .points-box {
-    background-color: #251317;
-    border: 1px solid #3a2529;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
     border-radius: 12px;
     padding: 18px;
     text-align: center;
@@ -723,7 +729,7 @@
 
 .points-box span {
     display: block;
-    color: #AAA0A2;
+    color: #AAA39A;
     font-size: 13px;
     margin-bottom: 5px;
 }
@@ -736,7 +742,7 @@
 }
 
 .points-box small {
-    color: #999;
+    color: #77716B;
 }
 
 
@@ -747,8 +753,8 @@
     justify-content: space-between;
     align-items: center;
     gap: 15px;
-    background-color: #0D0D0D;
-    border: 1px solid #3a2529;
+    background-color: #111111;
+    border: 1px solid #302026;
     border-radius: 10px;
     padding: 12px;
     margin-bottom: 10px;
@@ -765,7 +771,7 @@
 }
 
 .order-summary span {
-    color: #999;
+    color: #77716B;
     font-size: 12px;
     margin-top: 3px;
 }
@@ -782,8 +788,8 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    background-color: #0D0D0D;
-    border: 1px solid #3a2529;
+    background-color: #111111;
+    border: 1px solid #302026;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 20px;
@@ -792,8 +798,9 @@
 .address-icon {
     width: 45px;
     height: 45px;
-    background-color: #800020;
+    background-color: #2A151D;
     color: #F5F0E6;
+    border: 1px solid #4A2832;
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -813,7 +820,7 @@
 }
 
 .address-box span {
-    color: #999;
+    color: #77716B;
     font-size: 13px;
 }
 
@@ -834,8 +841,8 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    background-color: #0D0D0D;
-    border: 1px solid #3a2529;
+    background-color: #111111;
+    border: 1px solid #302026;
     border-radius: 9px;
     padding: 12px;
 }
@@ -851,7 +858,7 @@
 }
 
 .settings-list div > i:last-child {
-    color: #777;
+    color: #77716B;
 }
 
 
@@ -860,18 +867,18 @@
 .profile-logout {
     margin-top: 10px;
     padding-top: 30px;
-    border-top: 1px solid #3a2529;
+    border-top: 1px solid #302026;
 }
 
 .profile-logout p {
-    color: #999;
+    color: #77716B;
     margin-bottom: 15px;
 }
 
 .profile-logout-btn {
-    background-color: transparent;
-    color: #C98F9A;
-    border: 1px solid #800020;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
     border-radius: 9px;
     padding: 10px 25px;
     font-weight: bold;
@@ -879,8 +886,9 @@
 }
 
 .profile-logout-btn:hover {
-    background-color: #800020;
-    color: #F5F0E6;
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
 }
 
 
@@ -929,8 +937,8 @@
 
 .Profilebtn {
     margin-top: 8px;
-    background-color: transparent;
-    color: #F5F0E6;
+    background-color: #C98F9A;
+    color: #212121;
     border: 1px solid #C98F9A;
     padding: 7px 20px;
     border-radius: 25px;
@@ -942,8 +950,9 @@
 }
 
 .Profilebtn:hover {
-    background-color: #C98F9A;
-    color: #0D0D0D;
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
 }
 
 .Profilebtn:disabled {

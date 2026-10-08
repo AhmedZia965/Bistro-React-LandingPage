@@ -1,4 +1,5 @@
 import '../App.css'
+import { Link } from 'react-router-dom'
 
 function Footer({ language }) {
 
@@ -25,6 +26,7 @@ function Footer({ language }) {
 
           </div>
 
+
           <div className="col-md-4 MenuLinks">
 
             <h5>
@@ -33,31 +35,48 @@ function Footer({ language }) {
                 : 'روابط سريعة'}
             </h5>
 
+            {/* Home */}
             <p>
-              <a href="#" className="text-light text-decoration-none">
+              <Link
+                to="/"
+                className="text-light text-decoration-none"
+              >
                 {language === 'EN' ? 'Home' : 'الرئيسية'}
-              </a>
+              </Link>
             </p>
 
+            {/* Rewards */}
             <p>
-              <a href="#" className="text-light text-decoration-none">
+              <Link
+                to="/rewards"
+                className="text-light text-decoration-none"
+              >
                 {language === 'EN' ? 'Rewards' : 'المكافآت'}
-              </a>
+              </Link>
             </p>
 
+            {/* Login */}
             <p>
-              <a href="#" className="text-light text-decoration-none">
+              <Link
+                to="/login"
+                className="text-light text-decoration-none"
+              >
                 {language === 'EN' ? 'Login' : 'تسجيل الدخول'}
-              </a>
+              </Link>
             </p>
 
+            {/* Signup */}
             <p>
-              <a href="#" className="text-light text-decoration-none">
+              <Link
+                to="/signup"
+                className="text-light text-decoration-none"
+              >
                 {language === 'EN' ? 'Signup' : 'إنشاء حساب'}
-              </a>
+              </Link>
             </p>
 
           </div>
+
 
           <div className="col-md-4 CafeLinks">
 
@@ -85,7 +104,9 @@ function Footer({ language }) {
 
         </div>
 
+
         <hr />
+
 
         <div className="text-center">
 

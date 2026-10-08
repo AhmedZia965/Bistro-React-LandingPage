@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './Admin.css'
+import { useNavigate } from 'react-router-dom'
 
 
 function AdminLogin({ language, setLanguage }) {
@@ -7,29 +8,18 @@ function AdminLogin({ language, setLanguage }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  // Used to navigate to Admin Dashboard
+  const navigate = useNavigate()
+
+
   // Handles Admin Login
   function handleLogin(e) {
 
+    // Prevents page refresh
     e.preventDefault()
 
     // Temporary login until database is connected
-    if (email !== '' && password !== '') {
-
-      alert(
-        language === 'EN'
-          ? 'Admin Login Successful'
-          : 'تم تسجيل دخول المسؤول بنجاح'
-      )
-
-    } else {
-
-      alert(
-        language === 'EN'
-          ? 'Please enter email and password'
-          : 'يرجى إدخال البريد الإلكتروني وكلمة المرور'
-      )
-
-    }
+    navigate('/admin-dashboard')
 
   }
 
@@ -82,7 +72,7 @@ function AdminLogin({ language, setLanguage }) {
             </label>
 
             <input
-              type="email"
+              type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder={
@@ -90,7 +80,6 @@ function AdminLogin({ language, setLanguage }) {
                   ? 'Enter your email'
                   : 'أدخل بريدك الإلكتروني'
               }
-              required
             />
 
           </div>
@@ -115,7 +104,6 @@ function AdminLogin({ language, setLanguage }) {
                   ? 'Enter your password'
                   : 'أدخل كلمة المرور'
               }
-              required
             />
 
           </div>
@@ -140,5 +128,6 @@ function AdminLogin({ language, setLanguage }) {
 
   )
 }
+
 
 export default AdminLogin

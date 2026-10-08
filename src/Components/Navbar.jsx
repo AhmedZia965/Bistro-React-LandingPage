@@ -1,9 +1,7 @@
 import '../App.css'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 function Navbar({ language, setLanguage }) {
-
-  const navigate = useNavigate()
 
   // Gets the current URL
   const location = useLocation()
@@ -12,22 +10,20 @@ function Navbar({ language, setLanguage }) {
   const isSignupPage = location.pathname === '/signup'
   const isLoginPage = location.pathname === '/login'
 
-
   return (
     <nav className="navbar navbar-expand-lg sticky-top">
 
       <div className="container-fluid">
 
         {/* Website name */}
-        <a
+        <Link
           className="navbar-brand"
-          href="#"
-          onClick={() => navigate('/')}
+          to="/"
         >
           {language === 'EN'
             ? 'Monarch Bistro'
             : 'مونارك بيسترو'}
-        </a>
+        </Link>
 
 
         {/* Mobile Navbar Button */}
@@ -53,13 +49,12 @@ function Navbar({ language, setLanguage }) {
             {/* Home */}
             <li className="nav-item">
 
-              <a
+              <Link
                 className="nav-link"
-                href="#"
-                onClick={() => navigate('/')}
+                to="/"
               >
                 {language === 'EN' ? 'Home' : 'الرئيسية'}
-              </a>
+              </Link>
 
             </li>
 
@@ -67,13 +62,12 @@ function Navbar({ language, setLanguage }) {
             {/* Rewards */}
             <li className="nav-item">
 
-              <a
+              <Link
                 className="nav-link"
-                href="#"
-                onClick={() => navigate('/rewards')}
+                to="/rewards"
               >
                 {language === 'EN' ? 'Rewards' : 'المكافآت'}
-              </a>
+              </Link>
 
             </li>
 
@@ -81,13 +75,12 @@ function Navbar({ language, setLanguage }) {
             {/* Menu */}
             <li className="nav-item">
 
-              <a
+              <Link
                 className="nav-link"
-                href="#"
-                onClick={() => navigate('/menu')}
+                to="/menu"
               >
                 {language === 'EN' ? 'Menu' : 'القائمة'}
-              </a>
+              </Link>
 
             </li>
 
@@ -98,6 +91,7 @@ function Navbar({ language, setLanguage }) {
               <a
                 className="nav-link"
                 href="#"
+                onClick={(e) => e.preventDefault()}
               >
                 {language === 'EN' ? 'Location' : 'الموقع'}
               </a>
@@ -108,13 +102,12 @@ function Navbar({ language, setLanguage }) {
             {/* Feedback */}
             <li className="nav-item">
 
-              <a
+              <Link
                 className="nav-link"
-                href="#"
-                onClick={() => navigate('/feedback')}
+                to="/feedback"
               >
                 {language === 'EN' ? 'Feedback' : 'التقييمات'}
-              </a>
+              </Link>
 
             </li>
 
@@ -122,13 +115,12 @@ function Navbar({ language, setLanguage }) {
             {/* Profile */}
             <li className="nav-item">
 
-              <a
+              <Link
                 className="nav-link"
-                href="#"
-                onClick={() => navigate('/profile')}
+                to="/profile"
               >
                 {language === 'EN' ? 'Profile' : 'الملف الشخصي'}
-              </a>
+              </Link>
 
             </li>
 
@@ -141,53 +133,37 @@ function Navbar({ language, setLanguage }) {
 
 
             {/* Login Button */}
-            <li className="nav-item">
+            <li className="nav-item d-flex align-items-center">
 
-              <button
-                type="button"
+              <Link
+                to="/login"
                 className="Loginbtn"
-                disabled={isLoginPage}
                 style={{
                   pointerEvents: isLoginPage ? 'none' : 'auto'
-                }}
-                onClick={() => {
-
-                  if (!isLoginPage) {
-                    navigate('/login')
-                  }
-
                 }}
               >
                 {language === 'EN'
                   ? 'Login'
                   : 'تسجيل الدخول'}
-              </button>
+              </Link>
 
             </li>
 
 
             {/* Signup Button */}
-            <li className="nav-item">
+            <li className="nav-item d-flex align-items-center">
 
-              <button
-                type="button"
+              <Link
+                to="/signup"
                 className="Signupbtn"
-                disabled={isSignupPage}
                 style={{
                   pointerEvents: isSignupPage ? 'none' : 'auto'
-                }}
-                onClick={() => {
-
-                  if (!isSignupPage) {
-                    navigate('/signup')
-                  }
-
                 }}
               >
                 {language === 'EN'
                   ? 'Signup'
                   : 'إنشاء حساب'}
-              </button>
+              </Link>
 
             </li>
 
@@ -220,7 +196,10 @@ function Navbar({ language, setLanguage }) {
                   <a
                     className="dropdown-item"
                     href="#"
-                    onClick={() => setLanguage('EN')}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setLanguage('EN')
+                    }}
                   >
                     {language === 'EN'
                       ? 'English'
@@ -236,7 +215,10 @@ function Navbar({ language, setLanguage }) {
                   <a
                     className="dropdown-item"
                     href="#"
-                    onClick={() => setLanguage('AR')}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setLanguage('AR')
+                    }}
                   >
                     {language === 'EN'
                       ? 'Arabic'
