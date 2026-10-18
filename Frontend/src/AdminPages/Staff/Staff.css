@@ -1,0 +1,1163 @@
+
+/* =========================================================
+   1. STAFF LOGIN
+========================================================= */
+
+.staff-login-page {
+    min-height: calc(100vh - 80px);
+    background-color: #212121;
+    color: #F5F0E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.staff-login-card {
+    width: 100%;
+    max-width: 500px;
+    background-color: #151515;
+    border: 1px solid #302026;
+    border-radius: 18px;
+    padding: 40px;
+}
+
+.staff-login-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.staff-login-heading > i {
+    display: block;
+    color: #C98F9A;
+    font-size: 45px;
+    margin-bottom: 15px;
+}
+
+.staff-login-heading span,
+.staff-subtitle {
+    color: #C98F9A;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.staff-login-heading h1 {
+    color: #F5F0E6;
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.staff-login-heading p {
+    color: #AAA39A;
+    margin-top: 10px;
+}
+
+.staff-input-group {
+    margin-bottom: 20px;
+}
+
+.staff-input-group label {
+    display: block;
+    color: #F5F0E6;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.staff-input-group input {
+    width: 100%;
+    background-color: #111111;
+    color: #F5F0E6;
+    border: 1px solid #302026;
+    border-radius: 8px;
+    padding: 12px 15px;
+}
+
+.staff-input-group input:focus {
+    outline: none;
+    background-color: #111111;
+    color: #F5F0E6;
+    border-color: #C98F9A;
+}
+
+.staff-input-group input::placeholder {
+    color: #77716B;
+}
+
+.staff-login-btn {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.staff-login-btn:hover {
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
+}
+
+
+/* =========================================================
+   2. SHARED STAFF SUBTITLE AND BACK BUTTON
+========================================================= */
+
+.staff-subtitle {
+    display: inline-block;
+}
+
+.staff-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #111111;
+    color: #AAA39A;
+    border: 1px solid #302026;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 10px 18px;
+    transition: 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.staff-back-btn:hover {
+    background-color: #C98F9A;
+    color: #212121;
+    border-color: #C98F9A;
+}
+
+
+/* =========================================================
+   3. STAFF DASHBOARD
+========================================================= */
+
+.staff-dashboard-page {
+    min-height: calc(100vh - 80px);
+    background-color: #212121;
+    color: #F5F0E6;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.staff-dashboard-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.staff-dashboard-heading h1 {
+    color: #F5F0E6;
+    font-size: 42px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.staff-dashboard-heading p {
+    color: #AAA39A;
+    margin-top: 10px;
+}
+
+.staff-dashboard-card {
+    background-color: #151515;
+    border: 1px solid #302026;
+    border-radius: 18px;
+    padding: 30px;
+    height: 100%;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.staff-dashboard-card:hover {
+    transform: translateY(-5px);
+    background-color: #2A151D;
+    border-color: #4A2832;
+}
+
+.staff-dashboard-icon {
+    width: 60px;
+    height: 60px;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    color: #C98F9A;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    margin: 0 auto 20px;
+}
+
+.staff-dashboard-card h3 {
+    color: #F5F0E6;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.staff-dashboard-card p {
+    color: #AAA39A;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.staff-dashboard-btn {
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.staff-dashboard-btn:hover {
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
+}
+
+.staff-logout {
+    margin-top: 45px;
+}
+
+.staff-logout-btn {
+    background-color: #111111;
+    color: #AAA39A;
+    border: 1px solid #302026;
+    border-radius: 8px;
+    padding: 10px 25px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.staff-logout-btn:hover {
+    background-color: #C98F9A;
+    color: #212121;
+    border-color: #C98F9A;
+}
+
+
+/* =========================================================
+   4. STAFF MENU MANAGEMENT
+========================================================= */
+
+.staff-menu-page {
+    min-height: calc(100vh - 80px);
+    background-color: #212121;
+    color: #F5F0E6;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.staff-menu-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.staff-menu-heading h1 {
+    color: #F5F0E6;
+    font-size: 42px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.staff-menu-heading p {
+    color: #AAA39A;
+    margin-top: 10px;
+}
+
+.staff-menu-form {
+    background-color: #151515;
+    border: 1px solid #302026;
+    border-radius: 18px;
+    padding: 30px;
+    margin-bottom: 50px;
+}
+
+.staff-menu-form h2 {
+    color: #F5F0E6;
+    font-size: 27px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.staff-menu-form .form-control {
+    background-color: #111111;
+    color: #F5F0E6;
+    border: 1px solid #302026;
+    padding: 12px;
+}
+
+.staff-menu-form .form-control:focus {
+    background-color: #111111;
+    color: #F5F0E6;
+    border-color: #C98F9A;
+    box-shadow: none;
+}
+
+.staff-menu-form .form-control::placeholder {
+    color: #77716B;
+}
+
+.staff-menu-add-btn {
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.staff-menu-add-btn:hover {
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
+}
+
+.staff-menu-items h2 {
+    color: #F5F0E6;
+    font-size: 27px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.staff-menu-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #151515;
+    color: #F5F0E6;
+}
+
+.staff-menu-table th {
+    background-color: #2A151D;
+    color: #F5F0E6;
+    border-color: #4A2832;
+    padding: 15px;
+    text-align: center;
+}
+
+.staff-menu-table td {
+    background-color: #151515;
+    color: #AAA39A;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #302026;
+}
+
+.staff-menu-table td strong {
+    color: #F5F0E6;
+}
+
+.staff-menu-table tr:hover td {
+    background-color: #2A151D;
+    color: #F5F0E6;
+}
+
+.staff-available {
+    display: inline-block;
+    color: #C98F9A;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+.staff-unavailable {
+    display: inline-block;
+    color: #AAA39A;
+    background-color: #111111;
+    border: 1px solid #302026;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+.staff-availability-btn {
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.staff-availability-btn:hover {
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
+}
+
+.staff-delete-btn {
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.staff-delete-btn:hover {
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
+}
+
+.staff-menu-back {
+    margin-top: 40px;
+}
+
+
+/* =========================================================
+   5. STAFF INVENTORY MANAGEMENT
+========================================================= */
+
+.staff-inventory-page {
+    min-height: calc(100vh - 80px);
+    background-color: #212121;
+    color: #F5F0E6;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.staff-inventory-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.staff-inventory-heading h1 {
+    color: #F5F0E6;
+    font-size: 42px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.staff-inventory-heading p {
+    color: #AAA39A;
+    margin-top: 10px;
+}
+
+.staff-inventory-items {
+    background-color: #151515;
+    border: 1px solid #302026;
+    border-radius: 18px;
+    padding: 30px;
+}
+
+.staff-inventory-items h2 {
+    color: #F5F0E6;
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.staff-inventory-count {
+    background-color: #2A151D;
+    color: #C98F9A;
+    border: 1px solid #4A2832;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.staff-inventory-table {
+    width: 100%;
+    min-width: 750px;
+    border-collapse: collapse;
+    background-color: #151515;
+    color: #F5F0E6;
+}
+
+.staff-inventory-table th {
+    background-color: #2A151D;
+    color: #F5F0E6;
+    border-bottom: 1px solid #4A2832;
+    padding: 15px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.staff-inventory-table td {
+    background-color: #151515;
+    color: #AAA39A;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #302026;
+}
+
+.staff-inventory-table td strong {
+    color: #F5F0E6;
+}
+
+.staff-inventory-table tr:hover td {
+    background-color: #2A151D;
+    color: #F5F0E6;
+}
+
+.staff-inventory-empty {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.staff-inventory-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.staff-inventory-icon i {
+    color: #C98F9A;
+    font-size: 30px;
+}
+
+.staff-inventory-empty h3 {
+    color: #F5F0E6;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.staff-inventory-empty p {
+    color: #77716B;
+    margin-bottom: 0;
+}
+
+.staff-inventory-available {
+    display: inline-block;
+    color: #C98F9A;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+.staff-inventory-low {
+    display: inline-block;
+    color: #AAA39A;
+    background-color: #111111;
+    border: 1px solid #302026;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+.staff-inventory-out {
+    display: inline-block;
+    color: #AAA39A;
+    background-color: #111111;
+    border: 1px solid #302026;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+.staff-inventory-edit-btn {
+    width: 35px;
+    height: 35px;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.staff-inventory-edit-btn:hover {
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
+}
+
+.staff-inventory-delete-btn {
+    width: 35px;
+    height: 35px;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.staff-inventory-delete-btn:hover {
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
+}
+
+.staff-inventory-back {
+    margin-top: 40px;
+}
+
+
+/* =========================================================
+   6. STAFF RESERVATIONS
+========================================================= */
+
+.staff-reservations-page {
+    min-height: calc(100vh - 80px);
+    background-color: #212121;
+    color: #F5F0E6;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.staff-reservations-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.staff-reservations-heading h1 {
+    color: #F5F0E6;
+    font-size: 42px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.staff-reservations-heading p {
+    color: #AAA39A;
+    margin-top: 10px;
+}
+
+.staff-reservations-items {
+    background-color: #151515;
+    border: 1px solid #302026;
+    border-radius: 18px;
+    padding: 30px;
+}
+
+.staff-reservations-items h2 {
+    color: #F5F0E6;
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.staff-reservation-count {
+    background-color: #2A151D;
+    color: #C98F9A;
+    border: 1px solid #4A2832;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.staff-reservations-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #151515;
+    color: #F5F0E6;
+}
+
+.staff-reservations-table th {
+    background-color: #2A151D;
+    color: #F5F0E6;
+    border-color: #4A2832;
+    padding: 15px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.staff-reservations-table td {
+    background-color: #151515;
+    color: #AAA39A;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #302026;
+}
+
+.staff-reservations-table td strong {
+    color: #F5F0E6;
+}
+
+.staff-reservations-table tr:hover td {
+    background-color: #2A151D;
+    color: #F5F0E6;
+}
+
+.staff-reservations-empty {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.staff-reservation-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.staff-reservation-icon i {
+    color: #C98F9A;
+    font-size: 30px;
+}
+
+.staff-reservations-empty h3 {
+    color: #F5F0E6;
+    margin-bottom: 8px;
+}
+
+.staff-reservations-empty p {
+    color: #77716B;
+    margin-bottom: 0;
+}
+
+.staff-reservation-confirmed {
+    display: inline-block;
+    color: #C98F9A;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+.staff-reservation-pending {
+    display: inline-block;
+    color: #AAA39A;
+    background-color: #111111;
+    border: 1px solid #302026;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+.staff-reservation-confirm-btn {
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.staff-reservation-confirm-btn:hover {
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
+}
+
+.staff-reservation-cancel-btn {
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.staff-reservation-cancel-btn:hover {
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
+}
+
+.staff-reservations-back {
+    margin-top: 40px;
+}
+
+
+/* =========================================================
+   7. STAFF ORDERS
+========================================================= */
+
+.staff-orders-page {
+    min-height: calc(100vh - 80px);
+    background-color: #212121;
+    color: #F5F0E6;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.staff-orders-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.staff-orders-heading h1 {
+    color: #F5F0E6;
+    font-size: 42px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.staff-orders-heading p {
+    color: #AAA39A;
+    margin-top: 10px;
+}
+
+.staff-orders-items {
+    background-color: #151515;
+    border: 1px solid #302026;
+    border-radius: 18px;
+    padding: 30px;
+}
+
+.staff-orders-items h2 {
+    color: #F5F0E6;
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.staff-order-count {
+    background-color: #2A151D;
+    color: #C98F9A;
+    border: 1px solid #4A2832;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.staff-orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #151515;
+    color: #F5F0E6;
+}
+
+.staff-orders-table th {
+    background-color: #2A151D;
+    color: #F5F0E6;
+    border-color: #4A2832;
+    padding: 15px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.staff-orders-table td {
+    background-color: #151515;
+    color: #AAA39A;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #302026;
+}
+
+.staff-orders-table td strong {
+    color: #F5F0E6;
+}
+
+.staff-orders-table tr:hover td {
+    background-color: #2A151D;
+    color: #F5F0E6;
+}
+
+.staff-orders-empty {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.staff-order-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.staff-order-icon i {
+    color: #C98F9A;
+    font-size: 30px;
+}
+
+.staff-orders-empty h3 {
+    color: #F5F0E6;
+    margin-bottom: 8px;
+}
+
+.staff-orders-empty p {
+    color: #77716B;
+    margin-bottom: 0;
+}
+
+.staff-order-status {
+    display: inline-block;
+    color: #C98F9A;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+.staff-order-view-btn {
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    border-radius: 7px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.staff-order-view-btn:hover {
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
+}
+
+.staff-orders-back {
+    margin-top: 40px;
+}
+
+
+/* =========================================================
+   8. STAFF NAVBAR
+========================================================= */
+
+.staff-navbar {
+    background-color: #111111;
+    border-bottom: 1px solid #302026;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.staff-navbar-container {
+    width: 100%;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.staff-navbar-brand {
+    color: #F5F0E6;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.staff-navbar-brand:hover {
+    color: #C98F9A;
+}
+
+.staff-navbar-title {
+    color: #C98F9A;
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 140px;
+}
+
+.staff-language-btn {
+    background-color: #111111;
+    color: #F5F0E6;
+    border: 1px solid #C98F9A;
+    border-radius: 25px;
+    padding: 7px 16px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.staff-language-btn:hover {
+    background-color: #C98F9A;
+    color: #212121;
+    border-color: #C98F9A;
+}
+
+.staff-navbar .dropdown-menu {
+    background-color: #151515;
+    border: 1px solid #302026;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.staff-navbar .dropdown-item {
+    color: #F5F0E6;
+    border-radius: 5px;
+    padding: 8px 15px;
+}
+
+.staff-navbar .dropdown-item:hover {
+    background-color: #C98F9A;
+    color: #212121;
+}
+
+
+/* =========================================================
+   9. STAFF FOOTER
+========================================================= */
+
+.staff-footer {
+    background-color: #111111;
+    border-top: 1px solid #302026;
+    padding: 25px 0;
+    color: #AAA39A;
+}
+
+.staff-footer p {
+    margin: 0;
+    color: #F5F0E6;
+    font-weight: bold;
+}
+
+.staff-footer span {
+    display: block;
+    margin-top: 5px;
+    color: #C98F9A;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   10. RESPONSIVE DESIGN
+========================================================= */
+
+@media (max-width: 576px) {
+    .staff-login-card {
+        padding: 30px 20px;
+    }
+
+    .staff-dashboard-page {
+        padding-top: 40px;
+    }
+
+    .staff-menu-page {
+        padding-top: 40px;
+    }
+
+    .staff-inventory-page {
+        padding-top: 40px;
+    }
+
+    .staff-reservations-page {
+        padding-top: 40px;
+    }
+
+    .staff-orders-page {
+        padding-top: 40px;
+    }
+
+    .staff-dashboard-heading h1 {
+        font-size: 30px;
+    }
+
+    .staff-menu-heading h1 {
+        font-size: 30px;
+    }
+
+    .staff-inventory-heading h1 {
+        font-size: 30px;
+    }
+
+    .staff-reservations-heading h1 {
+        font-size: 30px;
+    }
+
+    .staff-orders-heading h1 {
+        font-size: 30px;
+    }
+
+    .staff-menu-form {
+        padding: 20px;
+    }
+
+    .staff-reservations-items {
+        padding: 20px;
+    }
+
+    .staff-orders-items {
+        padding: 20px;
+    }
+
+    .staff-inventory-items {
+        padding: 20px;
+    }
+
+    .staff-navbar-container {
+        padding: 0 15px;
+    }
+
+    .staff-navbar-brand {
+        font-size: 17px;
+    }
+
+    .staff-navbar-title {
+        font-size: 13px;
+    }
+
+    .staff-language-btn {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+
+    .staff-menu-table th {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .staff-menu-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .staff-reservations-table th {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .staff-reservations-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .staff-orders-table th {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .staff-orders-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .staff-inventory-table th {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    .staff-inventory-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+}

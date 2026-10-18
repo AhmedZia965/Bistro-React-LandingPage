@@ -1,0 +1,1327 @@
+/* ================= SIGNUP PAGE ================= */
+
+/* Signup Page Background */
+
+.signup-page {
+    min-height: calc(100vh - 300px);
+    background-color: #212121;
+    color: #F5F0E6;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+
+/* Signup Card */
+
+.signup-card {
+    background-color: #151515;
+    border: 1px solid #302026;
+    border-radius: 15px;
+}
+
+
+/* Signup Heading */
+
+.signup-card h2 {
+    color: #C98F9A;
+    font-weight: bold;
+}
+
+
+/* Signup Form Labels */
+
+.signup-card .form-label {
+    color: #F5F0E6;
+    font-weight: 500;
+}
+
+
+/* Signup Form Inputs */
+
+.signup-card .form-control {
+    background-color: #111111;
+    color: #F5F0E6;
+    border: 1px solid #302026;
+    border-radius: 8px;
+}
+
+.signup-card .form-control::placeholder {
+    color: #77716B;
+}
+
+.signup-card .form-control:focus {
+    background-color: #111111;
+    color: #F5F0E6;
+    border-color: #C98F9A;
+    box-shadow: 0 0 0 0.2rem rgba(201, 143, 154, 0.2);
+}
+
+
+/* Signup Button */
+
+.signup-card .btn-dark {
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+    color: #212121;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.signup-card .btn-dark:hover {
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
+}
+
+
+/* Signup Navbar Button */
+
+.Signupbtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+/* Signup Image */
+
+.signup-image {
+    width: 100%;
+    height: 72.5%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+
+/* ================= LOGIN PAGE ================= */
+
+/* Login Page Background */
+
+.login-page {
+    min-height: calc(100vh - 100px);
+    background-color: #212121;
+    color: #F5F0E6;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+
+/* Login Card */
+
+.login-card {
+    background-color: #151515;
+    border: 1px solid #302026;
+    border-radius: 15px;
+}
+
+
+/* Login Heading */
+
+.login-card h2 {
+    color: #C98F9A;
+    font-weight: bold;
+}
+
+
+/* Login Form Labels */
+
+.login-card .form-label {
+    color: #F5F0E6;
+    font-weight: 500;
+}
+
+
+/* Login Form Inputs */
+
+.login-card .form-control {
+    background-color: #111111;
+    color: #F5F0E6;
+    border: 1px solid #302026;
+    border-radius: 8px;
+}
+
+.login-card .form-control::placeholder {
+    color: #77716B;
+}
+
+.login-card .form-control:focus {
+    background-color: #111111;
+    color: #F5F0E6;
+    border-color: #C98F9A;
+    box-shadow: 0 0 0 0.2rem rgba(201, 143, 154, 0.2);
+}
+
+
+/* Login Button */
+
+.login-card .btn-dark {
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+    color: #212121;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.login-card .btn-dark:hover {
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
+}
+
+
+/* Login Link */
+
+.login-link {
+    color: #C98F9A;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+
+/* ================= FEEDBACK PAGE ================= */
+
+/* Feedback Page Background */
+
+.feedback-page {
+    min-height: calc(100vh - 100px);
+    background-color: #212121;
+    color: #F5F0E6;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+
+/* Feedback Heading */
+
+.feedback-heading {
+    margin-bottom: 45px;
+}
+
+.feedback-subtitle {
+    color: #C98F9A;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.feedback-heading h1 {
+    color: #F5F0E6;
+    font-size: 42px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.feedback-heading p {
+    color: #AAA39A;
+    margin-top: 12px;
+}
+
+
+/* Feedback Welcome Section */
+
+.feedback-welcome {
+    background: linear-gradient(145deg, #2A151D, #151515);
+    border: 1px solid #4A2832;
+    border-radius: 18px;
+    padding: 35px 28px;
+}
+
+.feedback-icon {
+    width: 58px;
+    height: 58px;
+    background-color: #2A151D;
+    color: #F5F0E6;
+    border: 1px solid #4A2832;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    margin-bottom: 25px;
+}
+
+.feedback-welcome h3 {
+    color: #C98F9A;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.feedback-welcome p {
+    color: #AAA39A;
+    line-height: 1.8;
+}
+
+.feedback-welcome hr {
+    border-color: #4A2832;
+    margin: 28px 0;
+}
+
+
+/* Feedback Benefits */
+
+.feedback-benefit {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    color: #F5F0E6;
+}
+
+.feedback-benefit i {
+    color: #C98F9A;
+    font-size: 20px;
+}
+
+
+/* Feedback Quote */
+
+.feedback-quote {
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #302026;
+    color: #C98F9A;
+    font-style: italic;
+    line-height: 1.7;
+}
+
+
+/* Feedback Form Card */
+
+.feedback-card {
+    background-color: #151515;
+    color: #F5F0E6;
+    border: 1px solid #302026;
+    border-radius: 18px;
+    padding: 35px;
+}
+
+.feedback-form-title {
+    color: #C98F9A;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.feedback-required-note {
+    color: #77716B;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+
+/* Feedback Form Labels */
+
+.feedback-card .form-label {
+    color: #F5F0E6;
+    font-weight: 500;
+}
+
+
+/* Feedback Form Inputs */
+
+.feedback-card .form-control,
+.feedback-card .form-select {
+    background-color: #111111;
+    color: #F5F0E6;
+    border: 1px solid #302026;
+    border-radius: 9px;
+    padding: 11px 13px;
+}
+
+.feedback-card .form-control::placeholder {
+    color: #77716B;
+}
+
+.feedback-card .form-control:focus,
+.feedback-card .form-select:focus {
+    background-color: #111111;
+    color: #F5F0E6;
+    border-color: #C98F9A;
+    box-shadow: 0 0 0 0.2rem rgba(201, 143, 154, 0.15);
+}
+
+.feedback-card .form-select option {
+    background-color: #151515;
+    color: #F5F0E6;
+}
+
+
+/* Feedback File Upload */
+
+.feedback-card input[type="file"] {
+    background-color: #111111;
+    color: #F5F0E6;
+    border: 1px solid #302026;
+    border-radius: 9px;
+    padding: 8px;
+}
+
+.feedback-card input[type="file"]::file-selector-button {
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    border-radius: 7px;
+    padding: 8px 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.feedback-card input[type="file"]::file-selector-button:hover {
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
+}
+
+
+/* Feedback Star Rating */
+
+.feedback-stars {
+    display: flex;
+    gap: 8px;
+}
+
+.star-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    color: #77716B;
+    font-size: 36px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.star-btn:hover {
+    transform: scale(1.15);
+    color: #C98F9A;
+}
+
+.star-btn.selected {
+    color: #D9A441;
+}
+
+.rating-caption {
+    color: #C98F9A;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+
+/* Feedback Overall Experience */
+
+.experience-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.experience-btn {
+    background-color: #111111;
+    border: 1px solid #302026;
+    border-radius: 10px;
+    padding: 13px 5px;
+    color: #F5F0E6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    transition: 0.2s;
+}
+
+.experience-btn span {
+    font-size: 25px;
+}
+
+.experience-btn small {
+    font-size: 12px;
+}
+
+.experience-btn:hover,
+.experience-btn.active {
+    background-color: #C98F9A;
+    color: #212121;
+    border-color: #C98F9A;
+}
+
+
+/* Feedback Privacy Note */
+
+.feedback-privacy {
+    color: #AAA39A;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.feedback-privacy i {
+    color: #C98F9A;
+    margin-right: 8px;
+}
+
+
+/* Feedback Submit Button */
+
+.feedback-submit-btn {
+    background-color: #C98F9A;
+    border: 1px solid #C98F9A;
+    color: #212121;
+    border-radius: 9px;
+    padding: 12px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.feedback-submit-btn:hover {
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
+}
+
+
+/* Feedback Success Message */
+
+.feedback-success {
+    padding: 45px 10px;
+}
+
+.feedback-success > i {
+    color: #C98F9A;
+    font-size: 65px;
+    margin-bottom: 20px;
+}
+
+.feedback-success h2 {
+    color: #C98F9A;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.feedback-success p {
+    color: #AAA39A;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+
+/* ================= FEEDBACK MOBILE ================= */
+
+@media (max-width: 576px) {
+
+    .feedback-page {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .feedback-heading {
+        margin-bottom: 30px;
+    }
+
+    .feedback-heading h1 {
+        font-size: 30px;
+    }
+
+    .feedback-card {
+        padding: 22px;
+    }
+
+    .feedback-welcome {
+        padding: 25px;
+    }
+
+    .experience-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .star-btn {
+        font-size: 32px;
+    }
+
+}
+
+
+/* ================= CUSTOMER PROFILE PAGE ================= */
+
+/* Profile Page Background */
+
+.profile-page {
+    min-height: calc(100vh - 100px);
+    background-color: #212121;
+    color: #F5F0E6;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+
+/* Profile Heading */
+
+.profile-heading {
+    margin-bottom: 40px;
+}
+
+.profile-subtitle {
+    color: #C98F9A;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.profile-heading h1 {
+    color: #F5F0E6;
+    font-size: 42px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.profile-heading p {
+    color: #AAA39A;
+    margin-top: 10px;
+}
+
+
+/* Profile Welcome Section */
+
+.profile-welcome {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: linear-gradient(145deg, #2A151D, #151515);
+    border: 1px solid #4A2832;
+    border-radius: 18px;
+    padding: 25px 30px;
+    margin-bottom: 30px;
+}
+
+.profile-welcome-icon {
+    width: 65px;
+    height: 65px;
+    background-color: #2A151D;
+    color: #F5F0E6;
+    border: 1px solid #4A2832;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    flex-shrink: 0;
+}
+
+.profile-welcome span {
+    color: #C98F9A;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.profile-welcome h2 {
+    color: #F5F0E6;
+    font-size: 25px;
+    margin: 5px 0;
+}
+
+.profile-welcome p {
+    color: #AAA39A;
+    margin: 0;
+}
+
+
+/* Profile Dashboard Cards */
+
+.profile-dashboard-card {
+    background-color: #151515;
+    border: 1px solid #302026;
+    border-radius: 18px;
+    padding: 30px;
+    transition: 0.3s;
+}
+
+.profile-dashboard-card:hover {
+    transform: translateY(-5px);
+    border-color: #C98F9A;
+}
+
+.profile-dashboard-icon {
+    width: 55px;
+    height: 55px;
+    background-color: #2A151D;
+    color: #F5F0E6;
+    border: 1px solid #4A2832;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.profile-dashboard-card h3 {
+    color: #C98F9A;
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.profile-dashboard-card > p {
+    color: #AAA39A;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+
+/* Profile Personal Information */
+
+.profile-info {
+    margin-bottom: 25px;
+}
+
+.profile-info div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.profile-info strong {
+    color: #77716B;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.profile-info span {
+    color: #F5F0E6;
+    font-size: 15px;
+}
+
+
+/* Profile Dashboard Button */
+
+.profile-dashboard-btn {
+    width: 100%;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    border-radius: 9px;
+    padding: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.profile-dashboard-btn:hover {
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
+}
+
+
+/* Profile Rewards */
+
+.points-box {
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.points-box span {
+    display: block;
+    color: #AAA39A;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.points-box strong {
+    display: block;
+    color: #C98F9A;
+    font-size: 38px;
+    font-weight: bold;
+}
+
+.points-box small {
+    color: #77716B;
+}
+
+
+/* Profile Order History */
+
+.order-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    background-color: #111111;
+    border: 1px solid #302026;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+}
+
+.order-summary div {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-summary strong {
+    color: #F5F0E6;
+    font-size: 14px;
+}
+
+.order-summary span {
+    color: #77716B;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.order-summary > strong {
+    color: #C98F9A;
+    white-space: nowrap;
+}
+
+
+/* Profile Saved Addresses */
+
+.address-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #111111;
+    border: 1px solid #302026;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.address-icon {
+    width: 45px;
+    height: 45px;
+    background-color: #2A151D;
+    color: #F5F0E6;
+    border: 1px solid #4A2832;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.address-box div {
+    display: flex;
+    flex-direction: column;
+}
+
+.address-box strong {
+    color: #F5F0E6;
+    margin-bottom: 3px;
+}
+
+.address-box span {
+    color: #77716B;
+    font-size: 13px;
+}
+
+.address-box > i {
+    color: #C98F9A;
+}
+
+
+/* Profile Account Settings */
+
+.settings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.settings-list div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #111111;
+    border: 1px solid #302026;
+    border-radius: 9px;
+    padding: 12px;
+}
+
+.settings-list div > i:first-child {
+    color: #C98F9A;
+    font-size: 18px;
+}
+
+.settings-list span {
+    color: #F5F0E6;
+    font-size: 14px;
+}
+
+.settings-list div > i:last-child {
+    color: #77716B;
+}
+
+
+/* Profile Logout */
+
+.profile-logout {
+    margin-top: 10px;
+    padding-top: 30px;
+    border-top: 1px solid #302026;
+}
+
+.profile-logout p {
+    color: #77716B;
+    margin-bottom: 15px;
+}
+
+.profile-logout-btn {
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    border-radius: 9px;
+    padding: 10px 25px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.profile-logout-btn:hover {
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
+}
+
+
+/* Profile Mobile */
+
+@media (max-width: 576px) {
+
+    .profile-page {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .profile-heading {
+        margin-bottom: 30px;
+    }
+
+    .profile-heading h1 {
+        font-size: 30px;
+    }
+
+    .profile-welcome {
+        padding: 20px;
+    }
+
+    .profile-welcome h2 {
+        font-size: 20px;
+    }
+
+    .profile-dashboard-card {
+        padding: 22px;
+    }
+
+    .order-summary {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-summary > strong {
+        align-self: flex-end;
+    }
+
+}
+
+
+/* ================= PROFILE NAVBAR BUTTON ================= */
+
+.Profilebtn {
+    margin-top: 8px;
+    background-color: #C98F9A;
+    color: #212121;
+    border: 1px solid #C98F9A;
+    padding: 7px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-style: italic;
+    white-space: nowrap;
+}
+
+.Profilebtn:hover {
+    background-color: #F5F0E6;
+    color: #212121;
+    border-color: #F5F0E6;
+}
+
+.Profilebtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+
+
+
+/* ================= ADDRESSES PAGE ================= */
+
+/* Page Background and Layout */
+
+.addresses-page {
+    width: 100%;
+    max-width: none;
+    min-height: calc(100vh - 160px);
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #212121;
+    color: #F5F0E6;
+    padding: 20px 30px !important;
+}
+
+.addresses-page h1,
+.addresses-page h2,
+.addresses-page h3,
+.addresses-page h5 {
+    color: #F5F0E6;
+}
+
+.addresses-page p {
+    color: #AAA39A;
+}
+
+/* ================= PAGE HEADING ================= */
+
+.addresses-page > .text-center.mb-5 {
+    margin-bottom: 25px !important;
+}
+
+.addresses-page > .text-center.mb-5 h1 {
+    color: #F5F0E6;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.addresses-page > .text-center.mb-5 p {
+    color: #AAA39A;
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+/* ================= ADDRESS FORM CARD ================= */
+
+.addresses-page > .card {
+    width: 100%;
+    margin-bottom: 30px !important;
+    padding: 25px !important;
+    background-color: #151515;
+    color: #F5F0E6;
+    border: 1px solid #302026;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.addresses-page > .card h2 {
+    color: #C98F9A;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* ================= FORM ROWS ================= */
+
+.addresses-page form .row {
+    row-gap: 12px;
+}
+
+/* ================= FORM LABELS ================= */
+
+.addresses-page form .form-label {
+    display: block;
+    color: #F5F0E6;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+/* ================= FORM INPUTS ================= */
+
+.addresses-page form .form-control {
+    width: 100%;
+    background-color: #111111;
+    color: #F5F0E6;
+    border: 1px solid #302026;
+    border-radius: 8px;
+    padding: 11px 12px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.addresses-page form .form-control::placeholder {
+    color: #77716B;
+    opacity: 1;
+}
+
+.addresses-page form .form-control:focus {
+    background-color: #111111;
+    color: #F5F0E6;
+    border-color: #C98F9A;
+    box-shadow: 0 0 0 0.2rem rgba(201, 143, 154, 0.2);
+    outline: none;
+}
+
+/* Select Options */
+
+.addresses-page form select.form-control {
+    cursor: pointer;
+}
+
+.addresses-page form select option {
+    background-color: #151515;
+    color: #F5F0E6;
+}
+
+/* ================= FORM BUTTONS ================= */
+
+.addresses-page .btn {
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 10px 16px;
+    transition: background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* Save and Update */
+
+.addresses-page form .btn-primary {
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+    color: #212121;
+}
+
+.addresses-page form .btn-primary:hover {
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
+    transform: translateY(-1px);
+}
+
+/* Cancel */
+
+.addresses-page form .btn-outline-secondary {
+    background-color: transparent;
+    border-color: #77666B;
+    color: #F5F0E6;
+}
+
+.addresses-page form .btn-outline-secondary:hover {
+    background-color: #302026;
+    border-color: #C98F9A;
+    color: #F5F0E6;
+}
+
+/* ================= SAVED ADDRESSES HEADING ================= */
+
+.addresses-page > .d-flex.justify-content-between h2 {
+    color: #C98F9A;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.addresses-page > .d-flex.justify-content-between span {
+    color: #C98F9A;
+    font-weight: 600;
+}
+
+/* ================= EMPTY ADDRESS STATE ================= */
+
+.addresses-page > .text-center.py-5 {
+    background-color: #151515;
+    border: 1px dashed #493038;
+    border-radius: 15px;
+    padding: 35px 20px !important;
+}
+
+.addresses-page > .text-center.py-5 > i {
+    color: #C98F9A;
+}
+
+.addresses-page > .text-center.py-5 h3 {
+    color: #C98F9A;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.addresses-page > .text-center.py-5 p {
+    color: #AAA39A;
+    margin-bottom: 0;
+}
+
+/* ================= SAVED ADDRESS CARDS ================= */
+
+.addresses-page .row.g-4 > .col-md-6 > .card {
+    height: 100%;
+    background-color: #151515;
+    color: #F5F0E6;
+    border: 1px solid #302026;
+    border-radius: 15px;
+    padding: 22px !important;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.addresses-page .row.g-4 > .col-md-6 > .card:hover {
+    border-color: #C98F9A;
+    transform: translateY(-3px);
+}
+
+.addresses-page .row.g-4 > .col-md-6 > .card h5 {
+    color: #C98F9A;
+    font-size: 1.15rem;
+    font-weight: bold;
+}
+
+.addresses-page .row.g-4 > .col-md-6 > .card h5 i {
+    color: #C98F9A;
+}
+
+.addresses-page .row.g-4 > .col-md-6 > .card p {
+    color: #AAA39A;
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+}
+
+/* ================= DEFAULT ADDRESS BADGE ================= */
+
+.addresses-page .badge.bg-success {
+    background-color: #355B45 !important;
+    color: #F5F0E6;
+    border-radius: 20px;
+    padding: 7px 11px;
+    font-size: 0.75rem;
+}
+
+/* ================= ADDRESS ACTION BUTTONS ================= */
+
+/* Set Default */
+
+.addresses-page .btn-success {
+    background-color: #355B45;
+    border-color: #355B45;
+    color: #FFFFFF;
+}
+
+.addresses-page .btn-success:hover {
+    background-color: #47785C;
+    border-color: #47785C;
+    color: #FFFFFF;
+}
+
+/* Edit */
+
+.addresses-page .btn-warning {
+    background-color: #C98F9A;
+    border-color: #C98F9A;
+    color: #212121;
+}
+
+.addresses-page .btn-warning:hover {
+    background-color: #F5F0E6;
+    border-color: #F5F0E6;
+    color: #212121;
+}
+
+/* Delete */
+
+.addresses-page .btn-danger {
+    background-color: #800020;
+    border-color: #800020;
+    color: #F5F0E6;
+}
+
+.addresses-page .btn-danger:hover {
+    background-color: #A52A4A;
+    border-color: #A52A4A;
+    color: #FFFFFF;
+}
+
+/* Small Address Action Buttons */
+
+.addresses-page .row.g-4 > .col-md-6 > .card .btn-sm {
+    padding: 7px 12px;
+    border-radius: 7px;
+}
+
+/* ================= VALIDATION ERRORS ================= */
+
+.addresses-page form .text-danger {
+    color: #F08A98 !important;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+
+@media (max-width: 768px) {
+
+    .addresses-page {
+        padding: 20px 16px !important;
+    }
+
+    .addresses-page > .text-center.mb-5 h1 {
+        font-size: 30px;
+    }
+
+    .addresses-page > .card {
+        padding: 20px !important;
+    }
+
+    .addresses-page > .card h2 {
+        font-size: 1.25rem;
+    }
+
+    .addresses-page > .d-flex.justify-content-between h2 {
+        font-size: 1.3rem;
+    }
+
+    .addresses-page .row.g-4 > .col-md-6 > .card {
+        padding: 18px !important;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .addresses-page {
+        padding: 16px 12px !important;
+    }
+
+    .addresses-page > .text-center.mb-5 h1 {
+        font-size: 26px;
+    }
+
+    .addresses-page > .card {
+        padding: 16px !important;
+    }
+
+    .addresses-page > .card h2 {
+        font-size: 1.15rem;
+    }
+
+    .addresses-page > .d-flex.justify-content-between h2 {
+        font-size: 1.15rem;
+    }
+
+    .addresses-page form .btn {
+        width: 100%;
+        margin: 5px 0 !important;
+    }
+
+    .addresses-page form .btn + .btn {
+        margin-left: 0 !important;
+    }
+
+    .addresses-page .row.g-4 > .col-md-6 > .card .btn {
+        width: auto;
+    }
+}
