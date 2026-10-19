@@ -1,36 +1,37 @@
-
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 // Login validation rules
+
 const loginSchema = z.object({
   phone: z.string()
+    .trim()
     .min(8, 'Phone number must have at least 8 digits')
-    .max(10, 'Phone number must not exceed 10 digits')
-    .regex(/^\+?[0-9]+$/, 'Enter a valid phone number'),
+    .max(12, 'Phone number cannot exceed 12 characters')
+    .regex(
+      /^(?:\+[0-9]{8,11}|[0-9]{8,12})$/,
+      'Enter a valid phone number (8-12 digits, optional +)'
+    ),
 
   password: z.string()
     .min(8, 'Password must have at least 8 characters')
+    .max(128, 'Password cannot exceed 128 characters')
 })
+
 
 function CustomerLogin({ language }) {
 
   const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm({
+    register,handleSubmit,formState: { errors }} = useForm({
     resolver: zodResolver(loginSchema)
   })
 
   // Handles demo login
   function handleLogin(data) {
-
     // Accepts valid form details for demo purposes
     sessionStorage.setItem('isLoggedIn', 'true')
-
     console.log('Login form submitted:', data)
   }
 
@@ -77,6 +78,7 @@ function CustomerLogin({ language }) {
                           ? 'Enter phone number'
                           : 'أدخل رقم الهاتف'
                       }
+
                       {...register('phone')}
                     />
 

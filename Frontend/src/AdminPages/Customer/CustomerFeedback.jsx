@@ -4,18 +4,20 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 // Feedback validation
+
 const feedbackSchema = z.object({
   name: z.string()
     .trim()
     .min(2, 'Name must have at least 2 characters')
-    .max(50, 'Name cannot exceed 50 characters'),
+    .max(100, 'Name cannot exceed 100 characters'),
 
-  phone: z.string()
-    .trim()
-    .refine(
-      value => value === '' || /^\+?[0-9]{8,10}$/.test(value),
-      'Enter a valid phone number (8–10 digits)'
-    ),
+phone: z.string()
+  .trim()
+  .max(12, 'Phone number cannot exceed 12 characters')
+  .refine(
+    value => value === '' || /^\+?[0-9]+$/.test(value) && value.replace('+', '').length >= 8,
+    'Enter a valid phone number (8-11 digits, optional +)'
+  ),
 
   category: z.string()
     .min(1, 'Please select a feedback category')
@@ -29,6 +31,7 @@ const feedbackSchema = z.object({
     .min(5, 'Feedback must have at least 5 characters')
     .max(500, 'Feedback cannot exceed 500 characters')
 });
+
 
 function CustomerFeedback({ language }) {
 

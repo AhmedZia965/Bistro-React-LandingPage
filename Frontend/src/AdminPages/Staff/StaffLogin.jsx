@@ -10,6 +10,7 @@ import StaffFooter from './StaffFooter'
 // Staff login validation rules
 const staffLoginSchema = z.object({
   staffId: z.string()
+    .trim()
     .min(1, 'Staff ID is required'),
 
   password: z.string()

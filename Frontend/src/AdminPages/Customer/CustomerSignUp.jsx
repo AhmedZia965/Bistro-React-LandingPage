@@ -5,27 +5,42 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 // Signup validation rules
 
+
 const signupSchema = z.object({
   firstName: z.string()
-    .min(2, 'First name must have at least 2 characters'),
+    .trim()
+    .min(2, 'First name must have at least 2 characters')
+    .max(20, 'First name cannot exceed 20 characters'),
 
   lastName: z.string()
-    .min(2, 'Last name must have at least 2 characters'),
+    .trim()
+    .min(2, 'Last name must have at least 2 characters')
+    .max(30, 'Last name cannot exceed 30 characters'),
 
   email: z.string()
-    .email('Enter a valid email address'),
+    .trim()
+    .email('Enter a valid email address')
+    .max(254, 'Email cannot exceed 254 characters'),
 
-  phone: z.string()
-    .regex(/^\+?[0-9]{8,10}$/, 'Enter a valid phone number (8-10 digits)'),
+phone: z.string()
+  .trim()
+  .max(12, 'Phone number cannot exceed 12 characters')
+  .regex(
+    /^(?:\+[0-9]{8,11}|[0-9]{8,12})$/,
+    'Enter a valid phone number (8-12 digits, optional +)'
+  ),
 
   password: z.string()
     .min(8, 'Password must have at least 8 characters')
+    .max(15, 'Password cannot exceed 15 characters')
     .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
     .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
     .regex(/[0-9]/, 'Password must contain at least one digit')
     .regex(/[^A-Za-z0-9]/, 'Password must contain at least one special character'),
 
   confirmPassword: z.string()
+    .min(8, 'Confirm password must have at least 8 characters')
+    .max(15, 'Confirm password cannot exceed 15 characters')
 }).refine((data) => data.password === data.confirmPassword, {
   message: 'Passwords do not match',
   path: ['confirmPassword']

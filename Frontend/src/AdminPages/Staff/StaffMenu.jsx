@@ -11,7 +11,8 @@ import StaffFooter from './StaffFooter'
 const menuItemSchema = z.object({
   name: z.string()
     .trim()
-    .min(2, 'Food name must have at least 2 characters'),
+    .min(2, 'Food name must have at least 2 characters')
+    .max(75, 'Food name cannot exceed 75 characters'),
 
   category: z.enum([
     'Burgers',
@@ -24,6 +25,7 @@ const menuItemSchema = z.object({
   ]),
 
   price: z.string()
+    .trim()
     .min(1, 'Price is required')
     .refine(
       value => Number.isFinite(Number(value)) && Number(value) > 0,
@@ -33,6 +35,7 @@ const menuItemSchema = z.object({
   description: z.string()
     .trim()
     .min(3, 'Description must have at least 3 characters')
+    .max(500, 'Description cannot exceed 500 characters')
 })
 
 function StaffMenu({ language, setLanguage }) {

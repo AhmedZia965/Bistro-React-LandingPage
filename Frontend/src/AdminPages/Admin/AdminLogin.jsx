@@ -8,11 +8,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 // Admin login validation rules
 const adminLoginSchema = z.object({
   email: z.string()
+    .trim()
     .min(1, 'Email is required')
-    .email('Enter a valid email address'),
+    .email('Enter a valid email address')
+    .max(254, 'Email cannot exceed 254 characters'),
 
   password: z.string()
     .min(8, 'Password must have at least 8 characters')
+    .max(128, 'Password cannot exceed 128 characters')
 })
 
 function AdminLogin({ language, setLanguage }) {

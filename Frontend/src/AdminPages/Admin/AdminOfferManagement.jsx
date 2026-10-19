@@ -18,6 +18,7 @@ const offerSchema = z.object({
     .max(300, 'Description cannot exceed 300 characters'),
 
   discount: z.string()
+    .trim()
     .min(1, 'Discount is required')
     .refine(value => {
       return /^\d+$/.test(value) &&

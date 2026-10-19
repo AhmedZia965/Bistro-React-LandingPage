@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
+
 const staffSchema = z.object({
 
   name: z.string()
@@ -20,11 +21,17 @@ const staffSchema = z.object({
 
   email: z.string()
     .trim()
-    .email('Enter a valid email address'),
+    .min(1, 'Email is required')
+    .email('Enter a valid email address')
+    .max(254, 'Email cannot exceed 254 characters'),
 
   phone: z.string()
     .trim()
-    .regex(/^\+?[0-9]{8,10}$/, 'Enter 8-10 digits, with an optional +'),
+    .max(12, 'Phone number cannot exceed 12 characters')
+    .regex(
+      /^(?:\+[0-9]{8,11}|[0-9]{8,12})$/,
+      'Enter a valid phone number (8-12 digits, optional +)'
+    ),
 
   role: z.enum(['Waiter', 'Chef', 'Cleaner']),
 
@@ -44,6 +51,7 @@ const staffSchema = z.object({
   status: z.enum(['Active', 'Inactive'])
 
 })
+
 
 
 // staff + setStaff come from AdminDashboard so the data

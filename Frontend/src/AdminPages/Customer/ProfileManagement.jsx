@@ -6,25 +6,27 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 // ================= VALIDATION SCHEMAS =================
 
-const profileSchema = z.object({
 
+const profileSchema = z.object({
   fullName: z.string()
     .trim()
     .min(2, 'Name must have at least 2 characters')
-    .max(50, 'Name cannot exceed 50 characters'),
+    .max(75, 'Name cannot exceed 75 characters'),
 
   email: z.string()
     .trim()
-    .email('Enter a valid email address'),
+    .email('Enter a valid email address')
+    .max(254, 'Email cannot exceed 254 characters'),
 
-  phone: z.string()
-    .trim()
-    .refine(
-      value => value === '' || /^\+?[0-9]{8,10}$/.test(value),
-      'Enter a valid phone number (8–10 digits)'
-    )
-
+ phone: z.string()
+  .trim()
+  .max(12, 'Phone number cannot exceed 12 characters')
+  .refine(
+    value => value === '' || /^(?:\+[0-9]{8,11}|[0-9]{8,12})$/.test(value),
+    'Enter a valid phone number (8-12 digits, optional +)'
+  )
 })
+
 
 const passwordSchema = z.object({
 
