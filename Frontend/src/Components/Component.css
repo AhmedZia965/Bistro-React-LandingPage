@@ -209,9 +209,9 @@
 .heroText {
     position: absolute;
     top: 15%;
-    left: 10%;
+    right: 8%;
     text-align: left;
-    color: #800020;
+    color: #F5F0E6;
 }
 
 .welcomeText {
@@ -224,10 +224,12 @@
     font-size: 45px;
     font-weight: bold;
     margin: 0;
+    color: #F5F0E6;
 }
 
 .heroText p {
     font-size: 22px;
+    color: #F5F0E6;
 }
 
 .heroDescription {
@@ -245,8 +247,8 @@
     font-weight: bold;
     font-size: large;
     margin-right: 10px;
-    background-color: #800020 !important;
-    color: #F5F0E6 !important;
+    background-color: #F5F0E6 !important;
+    color: #0D0D0D !important;
 }
 
 .LearnMoreBtn:hover {
@@ -268,6 +270,7 @@
 .OrderBtn:hover {
     background-color: #F5F0E6 !important;
     color: #0D0D0D !important;
+    transition: 0.3s;
 }
 
 
@@ -276,9 +279,9 @@
 .ChefSpecial {
     position: absolute;
     bottom: 30px;
-    right: 10%;
+    right: 7%;
     color: #F5F0E6;
-    background-color: rgba(13, 13, 13, 0.8);
+    background-color: rgba(13, 13, 13, 0.85);
     padding: 12px 18px;
     border-radius: 10px;
     text-align: left;

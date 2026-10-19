@@ -6,7 +6,7 @@ function Hero({ language }) {
   return (
     <div className="text-center hero">
 
-      <img src="/Burger3.jpg" className="FirstImage" alt="Burger" />
+      <img src="/DarkCake.jpg" className="FirstImage" alt="Burger" />
 
       <div className="heroText">
 
