@@ -2,7 +2,7 @@
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-
+import { signupAxiosFunction } from '../../Services/api.js'
 // Signup validation rules
 
 
@@ -58,17 +58,28 @@ function CustomerSignup({ language }) {
   })
 
   // Handles signup form submission
-  function handleSignup(data) {
+ async function handleSignup(data) {
+  try {
+    // Sends signup form data to the backend
+    const response = await signupAxiosFunction(data)
 
-    // Demo signup only
-    console.log('Signup form submitted:', data)
+    console.log(response.data)
 
     alert(
       language === 'EN'
         ? 'Form validation successful!'
         : 'تم التحقق من صحة النموذج بنجاح!'
     )
+  } catch (error) {
+    console.error('Signup request failed:', error)
+
+    alert(
+      language === 'EN'
+        ? 'Could not connect to the server.'
+        : 'تعذر الاتصال بالخادم.'
+    )
   }
+}
 
   return (
     <>
