@@ -1,17 +1,60 @@
 
 import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { getCustomerProfileAxiosFunction } from '../../Services/api'
 
 function CustomerProfile({ language }) {
-
   const navigate = useNavigate()
 
-  // Gets reward points from local storage
-  const rewardPoints = localStorage.getItem('rewardPoints') || 0
+  // Stores customer details from the database
+  const [customer, setCustomer] = useState(null)
+
+  // Checks whether the customer is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    sessionStorage.getItem('isLoggedIn') === 'true' &&
+    Boolean(sessionStorage.getItem('customerId'))
+  )
+
+  // Checks login status and retrieves customer details
+  useEffect(() => {
+    const loggedIn = sessionStorage.getItem('isLoggedIn') === 'true'
+    const customerId = sessionStorage.getItem('customerId')
+
+    if (!loggedIn || !customerId) {
+      setIsLoggedIn(false)
+      navigate('/login', { replace: true })
+      return
+    }
+
+    setIsLoggedIn(true)
+
+    // Gets customer details from the backend
+    getCustomerProfileAxiosFunction(customerId)
+      .then((response) => {
+        setCustomer(response.data)
+      })
+      .catch((error) => {
+        console.error('Error retrieving customer profile:', error)
+      })
+  }, [navigate])
+
+  // Gets reward points from the database
+  const rewardPoints = customer ? customer.rewardPoints : 0
 
   // Handles logout
   function handleLogout() {
     sessionStorage.removeItem('isLoggedIn')
-    navigate('/')
+    sessionStorage.removeItem('customerId')
+
+    setIsLoggedIn(false)
+    setCustomer(null)
+
+    navigate('/', { replace: true })
+  }
+
+  // Prevents the profile page from displaying when logged out
+  if (!isLoggedIn) {
+    return null
   }
 
   return (
@@ -19,13 +62,11 @@ function CustomerProfile({ language }) {
       {/* ================= PROFILE PAGE ================= */}
 
       <div className="profile-page">
-
         <div className="container">
 
           {/* ================= PROFILE HEADING ================= */}
 
           <div className="profile-heading text-center">
-
             <span className="profile-subtitle">
               {language === 'EN' ? 'MY ACCOUNT' : 'حسابي'}
             </span>
@@ -39,13 +80,11 @@ function CustomerProfile({ language }) {
                 ? 'Manage your account, orders, rewards and saved information.'
                 : 'قم بإدارة حسابك وطلباتك ومكافآتك ومعلوماتك المحفوظة.'}
             </p>
-
           </div>
 
           {/* ================= CUSTOMER WELCOME ================= */}
 
           <div className="profile-welcome">
-
             <div className="profile-welcome-icon">
               <i className="bi bi-person-circle"></i>
             </div>
@@ -56,7 +95,9 @@ function CustomerProfile({ language }) {
               </span>
 
               <h2>
-                {language === 'EN' ? 'Customer' : 'العميل'}
+                {customer
+                  ? `${customer.firstName} ${customer.lastName}`
+                  : language === 'EN' ? 'Customer' : 'العميل'}
               </h2>
 
               <p>
@@ -65,7 +106,6 @@ function CustomerProfile({ language }) {
                   : 'شكراً لكونك جزءاً من مونارك بيسترو.'}
               </p>
             </div>
-
           </div>
 
           {/* ================= PROFILE CARDS ================= */}
@@ -75,9 +115,7 @@ function CustomerProfile({ language }) {
             {/* ================= PERSONAL INFORMATION ================= */}
 
             <div className="col-lg-4">
-
               <div className="profile-dashboard-card h-100">
-
                 <div className="profile-dashboard-icon">
                   <i className="bi bi-person"></i>
                 </div>
@@ -93,47 +131,39 @@ function CustomerProfile({ language }) {
                 </p>
 
                 <div className="profile-info">
-
                   <div>
-                    <span>
-                      {language === 'EN' ? 'Full Name' : 'الاسم الكامل'}
-                    </span>
-                    <strong></strong>
+                    <span>{language === 'EN' ? 'Full Name' : 'الاسم الكامل'}</span>
+                    <strong>
+                      {customer ? `${customer.firstName} ${customer.lastName}` : ''}
+                    </strong>
                   </div>
 
                   <div>
-                    <span>
-                      {language === 'EN' ? 'Email' : 'البريد الإلكتروني'}
-                    </span>
-                    <strong></strong>
+                    <span>{language === 'EN' ? 'Email' : 'البريد الإلكتروني'}</span>
+                    <strong>{customer ? customer.email : ''}</strong>
                   </div>
 
                   <div>
-                    <span>
-                      {language === 'EN' ? 'Phone' : 'رقم الهاتف'}
-                    </span>
-                    <strong></strong>
+                    <span>{language === 'EN' ? 'Phone' : 'رقم الهاتف'}</span>
+                    <strong>{customer ? customer.phone : ''}</strong>
                   </div>
-
                 </div>
 
                 {/* ================= EDIT PROFILE ================= */}
 
-                <Link to="/profile-management" className="profile-dashboard-btn">
-                  {language === 'EN' ? 'Edit Profile' : 'تعديل الملف الشخصي'}
-                  <i className="bi bi-pencil ms-2"></i>
-                </Link>
-
+                {isLoggedIn && (
+                  <Link to="/profile-management" className="profile-dashboard-btn">
+                    {language === 'EN' ? 'Edit Profile' : 'تعديل الملف الشخصي'}
+                    <i className="bi bi-pencil ms-2"></i>
+                  </Link>
+                )}
               </div>
-
             </div>
 
             {/* ================= REWARDS ================= */}
 
             <div className="col-lg-4">
-
               <div className="profile-dashboard-card h-100">
-
                 <div className="profile-dashboard-icon">
                   <i className="bi bi-gift"></i>
                 </div>
@@ -168,17 +198,13 @@ function CustomerProfile({ language }) {
                   {language === 'EN' ? 'View Rewards' : 'عرض المكافآت'}
                   <i className="bi bi-arrow-right ms-2"></i>
                 </button>
-
               </div>
-
             </div>
 
             {/* ================= ORDER HISTORY ================= */}
 
             <div className="col-lg-4">
-
               <div className="profile-dashboard-card h-100">
-
                 <div className="profile-dashboard-icon">
                   <i className="bi bi-receipt"></i>
                 </div>
@@ -199,17 +225,13 @@ function CustomerProfile({ language }) {
                   {language === 'EN' ? 'View Order History' : 'عرض سجل الطلبات'}
                   <i className="bi bi-arrow-right ms-2"></i>
                 </button>
-
               </div>
-
             </div>
 
             {/* ================= SAVED ADDRESSES ================= */}
 
             <div className="col-lg-6">
-
               <div className="profile-dashboard-card h-100">
-
                 <div className="profile-dashboard-icon">
                   <i className="bi bi-geo-alt"></i>
                 </div>
@@ -228,21 +250,19 @@ function CustomerProfile({ language }) {
 
                 {/* ================= MANAGE ADDRESSES ================= */}
 
-                <Link to="/addresses" className="profile-dashboard-btn">
-                  {language === 'EN' ? 'Manage Addresses' : 'إدارة العناوين'}
-                  <i className="bi bi-plus-lg ms-2"></i>
-                </Link>
-
+                {isLoggedIn && (
+                  <Link to="/addresses" className="profile-dashboard-btn">
+                    {language === 'EN' ? 'Manage Addresses' : 'إدارة العناوين'}
+                    <i className="bi bi-plus-lg ms-2"></i>
+                  </Link>
+                )}
               </div>
-
             </div>
 
             {/* ================= ACCOUNT SETTINGS ================= */}
 
             <div className="col-lg-6">
-
               <div className="profile-dashboard-card h-100">
-
                 <div className="profile-dashboard-icon">
                   <i className="bi bi-gear"></i>
                 </div>
@@ -258,7 +278,6 @@ function CustomerProfile({ language }) {
                 </p>
 
                 <div className="settings-list">
-
                   <div
                     onClick={() => navigate('/profile-management')}
                     style={{ cursor: 'pointer' }}
@@ -285,42 +304,35 @@ function CustomerProfile({ language }) {
                     </span>
                     <i className="bi bi-chevron-right ms-auto"></i>
                   </div>
-
                 </div>
-
               </div>
-
             </div>
 
             {/* ================= LOGOUT ================= */}
 
-            <div className="col-12">
+            {isLoggedIn && (
+              <div className="col-12">
+                <div className="profile-logout text-center">
+                  <p>
+                    {language === 'EN'
+                      ? 'Finished with your account?'
+                      : 'هل انتهيت من استخدام حسابك؟'}
+                  </p>
 
-              <div className="profile-logout text-center">
-
-                <p>
-                  {language === 'EN'
-                    ? 'Finished with your account?'
-                    : 'هل انتهيت من استخدام حسابك؟'}
-                </p>
-
-                <button
-                  type="button"
-                  className="profile-logout-btn"
-                  onClick={handleLogout}
-                >
-                  <i className="bi bi-box-arrow-right me-2"></i>
-                  {language === 'EN' ? 'Logout' : 'تسجيل الخروج'}
-                </button>
-
+                  <button
+                    type="button"
+                    className="profile-logout-btn"
+                    onClick={handleLogout}
+                  >
+                    <i className="bi bi-box-arrow-right me-2"></i>
+                    {language === 'EN' ? 'Logout' : 'تسجيل الخروج'}
+                  </button>
+                </div>
               </div>
-
-            </div>
+            )}
 
           </div>
-
         </div>
-
       </div>
     </>
   )

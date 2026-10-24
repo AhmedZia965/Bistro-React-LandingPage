@@ -1,26 +1,38 @@
-
 import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { getCustomerProfileAxiosFunction } from '../Services/api'
 
 function Rewards({ language }) {
-
   const navigate = useNavigate()
 
   // Checks if the customer is logged in
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true'
 
-  // Gets the customer's reward points
-  const rewardPoints = localStorage.getItem('rewardPoints') || 0
+  // Stores reward points retrieved from the database
+  const [rewardPoints, setRewardPoints] = useState(0)
+
+  // Gets the customer's reward points from the database
+  useEffect(() => {
+    const customerId = sessionStorage.getItem('customerId')
+
+    if (isLoggedIn && customerId) {
+      getCustomerProfileAxiosFunction(customerId)
+        .then((response) => {
+          setRewardPoints(response.data.rewardPoints || 0)
+        })
+        .catch((error) => {
+          console.error('Error retrieving reward points:', error)
+        })
+    }
+  }, [isLoggedIn])
 
   return (
-
     <div className="rewards-page">
-
       <div className="container">
 
         {/* ================= REWARDS HEADING ================= */}
 
         <div className="rewards-heading text-center">
-
           <span className="rewards-subtitle">
             {language === 'EN'
               ? 'REWARD PROGRAM'
@@ -42,15 +54,12 @@ function Rewards({ language }) {
           {/* Point Value */}
 
           <div className="reward-value">
-
             <i className="bi bi-coin"></i>
 
             <strong>
               1 Point = 20 Rs
             </strong>
-
           </div>
-
         </div>
 
         {/* ================= HOW IT WORKS ================= */}
@@ -60,9 +69,7 @@ function Rewards({ language }) {
           {/* Earn */}
 
           <div className="col-md-4">
-
             <div className="reward-card text-center">
-
               <div className="reward-icon">
                 <i className="bi bi-cart-check"></i>
               </div>
@@ -78,17 +85,13 @@ function Rewards({ language }) {
                   ? 'Earn points whenever you purchase food or drinks.'
                   : 'اكسب النقاط عند شراء الطعام أو المشروبات.'}
               </p>
-
             </div>
-
           </div>
 
           {/* Collect */}
 
           <div className="col-md-4">
-
             <div className="reward-card text-center">
-
               <div className="reward-icon">
                 <i className="bi bi-star"></i>
               </div>
@@ -104,17 +107,13 @@ function Rewards({ language }) {
                   ? 'Keep collecting points until you have enough for a reward.'
                   : 'استمر في جمع النقاط حتى تحصل على مكافأتك.'}
               </p>
-
             </div>
-
           </div>
 
           {/* Redeem */}
 
           <div className="col-md-4">
-
             <div className="reward-card text-center">
-
               <div className="reward-icon">
                 <i className="bi bi-gift"></i>
               </div>
@@ -130,9 +129,7 @@ function Rewards({ language }) {
                   ? 'Use your points to redeem your favorite café items.'
                   : 'استخدم نقاطك لاستبدال أطعمتك المفضلة.'}
               </p>
-
             </div>
-
           </div>
 
         </div>
@@ -140,9 +137,7 @@ function Rewards({ language }) {
         {/* ================= REWARD ITEMS ================= */}
 
         <div className="rewards-section">
-
           <div className="text-center mb-4">
-
             <h2>
               {language === 'EN'
                 ? 'Redeem Your Points'
@@ -154,19 +149,14 @@ function Rewards({ language }) {
                 ? 'Choose from our café favorites.'
                 : 'اختر من أطباق ومشروبات مقهانا المفضلة.'}
             </p>
-
           </div>
 
-          <div className="row g-4">
-
-          </div>
-
+          <div className="row g-4"></div>
         </div>
 
         {/* ================= LOGIN / POINTS SECTION ================= */}
 
         <div className="rewards-login text-center">
-
           <div className="reward-login-icon">
             <i className="bi bi-person-circle"></i>
           </div>
@@ -182,8 +172,7 @@ function Rewards({ language }) {
                 language === 'EN'
                   ? 'Check Your Points'
                   : 'تحقق من نقاطك'
-              )
-            }
+              )}
           </h2>
 
           <p>
@@ -197,46 +186,34 @@ function Rewards({ language }) {
                 language === 'EN'
                   ? 'Log in to view your personal reward points and redeem your rewards.'
                   : 'سجل الدخول لعرض نقاط المكافآت الشخصية واستبدال مكافآتك.'
-              )
-            }
+              )}
           </p>
 
           {isLoggedIn ? (
-
             <div className="reward-value">
-
               <i className="bi bi-coin"></i>
 
               <strong>
                 {rewardPoints} Points
               </strong>
-
             </div>
-
           ) : (
-
             <button
               type="button"
               className="rewards-login-btn"
               onClick={() => navigate('/login')}
             >
-
               {language === 'EN'
                 ? 'Login to My Account'
                 : 'تسجيل الدخول إلى حسابي'}
 
               <i className="bi bi-arrow-right ms-2"></i>
-
             </button>
-
           )}
-
         </div>
 
       </div>
-
     </div>
-
   )
 }
 

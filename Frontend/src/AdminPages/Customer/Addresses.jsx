@@ -1,8 +1,12 @@
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import {
+  getCustomerAddressesAxiosFunction,
+  saveCustomerAddressesAxiosFunction
+} from '../../Services/api'
 import './Customer.css'
 
 const MAX_ADDRESSES = 5
@@ -14,7 +18,6 @@ const optionalText = (max, label) =>
     .max(max, `${label} cannot exceed ${max} characters`)
 
 const addressSchema = z.object({
-
   label: z.enum(['Home', 'Work', 'Other']),
 
   city: z.string()
@@ -39,7 +42,6 @@ const addressSchema = z.object({
     .max(15, 'Building / house number cannot exceed 15 characters')
     .regex(/^[A-Za-z0-9\-\/ ]+$/, 'Use letters, numbers, spaces, - or / only'),
 
-  // Kept for existing saved-address functionality
   apartment: optionalText(15, 'Apartment')
     .refine(
       value => value === '' || /^[A-Za-z0-9\-\/ ]+$/.test(value),
@@ -64,7 +66,6 @@ const addressSchema = z.object({
   notes: optionalText(150, 'Notes'),
 
   isDefault: z.boolean()
-
 })
 
 const emptyAddress = {
@@ -80,14 +81,25 @@ const emptyAddress = {
 }
 
 function Addresses({ language }) {
-
   const t = (en, ar) => (language === 'EN' ? en : ar)
 
-  // Saved addresses
   const [addresses, setAddresses] = useState([])
-
-  // Address currently being edited
   const [editIndex, setEditIndex] = useState(null)
+
+  // Load the logged-in customer's addresses
+  useEffect(() => {
+    const customerId = sessionStorage.getItem('customerId')
+
+    if (customerId) {
+      getCustomerAddressesAxiosFunction(customerId)
+        .then((response) => {
+          setAddresses(response.data)
+        })
+        .catch((error) => {
+          console.error('Error retrieving addresses:', error)
+        })
+    }
+  }, [])
 
   const {
     register,
@@ -100,11 +112,29 @@ function Addresses({ language }) {
     mode: 'onBlur'
   })
 
+  // Save the complete address list to MongoDB
+  async function saveAddresses(updated) {
+    const customerId = sessionStorage.getItem('customerId')
+
+    if (!customerId) {
+      alert(t('Please log in first.', 'يرجى تسجيل الدخول أولاً.'))
+      return false
+    }
+
+    try {
+      await saveCustomerAddressesAxiosFunction(customerId, updated)
+      setAddresses(updated)
+      return true
+    } catch (error) {
+      console.error('Error saving addresses:', error)
+      alert(t('Could not save addresses. Please try again.', 'تعذر حفظ العناوين. حاول مرة أخرى.'))
+      return false
+    }
+  }
+
   // ================= ADD / UPDATE ADDRESS =================
 
-  function handleAddressSubmit(data) {
-
-    // Limit addresses when adding a new one
+  async function handleAddressSubmit(data) {
     if (editIndex === null && addresses.length >= MAX_ADDRESSES) {
       alert(t(
         `You can save up to ${MAX_ADDRESSES} addresses.`,
@@ -126,7 +156,6 @@ function Addresses({ language }) {
         (editIndex === null && addresses.length === 0)
     }
 
-    // Keep only one default address
     let updated = newAddress.isDefault
       ? addresses.map(address => ({
           ...address,
@@ -142,7 +171,6 @@ function Addresses({ language }) {
       )
     }
 
-    // Ensure one default address exists
     if (updated.length > 0 && !updated.some(address => address.isDefault)) {
       updated[0] = {
         ...updated[0],
@@ -150,16 +178,24 @@ function Addresses({ language }) {
       }
     }
 
-    setAddresses(updated)
-    reset(emptyAddress)
-    setEditIndex(null)
+    const saved = await saveAddresses(updated)
+
+    if (saved) {
+      reset(emptyAddress)
+      setEditIndex(null)
+    }
   }
 
   // ================= EDIT ADDRESS =================
 
   function handleEdit(index) {
+    const address = addresses[index]
 
-    reset({ ...addresses[index] })
+    reset({
+      ...emptyAddress,
+      ...address
+    })
+
     setEditIndex(index)
 
     window.scrollTo({
@@ -171,15 +207,13 @@ function Addresses({ language }) {
   // ================= CANCEL EDIT =================
 
   function handleCancelEdit() {
-
     reset(emptyAddress)
     setEditIndex(null)
   }
 
   // ================= DELETE ADDRESS =================
 
-  function handleDelete(index) {
-
+  async function handleDelete(index) {
     if (
       window.confirm(
         t(
@@ -188,10 +222,8 @@ function Addresses({ language }) {
         )
       )
     ) {
-
       let updated = addresses.filter((address, i) => i !== index)
 
-      // Make the first remaining address the default if needed
       if (updated.length > 0 && !updated.some(address => address.isDefault)) {
         updated[0] = {
           ...updated[0],
@@ -199,26 +231,27 @@ function Addresses({ language }) {
         }
       }
 
-      setAddresses(updated)
+      const saved = await saveAddresses(updated)
 
-      if (editIndex === index) {
-        handleCancelEdit()
-      } else if (editIndex !== null && editIndex > index) {
-        setEditIndex(editIndex - 1)
+      if (saved) {
+        if (editIndex === index) {
+          handleCancelEdit()
+        } else if (editIndex !== null && editIndex > index) {
+          setEditIndex(editIndex - 1)
+        }
       }
     }
   }
 
   // ================= SET DEFAULT ADDRESS =================
 
-  function handleSetDefault(index) {
+  async function handleSetDefault(index) {
+    const updated = addresses.map((address, i) => ({
+      ...address,
+      isDefault: i === index
+    }))
 
-    setAddresses(
-      addresses.map((address, i) => ({
-        ...address,
-        isDefault: i === index
-      }))
-    )
+    await saveAddresses(updated)
   }
 
   // ================= ADDRESS LABELS =================
@@ -247,7 +280,6 @@ function Addresses({ language }) {
   // ================= PAGE =================
 
   return (
-
     <div className="addresses-page container-fluid px-4 py-3">
 
       {/* Page Heading */}
@@ -262,10 +294,9 @@ function Addresses({ language }) {
         </p>
       </div>
 
-      {/* Simple Address Form */}
+      {/* Address Form */}
 
       <div className="card p-4 mb-5">
-
         <h2 className="mb-4">
           {editIndex === null
             ? t('Add New Address', 'إضافة عنوان جديد')
@@ -273,107 +304,76 @@ function Addresses({ language }) {
         </h2>
 
         <form onSubmit={handleSubmit(handleAddressSubmit)} noValidate>
-
           <div className="row g-3">
-
-            {/* Address Label */}
 
             <div className="col-md-6">
               <label className="form-label">
                 {t('Address Label', 'نوع العنوان')}
               </label>
-
               <select className="form-control" {...register('label')}>
                 <option value="Home">{labelText.Home}</option>
                 <option value="Work">{labelText.Work}</option>
                 <option value="Other">{labelText.Other}</option>
               </select>
-
               {fieldError('label')}
             </div>
 
-            {/* City */}
-
             <div className="col-md-6">
-              <label className="form-label">
-                {t('City', 'المدينة')}
-              </label>
-
+              <label className="form-label">{t('City', 'المدينة')}</label>
               <input
                 type="text"
                 className="form-control"
                 placeholder={t('Enter city', 'أدخل المدينة')}
                 {...register('city')}
               />
-
               {fieldError('city')}
             </div>
 
-            {/* Area */}
-
             <div className="col-md-6">
-              <label className="form-label">
-                {t('Area', 'المنطقة')}
-              </label>
-
+              <label className="form-label">{t('Area', 'المنطقة')}</label>
               <input
                 type="text"
                 className="form-control"
                 placeholder={t('Enter area', 'أدخل المنطقة')}
                 {...register('area')}
               />
-
               {fieldError('area')}
             </div>
 
-            {/* Street */}
-
             <div className="col-md-6">
-              <label className="form-label">
-                {t('Street', 'الشارع')}
-              </label>
-
+              <label className="form-label">{t('Street', 'الشارع')}</label>
               <input
                 type="text"
                 className="form-control"
                 placeholder={t('Enter street', 'أدخل الشارع')}
                 {...register('street')}
               />
-
               {fieldError('street')}
             </div>
-
-            {/* Building Number */}
 
             <div className="col-md-6">
               <label className="form-label">
                 {t('Building / House No.', 'رقم المبنى / المنزل')}
               </label>
-
               <input
                 type="text"
                 className="form-control"
                 placeholder={t('Enter building number', 'أدخل رقم المبنى')}
                 {...register('building')}
               />
-
               {fieldError('building')}
             </div>
-
-            {/* Phone Number */}
 
             <div className="col-md-6">
               <label className="form-label">
                 {t('Phone Number', 'رقم الهاتف')}
               </label>
-
               <input
                 type="tel"
                 className="form-control"
                 placeholder={t('Enter phone number', 'أدخل رقم الهاتف')}
                 {...register('phone')}
               />
-
               {fieldError('phone')}
             </div>
 
@@ -382,7 +382,6 @@ function Addresses({ language }) {
           {/* Form Buttons */}
 
           <div className="mt-4">
-
             <button type="submit" className="btn btn-primary">
               <i
                 className={
@@ -391,7 +390,6 @@ function Addresses({ language }) {
                     : 'bi bi-pencil-square me-2'
                 }
               ></i>
-
               {editIndex === null
                 ? t('Save Address', 'حفظ العنوان')
                 : t('Update Address', 'تحديث العنوان')}
@@ -407,38 +405,27 @@ function Addresses({ language }) {
                 {t('Cancel', 'إلغاء')}
               </button>
             )}
-
           </div>
-
         </form>
-
       </div>
 
       {/* Saved Addresses Heading */}
 
       <div className="d-flex justify-content-between align-items-center mb-4">
-
         <h2 className="mb-0">
           {t('Saved Addresses', 'العناوين المحفوظة')}
         </h2>
-
-        <span>
-          {addresses.length} / {MAX_ADDRESSES}
-        </span>
-
+        <span>{addresses.length} / {MAX_ADDRESSES}</span>
       </div>
 
       {/* Empty Address Message */}
 
       {addresses.length === 0 ? (
-
         <div className="text-center py-5">
           <i className="bi bi-geo-alt display-4"></i>
-
           <h3 className="mt-3">
             {t('No Saved Addresses', 'لا توجد عناوين محفوظة')}
           </h3>
-
           <p>
             {t(
               'Add an address using the form above.',
@@ -446,21 +433,16 @@ function Addresses({ language }) {
             )}
           </p>
         </div>
-
       ) : (
 
         /* Saved Address Cards */
 
         <div className="row g-4">
-
           {addresses.map((address, index) => (
-
-            <div className="col-md-6" key={index}>
-
+            <div className="col-md-6" key={address._id || index}>
               <div className="card p-3 h-100">
 
                 <div className="d-flex justify-content-between align-items-start mb-2">
-
                   <h5 className="mb-0">
                     <i className={`bi ${labelIcon[address.label]} me-2`}></i>
                     {labelText[address.label]}
@@ -471,7 +453,6 @@ function Addresses({ language }) {
                       {t('Default', 'افتراضي')}
                     </span>
                   )}
-
                 </div>
 
                 <p className="mb-1">
@@ -500,7 +481,6 @@ function Addresses({ language }) {
                 {/* Address Action Buttons */}
 
                 <div className="mt-3">
-
                   {!address.isDefault && (
                     <button
                       type="button"
@@ -529,21 +509,14 @@ function Addresses({ language }) {
                   >
                     <i className="bi bi-trash"></i>
                   </button>
-
                 </div>
 
               </div>
-
             </div>
-
           ))}
-
         </div>
-
       )}
-
     </div>
-
   )
 }
 

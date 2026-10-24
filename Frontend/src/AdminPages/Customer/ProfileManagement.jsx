@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { getCustomerAddressesAxiosFunction } from '../../Services/api'
 
 // ================= VALIDATION SCHEMAS =================
 
-
 const profileSchema = z.object({
-  fullName: z.string()
+  firstName: z.string()
     .trim()
-    .min(2, 'Name must have at least 2 characters')
-    .max(75, 'Name cannot exceed 75 characters'),
+    .min(2, 'First name must have at least 2 characters')
+    .max(75, 'First name cannot exceed 75 characters'),
+
+  lastName: z.string()
+    .trim()
+    .min(2, 'Last name must have at least 2 characters')
+    .max(75, 'Last name cannot exceed 75 characters'),
 
   email: z.string()
     .trim()
     .email('Enter a valid email address')
     .max(254, 'Email cannot exceed 254 characters'),
 
- phone: z.string()
-  .trim()
-  .max(12, 'Phone number cannot exceed 12 characters')
-  .refine(
-    value => value === '' || /^(?:\+[0-9]{8,11}|[0-9]{8,12})$/.test(value),
-    'Enter a valid phone number (8-12 digits, optional +)'
-  )
+  phone: z.string()
+    .trim()
+    .max(12, 'Phone number cannot exceed 12 characters')
+    .refine(
+      value => value === '' || /^(?:\+[0-9]{8,11}|[0-9]{8,12})$/.test(value),
+      'Enter a valid phone number (8-12 digits, optional +)'
+    )
 })
 
-
 const passwordSchema = z.object({
-
   currentPassword: z.string()
     .min(1, 'Enter your current password'),
 
@@ -39,7 +43,6 @@ const passwordSchema = z.object({
 
   confirmPassword: z.string()
     .min(1, 'Please confirm your password')
-
 }).refine(
   data => data.newPassword === data.confirmPassword,
   {
@@ -49,11 +52,58 @@ const passwordSchema = z.object({
 )
 
 function ProfileManagement({ language, type }) {
-
   const navigate = useNavigate()
 
-  // Stores the selected management section
+  // ================= LOGIN CHECK =================
+
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    sessionStorage.getItem('isLoggedIn') === 'true' &&
+    Boolean(sessionStorage.getItem('customerId'))
+  )
+
+  useEffect(() => {
+    const loggedIn = sessionStorage.getItem('isLoggedIn') === 'true'
+    const customerId = sessionStorage.getItem('customerId')
+
+    if (!loggedIn || !customerId) {
+      setIsLoggedIn(false)
+      navigate('/login', { replace: true })
+    } else {
+      setIsLoggedIn(true)
+    }
+  }, [navigate])
+
   const [section, setSection] = useState(type || 'profile')
+  const [addresses, setAddresses] = useState([])
+  const [addressLoading, setAddressLoading] = useState(false)
+  const [addressError, setAddressError] = useState(false)
+
+  // ================= RETRIEVE ADDRESSES =================
+
+  useEffect(() => {
+    const customerId = sessionStorage.getItem('customerId')
+    const loggedIn = sessionStorage.getItem('isLoggedIn') === 'true'
+
+    if (!loggedIn || !customerId) return
+
+    setAddressLoading(true)
+
+    getCustomerAddressesAxiosFunction(customerId)
+      .then((response) => {
+        const savedAddresses = response.data.addresses ?? response.data
+
+        setAddresses(
+          Array.isArray(savedAddresses) ? savedAddresses : []
+        )
+      })
+      .catch((error) => {
+        console.error('Error retrieving addresses:', error)
+        setAddressError(true)
+      })
+      .finally(() => {
+        setAddressLoading(false)
+      })
+  }, [])
 
   // ================= PROFILE FORM =================
 
@@ -64,7 +114,8 @@ function ProfileManagement({ language, type }) {
   } = useForm({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      fullName: '',
+      firstName: '',
+      lastName: '',
       email: '',
       phone: ''
     }
@@ -85,41 +136,46 @@ function ProfileManagement({ language, type }) {
     }
   })
 
-  // Handles profile form
+  // ================= SUBMIT PROFILE =================
+
   function handleProfileSubmit(data) {
     console.log('Profile Data:', data)
   }
 
-  // Handles password form
+  // ================= SUBMIT PASSWORD =================
+
   function handlePasswordSubmit(data) {
     console.log('Password Form Submitted')
   }
 
-  // Handles logout
+  // ================= LOGOUT =================
+
   function handleLogout() {
-    navigate('/')
+    sessionStorage.removeItem('isLoggedIn')
+    sessionStorage.removeItem('customerId')
+
+    setIsLoggedIn(false)
+    navigate('/', { replace: true })
+  }
+
+  // Prevents the page from displaying when logged out
+  if (!isLoggedIn) {
+    return null
   }
 
   return (
-
     <div className="profile-management-page">
-
       <div className="container">
 
         {/* ================= PAGE HEADING ================= */}
 
         <div className="profile-management-heading text-center">
-
           <span>
-            {language === 'EN'
-              ? 'ACCOUNT MANAGEMENT'
-              : 'إدارة الحساب'}
+            {language === 'EN' ? 'ACCOUNT MANAGEMENT' : 'إدارة الحساب'}
           </span>
 
           <h1>
-            {language === 'EN'
-              ? 'Profile Management'
-              : 'إدارة الملف الشخصي'}
+            {language === 'EN' ? 'Profile Management' : 'إدارة الملف الشخصي'}
           </h1>
 
           <p>
@@ -127,101 +183,55 @@ function ProfileManagement({ language, type }) {
               ? 'Manage your personal information and account details.'
               : 'قم بإدارة معلوماتك الشخصية وتفاصيل حسابك.'}
           </p>
-
         </div>
 
         {/* ================= MANAGEMENT OPTIONS ================= */}
 
         <div className="profile-management-options">
 
-          {/* ================= EDIT PROFILE ================= */}
-
-          <Link
-            to="/profile-management"
-            className={
-              section === 'profile'
-                ? 'management-option active'
-                : 'management-option'
-            }
+          <button
+            type="button"
+            className={section === 'profile' ? 'management-option active' : 'management-option'}
             onClick={() => setSection('profile')}
           >
-
-            <i className="bi bi-person"></i>
-
-            {language === 'EN'
-              ? 'Edit Profile'
-              : 'تعديل الملف الشخصي'}
-
-          </Link>
-
-          {/* ================= CHANGE PASSWORD ================= */}
+            <i className="bi bi-person me-2"></i>
+            {language === 'EN' ? 'Edit Profile' : 'تعديل الملف الشخصي'}
+          </button>
 
           <button
             type="button"
-            className={
-              section === 'password'
-                ? 'management-option active'
-                : 'management-option'
-            }
+            className={section === 'password' ? 'management-option active' : 'management-option'}
             onClick={() => setSection('password')}
           >
-
-            <i className="bi bi-lock"></i>
-
-            {language === 'EN'
-              ? 'Change Password'
-              : 'تغيير كلمة المرور'}
-
+            <i className="bi bi-lock me-2"></i>
+            {language === 'EN' ? 'Change Password' : 'تغيير كلمة المرور'}
           </button>
-
-          {/* ================= ORDER HISTORY ================= */}
 
           <button
             type="button"
-            className={
-              section === 'orders'
-                ? 'management-option active'
-                : 'management-option'
-            }
+            className={section === 'orders' ? 'management-option active' : 'management-option'}
             onClick={() => setSection('orders')}
           >
-
-            <i className="bi bi-receipt"></i>
-
-            {language === 'EN'
-              ? 'Order History'
-              : 'سجل الطلبات'}
-
+            <i className="bi bi-receipt me-2"></i>
+            {language === 'EN' ? 'Order History' : 'سجل الطلبات'}
           </button>
 
-          {/* ================= ADDRESSES ================= */}
-
-          <Link
-            to="/addresses"
-            className="management-option"
+          <button
+            type="button"
+            className={section === 'addresses' ? 'management-option active' : 'management-option'}
+            onClick={() => setSection('addresses')}
           >
-
-            <i className="bi bi-geo-alt"></i>
-
-            {language === 'EN'
-              ? 'Addresses'
-              : 'العناوين'}
-
-          </Link>
+            <i className="bi bi-geo-alt me-2"></i>
+            {language === 'EN' ? 'Addresses' : 'العناوين'}
+          </button>
 
         </div>
 
-        {/* ================= EDIT PROFILE FORM ================= */}
+        {/* ================= EDIT PROFILE ================= */}
 
         {section === 'profile' && (
-
           <div className="profile-management-card">
-
-            <h2>
-              {language === 'EN'
-                ? 'Edit Profile'
-                : 'تعديل الملف الشخصي'}
-            </h2>
+            <h2>{language === 'EN' ? 'Edit Profile' : 'تعديل الملف الشخصي'}</h2>
 
             <p>
               {language === 'EN'
@@ -231,106 +241,75 @@ function ProfileManagement({ language, type }) {
 
             <form onSubmit={handleProfileForm(handleProfileSubmit)}>
 
-              {/* ================= FULL NAME ================= */}
-
               <div className="mb-3">
-
                 <label className="form-label">
-                  {language === 'EN'
-                    ? 'Full Name'
-                    : 'الاسم الكامل'}
+                  {language === 'EN' ? 'First Name' : 'الاسم الأول'}
                 </label>
-
                 <input
                   type="text"
                   className="form-control"
-                  {...registerProfile('fullName')}
+                  {...registerProfile('firstName')}
                 />
-
-                {profileErrors.fullName && (
-                  <small className="text-danger">
-                    {profileErrors.fullName.message}
-                  </small>
+                {profileErrors.firstName && (
+                  <small className="text-danger">{profileErrors.firstName.message}</small>
                 )}
-
               </div>
 
-              {/* ================= EMAIL ================= */}
+              <div className="mb-3">
+                <label className="form-label">
+                  {language === 'EN' ? 'Last Name' : 'اسم العائلة'}
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  {...registerProfile('lastName')}
+                />
+                {profileErrors.lastName && (
+                  <small className="text-danger">{profileErrors.lastName.message}</small>
+                )}
+              </div>
 
               <div className="mb-3">
-
                 <label className="form-label">
-                  {language === 'EN'
-                    ? 'Email'
-                    : 'البريد الإلكتروني'}
+                  {language === 'EN' ? 'Email' : 'البريد الإلكتروني'}
                 </label>
-
                 <input
                   type="email"
                   className="form-control"
                   {...registerProfile('email')}
                 />
-
                 {profileErrors.email && (
-                  <small className="text-danger">
-                    {profileErrors.email.message}
-                  </small>
+                  <small className="text-danger">{profileErrors.email.message}</small>
                 )}
-
               </div>
 
-              {/* ================= PHONE ================= */}
-
               <div className="mb-3">
-
                 <label className="form-label">
-                  {language === 'EN'
-                    ? 'Phone'
-                    : 'رقم الهاتف'}
+                  {language === 'EN' ? 'Phone' : 'رقم الهاتف'}
                 </label>
-
                 <input
                   type="tel"
                   className="form-control"
                   {...registerProfile('phone')}
                 />
-
                 {profileErrors.phone && (
-                  <small className="text-danger">
-                    {profileErrors.phone.message}
-                  </small>
+                  <small className="text-danger">{profileErrors.phone.message}</small>
                 )}
-
               </div>
 
-              {/* ================= SAVE BUTTON ================= */}
-
-              <button
-                type="submit"
-                className="profile-management-btn"
-              >
-                {language === 'EN'
-                  ? 'Save Changes'
-                  : 'حفظ التغييرات'}
+              <button type="submit" className="profile-management-btn">
+                {language === 'EN' ? 'Save Changes' : 'حفظ التغييرات'}
               </button>
 
             </form>
-
           </div>
-
         )}
 
-        {/* ================= CHANGE PASSWORD FORM ================= */}
+        {/* ================= CHANGE PASSWORD ================= */}
 
         {section === 'password' && (
-
           <div className="profile-management-card">
-
-            <h2>
-              {language === 'EN'
-                ? 'Change Password'
-                : 'تغيير كلمة المرور'}
-            </h2>
+            <h2>{language === 'EN' ? 'Change Password' : 'تغيير كلمة المرور'}</h2>
 
             <p>
               {language === 'EN'
@@ -340,145 +319,248 @@ function ProfileManagement({ language, type }) {
 
             <form onSubmit={handlePasswordForm(handlePasswordSubmit)}>
 
-              {/* ================= CURRENT PASSWORD ================= */}
-
               <div className="mb-3">
-
                 <label className="form-label">
-                  {language === 'EN'
-                    ? 'Current Password'
-                    : 'كلمة المرور الحالية'}
+                  {language === 'EN' ? 'Current Password' : 'كلمة المرور الحالية'}
                 </label>
-
                 <input
                   type="password"
                   className="form-control"
                   {...registerPassword('currentPassword')}
                 />
-
                 {passwordErrors.currentPassword && (
-                  <small className="text-danger">
-                    {passwordErrors.currentPassword.message}
-                  </small>
+                  <small className="text-danger">{passwordErrors.currentPassword.message}</small>
                 )}
-
               </div>
 
-              {/* ================= NEW PASSWORD ================= */}
-
               <div className="mb-3">
-
                 <label className="form-label">
-                  {language === 'EN'
-                    ? 'New Password'
-                    : 'كلمة المرور الجديدة'}
+                  {language === 'EN' ? 'New Password' : 'كلمة المرور الجديدة'}
                 </label>
-
                 <input
                   type="password"
                   className="form-control"
                   {...registerPassword('newPassword')}
                 />
-
                 {passwordErrors.newPassword && (
-                  <small className="text-danger">
-                    {passwordErrors.newPassword.message}
-                  </small>
+                  <small className="text-danger">{passwordErrors.newPassword.message}</small>
                 )}
-
               </div>
 
-              {/* ================= CONFIRM PASSWORD ================= */}
-
               <div className="mb-3">
-
                 <label className="form-label">
-                  {language === 'EN'
-                    ? 'Confirm Password'
-                    : 'تأكيد كلمة المرور'}
+                  {language === 'EN' ? 'Confirm Password' : 'تأكيد كلمة المرور'}
                 </label>
-
                 <input
                   type="password"
                   className="form-control"
                   {...registerPassword('confirmPassword')}
                 />
-
                 {passwordErrors.confirmPassword && (
-                  <small className="text-danger">
-                    {passwordErrors.confirmPassword.message}
-                  </small>
+                  <small className="text-danger">{passwordErrors.confirmPassword.message}</small>
                 )}
-
               </div>
 
-              {/* ================= CHANGE PASSWORD BUTTON ================= */}
-
-              <button
-                type="submit"
-                className="profile-management-btn"
-              >
-                {language === 'EN'
-                  ? 'Change Password'
-                  : 'تغيير كلمة المرور'}
+              <button type="submit" className="profile-management-btn">
+                {language === 'EN' ? 'Change Password' : 'تغيير كلمة المرور'}
               </button>
 
             </form>
-
           </div>
-
         )}
 
         {/* ================= ORDER HISTORY ================= */}
 
         {section === 'orders' && (
-
           <div className="profile-management-card">
-
-            <h2>
-              {language === 'EN'
-                ? 'Order History'
-                : 'سجل الطلبات'}
-            </h2>
-
+            <h2>{language === 'EN' ? 'Order History' : 'سجل الطلبات'}</h2>
             <p>
               {language === 'EN'
                 ? 'Your previous orders will appear here.'
                 : 'ستظهر طلباتك السابقة هنا.'}
             </p>
+            <div className="order-management-list"></div>
+          </div>
+        )}
 
-            {/* Orders will come from the database later */}
+        {/* ================= ADDRESSES ================= */}
 
-            <div className="order-management-list">
+        {section === 'addresses' && (
+          <div className="profile-management-card">
 
+            <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+              <div>
+                <h2 className="mb-2">
+                  {language === 'EN' ? 'My Addresses' : 'عناويني'}
+                </h2>
+                <p className="mb-0">
+                  {language === 'EN'
+                    ? 'Your saved delivery addresses.'
+                    : 'عناوين التوصيل المحفوظة.'}
+                </p>
+              </div>
+
+              <span
+                className="rounded-pill px-3 py-2"
+                style={{
+                  backgroundColor: '#f5f0e6',
+                  color: '#800020',
+                  fontWeight: 600,
+                  fontSize: '14px'
+                }}
+              >
+                <i className="bi bi-geo-alt me-2"></i>
+                {addresses.length} {language === 'EN' ? 'Saved' : 'محفوظ'}
+              </span>
             </div>
 
-          </div>
+            {addressLoading ? (
+              <div className="text-center py-5">
+                <div className="spinner-border" style={{ color: '#800020' }} role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+                <p className="mt-3 text-muted">
+                  {language === 'EN' ? 'Loading your addresses...' : 'جارٍ تحميل عناوينك...'}
+                </p>
+              </div>
+            ) : addressError ? (
+              <div className="text-center py-5">
+                <i className="bi bi-exclamation-circle" style={{ fontSize: '42px', color: '#800020' }}></i>
+                <h5 className="mt-3">
+                  {language === 'EN' ? 'Could not load addresses' : 'تعذر تحميل العناوين'}
+                </h5>
+                <p className="text-muted">
+                  {language === 'EN'
+                    ? 'Please try again later.'
+                    : 'يرجى المحاولة مرة أخرى لاحقاً.'}
+                </p>
+              </div>
+            ) : addresses.length > 0 ? (
+              <div className="row g-4">
+                {addresses.map((address, index) => (
+                  <div className="col-12 col-md-6" key={address._id || index}>
+                    <div
+                      className="h-100 p-4"
+                      style={{
+                        backgroundColor: '#fbf8f3',
+                        border: '1px solid #e8ded5',
+                        borderTop: '4px solid #800020',
+                        borderRadius: '14px',
+                        boxShadow: '0 5px 18px rgba(13, 13, 13, 0.04)',
+                        overflowWrap: 'anywhere'
+                      }}
+                    >
+                      <div className="d-flex align-items-start gap-3 mb-3">
+                        <div
+                          className="d-flex align-items-center justify-content-center rounded-3 flex-shrink-0"
+                          style={{
+                            width: '44px',
+                            height: '44px',
+                            backgroundColor: '#f0e2e3',
+                            color: '#800020',
+                            fontSize: '20px'
+                          }}
+                        >
+                          <i className="bi bi-house-door"></i>
+                        </div>
 
+                        <div>
+                          <h5 className="mb-1" style={{ color: '#800020', fontWeight: 700 }}>
+                            {address.label ||
+                              (language === 'EN'
+                                ? `Address ${index + 1}`
+                                : `العنوان ${index + 1}`)}
+                          </h5>
+
+                          {address.isDefault && (
+                            <span
+                              className="badge rounded-pill"
+                              style={{ backgroundColor: '#800020', color: '#fff' }}
+                            >
+                              {language === 'EN' ? 'Default Address' : 'العنوان الافتراضي'}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {[
+                        {
+                          icon: 'bi-geo-alt',
+                          value: [
+                            address.street,
+                            address.building,
+                            address.apartment
+                          ].filter(Boolean).join(', ')
+                        },
+                        {
+                          icon: 'bi-pin-map',
+                          value: [
+                            address.area,
+                            address.city
+                          ].filter(Boolean).join(', ')
+                        },
+                        {
+                          icon: 'bi-telephone',
+                          value: address.phone
+                        },
+                        {
+                          icon: 'bi-chat-left-text',
+                          value: address.notes
+                        }
+                      ].filter(item => item.value).map((item, detailIndex) => (
+                        <div className="d-flex gap-2 mb-2" key={detailIndex}>
+                          <i
+                            className={`bi ${item.icon} mt-1`}
+                            style={{ color: '#800020', minWidth: '18px' }}
+                          ></i>
+                          <span style={{ color: '#49413d', fontSize: '14px', lineHeight: 1.6 }}>
+                            {item.value}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div
+                className="text-center py-5 px-3"
+                style={{
+                  backgroundColor: '#fbf8f3',
+                  border: '1px dashed #d8c8be',
+                  borderRadius: '14px'
+                }}
+              >
+                <i className="bi bi-geo-alt" style={{ fontSize: '44px', color: '#800020' }}></i>
+                <h5 className="mt-3">
+                  {language === 'EN' ? 'No addresses yet' : 'لا توجد عناوين حتى الآن'}
+                </h5>
+                <p className="text-muted mb-0">
+                  {language === 'EN'
+                    ? 'Your saved addresses will appear here.'
+                    : 'ستظهر عناوينك المحفوظة هنا.'}
+                </p>
+              </div>
+            )}
+
+          </div>
         )}
 
         {/* ================= LOGOUT BUTTON ================= */}
 
         <div className="text-center mt-4">
-
           <button
             type="button"
             className="profile-management-btn"
             onClick={handleLogout}
           >
-            {language === 'EN'
-              ? 'Logout'
-              : 'تسجيل الخروج'}
+            {language === 'EN' ? 'Logout' : 'تسجيل الخروج'}
           </button>
-
         </div>
 
       </div>
-
     </div>
-
   )
-
 }
 
 export default ProfileManagement

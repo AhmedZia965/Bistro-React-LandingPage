@@ -1,4 +1,6 @@
-import { useState } from 'react'
+
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,15 +11,7 @@ const feedbackSchema = z.object({
   name: z.string()
     .trim()
     .min(2, 'Name must have at least 2 characters')
-    .max(100, 'Name cannot exceed 100 characters'),
-
-phone: z.string()
-  .trim()
-  .max(12, 'Phone number cannot exceed 12 characters')
-  .refine(
-    value => value === '' || /^\+?[0-9]+$/.test(value) && value.replace('+', '').length >= 8,
-    'Enter a valid phone number (8-11 digits, optional +)'
-  ),
+    .max(50, 'Name cannot exceed 50 characters'),
 
   category: z.string()
     .min(1, 'Please select a feedback category')
@@ -29,20 +23,36 @@ phone: z.string()
   message: z.string()
     .trim()
     .min(5, 'Feedback must have at least 5 characters')
-    .max(500, 'Feedback cannot exceed 500 characters')
-});
-
+    .max(300, 'Feedback cannot exceed 300 characters')
+})
 
 function CustomerFeedback({ language }) {
+  const navigate = useNavigate()
 
-  // Stores the selected star rating
-  const [rating, setRating] = useState(0)
+  // Checks whether the customer is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    sessionStorage.getItem('isLoggedIn') === 'true' &&
+    Boolean(sessionStorage.getItem('customerId'))
+  )
 
   // Stores the selected experience
   const [experience, setExperience] = useState('')
 
   // Stores whether the form has been submitted
   const [submitted, setSubmitted] = useState(false)
+
+  // Checks login status
+  useEffect(() => {
+    const loggedIn = sessionStorage.getItem('isLoggedIn') === 'true'
+    const customerId = sessionStorage.getItem('customerId')
+
+    if (!loggedIn || !customerId) {
+      setIsLoggedIn(false)
+      navigate('/login', { replace: true })
+    } else {
+      setIsLoggedIn(true)
+    }
+  }, [navigate])
 
   // React Hook Form
   const {
@@ -54,7 +64,6 @@ function CustomerFeedback({ language }) {
     resolver: zodResolver(feedbackSchema),
     defaultValues: {
       name: '',
-      phone: '',
       category: '',
       message: ''
     }
@@ -62,12 +71,11 @@ function CustomerFeedback({ language }) {
 
   // Handles feedback form submission
   function handleSubmit(data) {
-
-    if (rating === 0 || experience === '') {
+    if (experience === '') {
       alert(
         language === 'EN'
-          ? 'Please select a star rating and your overall experience.'
-          : 'يرجى اختيار تقييم بالنجوم وتحديد تجربتك بشكل عام.'
+          ? 'Please select your overall experience.'
+          : 'يرجى تحديد تجربتك بشكل عام.'
       )
 
       return
@@ -76,17 +84,19 @@ function CustomerFeedback({ language }) {
     // Demo submission only
     console.log('Feedback submitted:', {
       ...data,
-      rating,
       experience
     })
 
     setSubmitted(true)
   }
 
+  // Prevents the page from displaying when logged out
+  if (!isLoggedIn) {
+    return null
+  }
+
   return (
-
     <>
-
       {/* Main feedback section */}
       <div className="feedback-page">
 
@@ -186,7 +196,6 @@ function CustomerFeedback({ language }) {
 
             </div>
 
-
             {/* Right side - Feedback form */}
             <div className="col-lg-7 mb-4">
 
@@ -217,7 +226,6 @@ function CustomerFeedback({ language }) {
                       onClick={() => {
                         reset()
                         setSubmitted(false)
-                        setRating(0)
                         setExperience('')
                       }}
                     >
@@ -245,69 +253,33 @@ function CustomerFeedback({ language }) {
                         : 'الحقول التي تحمل * مطلوبة.'}
                     </p>
 
+                    {/* Name */}
+                    <div className="mb-3">
 
-                    {/* Name and phone */}
-                    <div className="row">
+                      <label className="form-label">
+                        {language === 'EN'
+                          ? 'Your Name *'
+                          : 'اسمك *'}
+                      </label>
 
-                      {/* Name */}
-                      <div className="col-md-6 mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder={
+                          language === 'EN'
+                            ? 'Enter your name'
+                            : 'أدخل اسمك'
+                        }
+                        {...register('name')}
+                      />
 
-                        <label className="form-label">
-                          {language === 'EN'
-                            ? 'Your Name *'
-                            : 'اسمك *'}
-                        </label>
-
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder={
-                            language === 'EN'
-                              ? 'Enter your name'
-                              : 'أدخل اسمك'
-                          }
-                          {...register('name')}
-                        />
-
-                        {errors.name && (
-                          <small className="text-danger">
-                            {errors.name.message}
-                          </small>
-                        )}
-
-                      </div>
-
-
-                      {/* Phone */}
-                      <div className="col-md-6 mb-3">
-
-                        <label className="form-label">
-                          {language === 'EN'
-                            ? 'Phone Number'
-                            : 'رقم الهاتف'}
-                        </label>
-
-                        <input
-                          type="tel"
-                          className="form-control"
-                          placeholder={
-                            language === 'EN'
-                              ? 'Enter phone number'
-                              : 'أدخل رقم الهاتف'
-                          }
-                          {...register('phone')}
-                        />
-
-                        {errors.phone && (
-                          <small className="text-danger">
-                            {errors.phone.message}
-                          </small>
-                        )}
-
-                      </div>
+                      {errors.name && (
+                        <small className="text-danger">
+                          {errors.name.message}
+                        </small>
+                      )}
 
                     </div>
-
 
                     {/* Feedback category */}
                     <div className="mb-4">
@@ -368,82 +340,6 @@ function CustomerFeedback({ language }) {
                       )}
 
                     </div>
-
-
-                    {/* Star rating */}
-                    <div className="mb-4">
-
-                      <label className="form-label">
-                        {language === 'EN'
-                          ? 'Rate Your Visit *'
-                          : 'قيّم زيارتك *'}
-                      </label>
-
-                      <div className="feedback-stars">
-
-                        {[1, 2, 3, 4, 5].map((star) => (
-
-                          <button
-                            key={star}
-                            type="button"
-                            className={
-                              star <= rating
-                                ? 'star-btn selected'
-                                : 'star-btn'
-                            }
-                            onClick={() => setRating(star)}
-                            aria-label={`${star} stars`}
-                          >
-                            ★
-                          </button>
-
-                        ))}
-
-                      </div>
-
-                      {/* Rating text */}
-                      <div className="rating-caption">
-
-                        {rating === 0
-                          ? (
-                            language === 'EN'
-                              ? 'Select a rating'
-                              : 'اختر التقييم'
-                          )
-                          : rating === 1
-                            ? (
-                              language === 'EN'
-                                ? 'Poor'
-                                : 'سيئ'
-                            )
-                            : rating === 2
-                              ? (
-                                language === 'EN'
-                                  ? 'Fair'
-                                  : 'مقبول'
-                              )
-                              : rating === 3
-                                ? (
-                                  language === 'EN'
-                                    ? 'Good'
-                                    : 'جيد'
-                                )
-                                : rating === 4
-                                  ? (
-                                    language === 'EN'
-                                      ? 'Very Good'
-                                      : 'جيد جداً'
-                                  )
-                                  : (
-                                    language === 'EN'
-                                      ? 'Excellent!'
-                                      : 'ممتاز!'
-                                  )}
-
-                      </div>
-
-                    </div>
-
 
                     {/* Overall experience */}
                     <div className="mb-4">
@@ -512,7 +408,6 @@ function CustomerFeedback({ language }) {
 
                     </div>
 
-
                     {/* Feedback message */}
                     <div className="mb-4">
 
@@ -541,25 +436,6 @@ function CustomerFeedback({ language }) {
 
                     </div>
 
-
-                    {/* Optional photo upload */}
-                    <div className="mb-4">
-
-                      <label className="form-label">
-                        {language === 'EN'
-                          ? 'Attach a Photo (Optional)'
-                          : 'إرفاق صورة (اختياري)'}
-                      </label>
-
-                      <input
-                        type="file"
-                        className="form-control"
-                        accept="image/*"
-                      />
-
-                    </div>
-
-
                     {/* Privacy note */}
                     <p className="feedback-privacy">
 
@@ -570,7 +446,6 @@ function CustomerFeedback({ language }) {
                         : 'تساعدنا ملاحظاتك في تحسين تجربتك.'}
 
                     </p>
-
 
                     {/* Submit button */}
                     <div className="d-grid">
@@ -603,9 +478,7 @@ function CustomerFeedback({ language }) {
         </div>
 
       </div>
-
     </>
-
   )
 }
 

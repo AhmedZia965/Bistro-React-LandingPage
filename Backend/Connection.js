@@ -2,24 +2,14 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import customerRoutes from "./Routes/customerRoutes.js";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.post("/add_product", (req, res) => {
-    console.log("POST request received at /add_product");
-    res.send("Add Product endpoint reached");
-});
-
-// Signup endpoint
-app.post("/signup", (req, res) => {
-    console.log("POST request received at /signup");
-    console.log(req.body);
-
-    res.send("Signup endpoint reached");
-});
+app.use("/signup", customerRoutes);
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");

@@ -1325,3 +1325,119 @@
         width: auto;
     }
 }
+/* ================= PROFILE MANAGEMENT ADDRESSES ================= */
+
+.profile-management-card {
+    background-color: #151515;
+    color: #F5F0E6;
+    border: 1px solid #302026;
+    border-radius: 18px;
+    padding: 30px;
+}
+
+.profile-management-card h2 {
+    color: #C98F9A;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.profile-management-card p {
+    color: #AAA39A;
+}
+
+/* Saved Address Count */
+
+.profile-management-card .rounded-pill {
+    white-space: nowrap;
+}
+
+/* Saved Address Cards */
+
+.profile-management-card .row.g-4 > .col-12 > div {
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.profile-management-card .row.g-4 > .col-12 > div:hover {
+    border-color: #C98F9A !important;
+    transform: translateY(-3px);
+}
+
+/* Address Headings */
+
+.profile-management-card h5 {
+    color: #C98F9A;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+/* Default Address Badge */
+
+.profile-management-card .badge {
+    white-space: normal;
+    line-height: 1.5;
+}
+
+/* Address Details */
+
+.profile-management-card .row.g-4 > .col-12 span {
+    overflow-wrap: anywhere;
+}
+
+/* Loading and Error Messages */
+
+.profile-management-card .spinner-border {
+    color: #C98F9A;
+}
+
+.profile-management-card .text-danger {
+    color: #F08A98 !important;
+}
+
+/* Empty Address State */
+
+.profile-management-card .text-center.py-5 {
+    background-color: #111111;
+    border: 1px dashed #493038;
+    border-radius: 15px;
+    padding: 35px 20px !important;
+}
+
+.profile-management-card .text-center.py-5 i {
+    color: #C98F9A;
+    font-size: 40px;
+}
+
+.profile-management-card .text-center.py-5 h3 {
+    color: #C98F9A;
+    font-weight: bold;
+}
+
+.profile-management-card .text-center.py-5 p {
+    color: #AAA39A;
+}
+
+/* ================= PROFILE MANAGEMENT MOBILE ================= */
+
+@media (max-width: 768px) {
+    .profile-management-card {
+        padding: 22px;
+    }
+
+    .profile-management-card h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-management-card {
+        padding: 16px;
+    }
+
+    .profile-management-card h2 {
+        font-size: 21px;
+    }
+
+    .profile-management-card .rounded-pill {
+        font-size: 12px !important;
+    }
+}

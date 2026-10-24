@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { loginAxiosFunction } from '../../Services/api'
 
 // Login validation rules
-
 const loginSchema = z.object({
   phone: z.string()
     .trim()
@@ -20,19 +20,38 @@ const loginSchema = z.object({
     .max(128, 'Password cannot exceed 128 characters')
 })
 
-
 function CustomerLogin({ language }) {
+  const navigate = useNavigate()
 
   const {
-    register,handleSubmit,formState: { errors }} = useForm({
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
     resolver: zodResolver(loginSchema)
   })
 
-  // Handles demo login
-  function handleLogin(data) {
-    // Accepts valid form details for demo purposes
-    sessionStorage.setItem('isLoggedIn', 'true')
-    console.log('Login form submitted:', data)
+  // Handles login using the backend
+  async function handleLogin(data) {
+    try {
+      const response = await loginAxiosFunction(data)
+
+      console.log(response.data)
+
+      sessionStorage.setItem('isLoggedIn', 'true')
+      sessionStorage.setItem('customerId', response.data.customerId)
+
+      // Redirect to the landing page after successful login
+      navigate('/')
+    } catch (error) {
+      console.error('Login request failed:', error)
+
+      alert(
+        language === 'EN'
+          ? 'Invalid phone number or password.'
+          : 'رقم الهاتف أو كلمة المرور غير صحيحة.'
+      )
+    }
   }
 
   return (
@@ -78,7 +97,6 @@ function CustomerLogin({ language }) {
                           ? 'Enter phone number'
                           : 'أدخل رقم الهاتف'
                       }
-
                       {...register('phone')}
                     />
 
