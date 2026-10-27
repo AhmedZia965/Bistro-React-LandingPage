@@ -5,10 +5,10 @@ import { getMenuAxiosFunction } from '../Services/MenuApi'
 import './MainMenu.css'
 
 function MainMenu({ language }) {
-  const [category, setCategory] = useState('All')
+  const [category, setCategory] = useState('Burgers')
   const [menuItems, setMenuItems] = useState([])
   const [cartCount, setCartCount] = useState(() => {
-    const savedCart = JSON.parse(localStorage.getItem('cartItems') || '[]')
+    const savedCart = JSON.parse(sessionStorage.getItem('cartItems') || '[]')
 
     return savedCart.reduce((total, item) => total + item.quantity, 0)
   })
@@ -16,7 +16,6 @@ function MainMenu({ language }) {
   const navigate = useNavigate()
 
   const categories = [
-    'All',
     'Burgers',
     'Pizzas',
     'Pastas',
@@ -59,7 +58,7 @@ function MainMenu({ language }) {
       return
     }
 
-    const savedCart = JSON.parse(localStorage.getItem('cartItems') || '[]')
+    const savedCart = JSON.parse(sessionStorage.getItem('cartItems') || '[]')
 
     const existingItem = savedCart.find(
       cartItem => cartItem._id === item._id
@@ -77,7 +76,7 @@ function MainMenu({ language }) {
       })
     }
 
-    localStorage.setItem('cartItems', JSON.stringify(savedCart))
+    sessionStorage.setItem('cartItems', JSON.stringify(savedCart))
 
     setCartCount(
       savedCart.reduce((total, cartItem) => total + cartItem.quantity, 0)
@@ -85,13 +84,12 @@ function MainMenu({ language }) {
   }
 
   const selectedItems = menuItems.filter((item) => {
-    return category === 'All' || getCustomerCategory(item.category) === category
+    return getCustomerCategory(item.category) === category
   })
 
   function getCategoryLabel(item) {
     if (language !== 'EN') {
       const arabicCategories = {
-        'All': 'الكل',
         'Burgers': 'برغر',
         'Pizzas': 'بيتزا',
         'Pastas': 'باستا',

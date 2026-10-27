@@ -11,8 +11,8 @@ import "./Checkout.css";
 const checkoutSchema = z.object({
     fullName: z.string()
         .trim()
-        .min(1, "Full name is required.")
-        .max(100, "Full name cannot exceed 100 characters."),
+        .min(2, "Full name is required.")
+        .max(40, "Full name cannot exceed 40 characters."),
 
     phone: z.string()
         .trim()
@@ -20,9 +20,27 @@ const checkoutSchema = z.object({
         .regex(/^\+?\d{8,12}$/, "Enter 8–12 digits, optionally starting with +."),
 
     notes: z.string()
-        .max(500, "Order notes cannot exceed 500 characters.")
-});
+        .max(500, "Order notes cannot exceed 500 characters."),
 
+    manualAddress: z.string()
+        .trim()
+        .max(300, "Address cannot exceed 300 characters.")
+}).superRefine((data, ctx) => {
+    // Require a manual address when manual entry is selected
+    if (data.manualAddress.length === 0) {
+        ctx.addIssue({
+            code: "custom",
+            path: ["manualAddress"],
+            message: "Delivery address is required."
+        });
+    } else if (data.manualAddress.length < 5) {
+        ctx.addIssue({
+            code: "custom",
+            path: ["manualAddress"],
+            message: "Address must be at least 5 characters long."
+        });
+    }
+});
 function Checkout() {
     const navigate = useNavigate();
 
@@ -34,9 +52,13 @@ function Checkout() {
     // Store delivery or pickup option
     const [orderType, setOrderType] = useState("Delivery");
 
+    // Store payment option
+    const [paymentMethod, setPaymentMethod] = useState("Cash");
+
     // Store saved addresses
     const [savedAddresses, setSavedAddresses] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState("");
+    const [addressMode, setAddressMode] = useState("Saved");
 
     // Store loading and error information
     const [loadingAddresses, setLoadingAddresses] = useState(true);
@@ -55,7 +77,8 @@ function Checkout() {
         defaultValues: {
             fullName: "",
             phone: "",
-            notes: ""
+            notes: "",
+            manualAddress: ""
         }
     });
 
@@ -75,14 +98,9 @@ function Checkout() {
                 setLoadingAddresses(true);
                 setAddressError("");
 
-                // Get addresses for the logged-in customer
                 const response =
                     await getCustomerAddressesAxiosFunction(customerId);
 
-                // Check the actual response from the backend
-                console.log("Addresses API response:", response.data);
-
-                // Support common response formats
                 const data = response.data;
 
                 const addresses = Array.isArray(data)
@@ -95,8 +113,6 @@ function Checkout() {
                     ? data.data.addresses
                     : [];
 
-                console.log("Saved addresses:", addresses);
-
                 setSavedAddresses(addresses);
 
                 if (addresses.length > 0) {
@@ -104,8 +120,10 @@ function Checkout() {
                         addresses[0]._id || addresses[0].id;
 
                     setSelectedAddress(firstAddressId || "");
+                    setAddressMode("Saved");
                 } else {
                     setSelectedAddress("");
+                    setAddressMode("Manual");
                 }
             } catch (error) {
                 console.error(
@@ -117,6 +135,9 @@ function Checkout() {
                     error.response?.data?.message ||
                     "Unable to load your saved addresses."
                 );
+
+                // Allow manual address entry if saved addresses cannot load
+                setAddressMode("Manual");
             } finally {
                 setLoadingAddresses(false);
             }
@@ -184,30 +205,53 @@ function Checkout() {
             return;
         }
 
-        if (orderType === "Delivery") {
-            if (savedAddresses.length === 0) {
-                alert(
-                    "Please add a saved address to your profile before ordering delivery."
-                );
-                return;
-            }
+        let deliveryAddress = "";
 
-            if (!selectedAddress) {
-                alert("Please select a delivery address.");
-                return;
+        if (orderType === "Delivery") {
+            if (addressMode === "Saved") {
+                if (savedAddresses.length === 0) {
+                    alert("Please enter a delivery address manually.");
+                    return;
+                }
+
+                if (!selectedAddress) {
+                    alert("Please select a delivery address.");
+                    return;
+                }
+
+                const address = savedAddresses.find(
+                    item => getAddressId(item) === selectedAddress
+                );
+
+                if (!address) {
+                    alert("Please select a valid delivery address.");
+                    return;
+                }
+
+                deliveryAddress = getAddressText(address);
+            } else {
+                deliveryAddress = data.manualAddress.trim();
+
+                if (!deliveryAddress) {
+                    alert("Please enter your delivery address.");
+                    return;
+                }
             }
         }
 
-        // Validated form values
+        // Validated checkout information
         console.log("Customer Details:", data);
         console.log("Order Type:", orderType);
-        console.log("Selected Address:", selectedAddress);
+        console.log("Delivery Address:", deliveryAddress);
+        console.log("Payment Method:", paymentMethod);
         console.log("Cart Items:", cartItems);
+        console.log("Subtotal:", subtotal);
+        console.log("Delivery Fee:", deliveryFee);
         console.log("Order Total:", total);
 
         // Order placement will be connected to the backend next
         alert(
-            "Your details are ready. Order placement will be connected next."
+            "Your checkout details are ready. Order placement and payment processing will be connected next."
         );
     }
 
@@ -243,13 +287,13 @@ function Checkout() {
                             <div className="col-lg-7">
                                 <div className="checkout-form-panel">
 
+                                    {/* Order Type */}
                                     <h4>Order Type</h4>
                                     <p className="checkout-description">
                                         Choose delivery or collect your order yourself.
                                     </p>
 
                                     <div className="row g-3 mb-4">
-
                                         <div className="col-md-6">
                                             <button
                                                 type="button"
@@ -265,7 +309,7 @@ function Checkout() {
                                                 <i className="bi bi-truck"></i>
                                                 <span>Delivery</span>
                                                 <small>
-                                                    Delivered to your saved address
+                                                    Delivered to your address
                                                 </small>
                                             </button>
                                         </div>
@@ -285,64 +329,119 @@ function Checkout() {
                                                 <i className="bi bi-shop"></i>
                                                 <span>Pickup</span>
                                                 <small>
-                                                    Collect your order from the bistro
+                                                    Collect from the bistro
                                                 </small>
                                             </button>
                                         </div>
-
                                     </div>
 
-                                    {/* Saved Delivery Addresses */}
+                                    {/* Delivery Address */}
                                     {orderType === "Delivery" && (
                                         <div className="mb-4">
-                                            <label
-                                                htmlFor="savedAddress"
-                                                className="form-label"
-                                            >
-                                                Select Saved Address
-                                            </label>
+                                            <h4>Delivery Address</h4>
+                                            <p className="checkout-description">
+                                                Select a saved address or enter a new one.
+                                            </p>
 
                                             {loadingAddresses ? (
-                                                <p>
-                                                    Loading your saved addresses...
-                                                </p>
-                                            ) : addressError ? (
-                                                <p className="text-danger">
-                                                    {addressError}
-                                                </p>
-                                            ) : savedAddresses.length === 0 ? (
-                                                <div className="checkout-address-message">
-                                                    <p>
-                                                        You have no saved addresses.
-                                                        Add an address in your customer
-                                                        profile before choosing delivery.
-                                                    </p>
-                                                </div>
+                                                <p>Loading saved addresses...</p>
                                             ) : (
-                                                <select
-                                                    className="form-select"
-                                                    id="savedAddress"
-                                                    value={selectedAddress}
-                                                    onChange={(event) =>
-                                                        setSelectedAddress(
-                                                            event.target.value
-                                                        )
-                                                    }
-                                                    required
-                                                >
-                                                    <option value="">
-                                                        Choose a saved address
-                                                    </option>
+                                                <>
+                                                    {addressError && (
+                                                        <p className="text-danger">
+                                                            {addressError}
+                                                        </p>
+                                                    )}
 
-                                                    {savedAddresses.map((address) => (
-                                                        <option
-                                                            key={getAddressId(address)}
-                                                            value={getAddressId(address)}
-                                                        >
-                                                            {getAddressText(address)}
-                                                        </option>
-                                                    ))}
-                                                </select>
+                                                    <div className="d-flex flex-wrap gap-3 mb-3">
+                                                        {savedAddresses.length > 0 && (
+                                                            <label>
+                                                                <input
+                                                                    type="radio"
+                                                                    name="addressMode"
+                                                                    value="Saved"
+                                                                    checked={addressMode === "Saved"}
+                                                                    onChange={() =>
+                                                                        setAddressMode("Saved")
+                                                                    }
+                                                                />{" "}
+                                                                Use saved address
+                                                            </label>
+                                                        )}
+
+                                                        <label>
+                                                            <input
+                                                                type="radio"
+                                                                name="addressMode"
+                                                                value="Manual"
+                                                                checked={addressMode === "Manual"}
+                                                                onChange={() =>
+                                                                    setAddressMode("Manual")
+                                                                }
+                                                            />{" "}
+                                                            Enter address manually
+                                                        </label>
+                                                    </div>
+
+                                                    {addressMode === "Saved" &&
+                                                    savedAddresses.length > 0 ? (
+                                                        <>
+                                                            <label
+                                                                htmlFor="savedAddress"
+                                                                className="form-label"
+                                                            >
+                                                                Select Saved Address
+                                                            </label>
+
+                                                            <select
+                                                                className="form-select"
+                                                                id="savedAddress"
+                                                                value={selectedAddress}
+                                                                onChange={event =>
+                                                                    setSelectedAddress(
+                                                                        event.target.value
+                                                                    )
+                                                                }
+                                                            >
+                                                                <option value="">
+                                                                    Choose a saved address
+                                                                </option>
+
+                                                                {savedAddresses.map(address => (
+                                                                    <option
+                                                                        key={getAddressId(address)}
+                                                                        value={getAddressId(address)}
+                                                                    >
+                                                                        {getAddressText(address)}
+                                                                    </option>
+                                                                ))}
+                                                            </select>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <label
+                                                                htmlFor="manualAddress"
+                                                                className="form-label"
+                                                            >
+                                                                Full Delivery Address
+                                                            </label>
+
+                                                            <textarea
+                                                                className="form-control"
+                                                                id="manualAddress"
+                                                                rows="3"
+                                                                placeholder="Enter building, street, area and city"
+                                                                {...register("manualAddress")}
+                                                            />
+
+                                                            {errors.manualAddress && (
+                                                                <p className="text-danger mt-1">
+                                                                    {errors.manualAddress.message}
+                                                                </p>
+                                                            )}
+                                                        </>
+                                                    )}
+                                                </>
                                             )}
                                         </div>
                                     )}
@@ -391,6 +490,7 @@ function Checkout() {
                                                 errors.phone ? "is-invalid" : ""
                                             }`}
                                             id="phone"
+                                            placeholder="+96512345678"
                                             {...register("phone")}
                                         />
 
@@ -401,6 +501,7 @@ function Checkout() {
                                         )}
                                     </div>
 
+                                    {/* Order Notes */}
                                     <div className="mb-3">
                                         <label
                                             htmlFor="notes"
@@ -439,7 +540,7 @@ function Checkout() {
 
                                     <h4>Order Summary</h4>
 
-                                    {cartItems.map((item) => (
+                                    {cartItems.map(item => (
                                         <div
                                             className="checkout-item"
                                             key={item._id || item.id}
@@ -478,16 +579,60 @@ function Checkout() {
                                         <strong>{formatPrice(total)}</strong>
                                     </div>
 
+                                    {/* Payment Method */}
+                                    <div className="checkout-payment-section">
+                                        <p className="checkout-payment-heading">
+                                            Payment Method
+                                        </p>
+
+                                        <div className="checkout-payment-options">
+                                            <label
+                                                className={`checkout-payment-option ${
+                                                    paymentMethod === "Cash" ? "active" : ""
+                                                }`}
+                                            >
+                                                <input
+                                                    type="radio"
+                                                    name="paymentMethod"
+                                                    value="Cash"
+                                                    checked={paymentMethod === "Cash"}
+                                                    onChange={() => setPaymentMethod("Cash")}
+                                                />
+
+                                                <i className="bi bi-cash-stack"></i>
+                                                <span>Cash</span>
+                                            </label>
+
+                                            <label
+                                                className={`checkout-payment-option ${
+                                                    paymentMethod === "Card" ? "active" : ""
+                                                }`}
+                                            >
+                                                <input
+                                                    type="radio"
+                                                    name="paymentMethod"
+                                                    value="Card"
+                                                    checked={paymentMethod === "Card"}
+                                                    onChange={() => setPaymentMethod("Card")}
+                                                />
+
+                                                <i className="bi bi-credit-card"></i>
+                                                <span>Card</span>
+                                            </label>
+                                        </div>
+
+                                        <small className="checkout-payment-note">
+                                            <i className="bi bi-info-circle"></i>
+                                            Pay in person when your order arrives or is collected.
+                                        </small>
+                                    </div>
+
                                     <button
                                         type="submit"
                                         className="btn checkout-primary-btn w-100"
                                         disabled={
                                             orderType === "Delivery" &&
-                                            (
-                                                loadingAddresses ||
-                                                savedAddresses.length === 0 ||
-                                                !selectedAddress
-                                            )
+                                            loadingAddresses
                                         }
                                     >
                                         Place Order

@@ -1691,81 +1691,200 @@ footer {
 }
 
 
-/* =========================================================
-   11. LOCATION PAGE
-   ========================================================= */
+
+/* ================= LOCATION PAGE ================= */
 
 .location-page {
     background-color: #0D0D0D;
     color: #F5F0E6;
-    min-height: 60vh;
+    min-height: 80vh;
 }
 
-.location-page .location-eyebrow {
+.location-heading {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.location-eyebrow {
     color: #C98F9A;
-    letter-spacing: 4px;
-    font-size: 13px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
 }
 
-.location-page h1 {
-    color: #F5F0E6;
-    font-size: clamp(2rem, 5vw, 3.5rem);
+.location-heading h1 {
+    font-size: clamp(32px, 5vw, 55px);
+    line-height: 1.2;
 }
 
-.location-page .location-description {
+.location-dot {
+    color: #C98F9A;
+}
+
+.location-description {
     color: #BDB8B0;
-    max-width: 600px;
+    font-size: 16px;
+    line-height: 1.9;
+    max-width: 680px;
+}
+
+/* ================= LOCATION CARDS ================= */
+
+.location-card {
+    background: linear-gradient(145deg, #191919, #111111);
+    border: 1px solid rgba(201, 143, 154, 0.2);
+    border-radius: 12px;
+    padding: 35px;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.location-card:hover {
+    border-color: #C98F9A;
+    transform: translateY(-4px);
+}
+
+.location-card-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(201, 143, 154, 0.12);
+    border-radius: 10px;
+    color: #C98F9A;
+    font-size: 23px;
+    margin-bottom: 25px;
+}
+
+.location-card-label {
+    color: #C98F9A;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.location-card h3 {
+    font-size: 27px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.location-address {
+    color: #F5F0E6;
+    font-size: 17px;
     line-height: 1.8;
 }
 
-.location-page .location-card {
-    max-width: 650px;
-    margin: 0 auto;
-    padding: 35px 25px;
-    background-color: #171717;
-    border: 1px solid #800020;
-    border-radius: 8px;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+.location-card-description {
+    color: #A9A39C;
+    font-size: 14px;
+    line-height: 1.8;
+    margin-top: 18px;
 }
 
-.location-page .location-card:hover {
-    transform: translateY(-5px);
-    border-color: #C98F9A;
-}
-
-.location-page .location-icon {
+.location-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     color: #C98F9A;
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-}
-
-.location-page .location-card h4 {
-    color: #F5F0E6;
+    text-decoration: none;
     font-weight: 600;
-    margin-bottom: 15px;
+    margin-top: 15px;
+    transition: color 0.3s ease;
 }
 
-.location-page .location-address {
-    color: #C98F9A;
-    overflow-wrap: anywhere;
-    margin-bottom: 0;
+.location-link:hover {
+    color: #F5F0E6;
 }
 
-.location-page .location-footer-text {
-    color: #BDB8B0;
+/* ================= OPENING HOURS ================= */
+
+.location-hours {
     margin-top: 25px;
 }
 
+.location-hours-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 17px 0;
+    border-bottom: 1px solid rgba(245, 240, 230, 0.1);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.location-hours-row span:first-child {
+    color: #F5F0E6;
+    font-weight: 600;
+}
+
+.location-hours-row span:last-child {
+    color: #C98F9A;
+    text-align: end;
+}
+
+/* ================= CONTACT SECTION ================= */
+
+.location-contact {
+    background-color: #151313;
+    border: 1px solid rgba(201, 143, 154, 0.18);
+    border-radius: 12px;
+    padding: 45px 25px;
+    margin-top: 25px;
+}
+
+.location-contact-icon {
+    color: #C98F9A;
+    font-size: 32px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.location-contact h2 {
+    font-size: clamp(24px, 4vw, 34px);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.location-contact-detail {
+    color: #F5F0E6;
+    margin: 12px 0;
+    overflow-wrap: anywhere;
+}
+
+.location-contact-detail i {
+    color: #C98F9A;
+    margin-inline-end: 12px;
+}
+
+/* ================= LOCATION FOOTER ================= */
+
+.location-footer-text {
+    color: #BDB8B0;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.location-footer-text i {
+    color: #C98F9A;
+    margin-bottom: 12px;
+}
+
+/* ================= RESPONSIVE ================= */
+
 @media (max-width: 576px) {
-    .location-page {
-        padding: 20px 0;
+    .location-card {
+        padding: 25px 20px;
     }
 
-    .location-page .location-card {
-        padding: 25px 18px;
+    .location-hours-row {
+        flex-direction: column;
+        gap: 5px;
     }
 
-    .location-page .location-eyebrow {
-        letter-spacing: 3px;
+    .location-contact {
+        padding: 35px 18px;
     }
 }

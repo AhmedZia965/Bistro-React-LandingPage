@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -50,11 +51,11 @@ function StaffMenu({ language, setLanguage }) {
   // Stores menu items from MongoDB
   const [menuItems, setMenuItems] = useState([])
 
-  // Stores the new price
-  const [newPrice, setNewPrice] = useState('')
+  // Stores a separate new price for each menu item
+  const [newPrices, setNewPrices] = useState({})
 
   // Stores the selected category
-  const [selectedCategory, setSelectedCategory] = useState('All')
+  const [selectedCategory, setSelectedCategory] = useState('Burgers')
 
   // Manages and validates the Add Item form
   const {
@@ -105,13 +106,15 @@ function StaffMenu({ language, setLanguage }) {
       })
   }
 
-  // Updates the price of a menu item
+  // Updates the price of one menu item
   function handleUpdatePrice(id) {
 
+    const price = newPrices[id]
+
     if (
-      newPrice === '' ||
-      !Number.isFinite(Number(newPrice)) ||
-      Number(newPrice) <= 0
+      !price ||
+      !Number.isFinite(Number(price)) ||
+      Number(price) <= 0
     ) {
       return
     }
@@ -125,7 +128,7 @@ function StaffMenu({ language, setLanguage }) {
     updateMenuAxiosFunction(id, {
       name: item.name,
       description: item.description,
-      price: Number(newPrice),
+      price: Number(price),
       category: item.category,
       image: item.image || '',
       available: item.available
@@ -137,7 +140,10 @@ function StaffMenu({ language, setLanguage }) {
           )
         )
 
-        setNewPrice('')
+        setNewPrices(previousPrices => ({
+          ...previousPrices,
+          [id]: ''
+        }))
       })
       .catch((error) => {
         console.log('Error updating price:', error)
@@ -189,7 +195,6 @@ function StaffMenu({ language, setLanguage }) {
 
   // Menu categories
   const categories = [
-    'All',
     'Burgers',
     'Pizzas',
     'Pastas',
@@ -200,15 +205,12 @@ function StaffMenu({ language, setLanguage }) {
   ]
 
   // Filters menu items by category
-  const filteredMenuItems = menuItems.filter(item =>
-    selectedCategory === 'All' ||
-    item.category === selectedCategory
-  )
+const filteredMenuItems = menuItems.filter(item =>
+  item.category === selectedCategory
+)
 
   return (
-
     <>
-
       {/* Staff Navbar */}
 
       <StaffNavbar
@@ -559,9 +561,12 @@ function StaffMenu({ language, setLanguage }) {
                                 ? 'New Price'
                                 : 'السعر الجديد'
                             }
-                            value={newPrice}
+                            value={newPrices[item._id] || ''}
                             onChange={(event) =>
-                              setNewPrice(event.target.value)
+                              setNewPrices(previousPrices => ({
+                                ...previousPrices,
+                                [item._id]: event.target.value
+                              }))
                             }
                           />
 
@@ -660,7 +665,6 @@ function StaffMenu({ language, setLanguage }) {
       <StaffFooter language={language} />
 
     </>
-
   )
 }
 
