@@ -21,6 +21,15 @@ const customerSchema = new mongoose.Schema({
       notes: { type: String, default: "" },
       isDefault: { type: Boolean, default: false }
     }
+  ],
+
+  feedbacks: [
+    {
+      name: { type: String, required: true },
+      category: { type: String, required: true },
+      experience: { type: String, required: true },
+      message: { type: String, required: true }
+    }
   ]
 });
 

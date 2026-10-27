@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { loginAxiosFunction } from '../../Services/api'
+import { loginAxiosFunction } from '../../Services/CustomerApi.js'
 
 // Login validation rules
 const loginSchema = z.object({
@@ -35,9 +35,7 @@ function CustomerLogin({ language }) {
   async function handleLogin(data) {
     try {
       const response = await loginAxiosFunction(data)
-
       console.log(response.data)
-
       sessionStorage.setItem('isLoggedIn', 'true')
       sessionStorage.setItem('customerId', response.data.customerId)
 

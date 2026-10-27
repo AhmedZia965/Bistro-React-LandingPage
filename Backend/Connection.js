@@ -1,22 +1,27 @@
-
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+
 import customerRoutes from "./Routes/customerRoutes.js";
+import menuRoutes from "./Routes/menuRoutes.js";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+// Customer routes
 app.use("/signup", customerRoutes);
+
+// Menu routes
+app.use("/menu", menuRoutes);
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
 
 mongoose.connect(
-    "mongodb+srv://ahmedabdurrehman116_db_user:NUK3batman10)@cluster0.lhdpqdo.mongodb.net/"
+     "mongodb+srv://ahmedabdurrehman116_db_user:NUK3batman10)@cluster0.lhdpqdo.mongodb.net/"
 ).then(() => {
     console.log("Connected to MongoDB");
 }).catch((error) => {

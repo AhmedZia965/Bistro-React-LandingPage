@@ -1,7 +1,7 @@
 
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getCustomerProfileAxiosFunction } from '../../Services/api'
+import { getCustomerProfileAxiosFunction } from '../../Services/CustomerApi.js'
 
 function CustomerProfile({ language }) {
   const navigate = useNavigate()

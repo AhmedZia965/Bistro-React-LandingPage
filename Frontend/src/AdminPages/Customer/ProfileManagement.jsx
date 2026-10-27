@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { getCustomerAddressesAxiosFunction } from '../../Services/api'
+import { getCustomerAddressesAxiosFunction } from "../../Services/CustomerApi.js";
 
 // ================= VALIDATION SCHEMAS =================
 

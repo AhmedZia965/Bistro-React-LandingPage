@@ -1,10 +1,10 @@
+
 import { Link } from 'react-router-dom'
 
 import StaffNavbar from './StaffNavbar'
 import StaffFooter from './StaffFooter'
 
 function StaffDashboard({ language, setLanguage }) {
-
 
   // ================= DASHBOARD CARDS =================
 
@@ -47,25 +47,6 @@ function StaffDashboard({ language, setLanguage }) {
       path: '/staff-orders',
     },
 
-
-    {
-      icon: 'bi-box-seam',
-
-      title: language === 'EN'
-        ? 'Inventory Management'
-        : 'إدارة المخزون',
-
-      description: language === 'EN'
-        ? 'Manage ingredients and supplies.'
-        : 'إدارة المخزون والمكونات والمواد الغذائية.',
-
-      button: language === 'EN'
-        ? 'Manage Inventory'
-        : 'إدارة المخزون',
-
-      path: '/staff-inventory',
-    },
-
   ]
 
 
@@ -84,7 +65,6 @@ function StaffDashboard({ language, setLanguage }) {
       <div className="staff-dashboard-page">
 
         <div className="container">
-
 
           {/* ================= DASHBOARD HEADING ================= */}
 
@@ -131,7 +111,6 @@ function StaffDashboard({ language, setLanguage }) {
               >
 
                 <div className="staff-dashboard-card">
-
 
                   {/* Card Icon */}
 

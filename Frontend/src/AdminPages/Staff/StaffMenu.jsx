@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -7,12 +7,19 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import StaffNavbar from './StaffNavbar'
 import StaffFooter from './StaffFooter'
 
+import {
+  getMenuAxiosFunction,
+  addMenuAxiosFunction,
+  updateMenuAxiosFunction,
+  deleteMenuAxiosFunction
+} from '../../Services/MenuApi'
+
 // Validates new menu items
 const menuItemSchema = z.object({
   name: z.string()
     .trim()
     .min(2, 'Food name must have at least 2 characters')
-    .max(75, 'Food name cannot exceed 75 characters'),
+    .max(30, 'Food name cannot exceed 30 characters'),
 
   category: z.enum([
     'Burgers',
@@ -35,16 +42,19 @@ const menuItemSchema = z.object({
   description: z.string()
     .trim()
     .min(3, 'Description must have at least 3 characters')
-    .max(500, 'Description cannot exceed 500 characters')
+    .max(200, 'Description cannot exceed 200 characters')
 })
 
 function StaffMenu({ language, setLanguage }) {
 
-  // Stores menu items
+  // Stores menu items from MongoDB
   const [menuItems, setMenuItems] = useState([])
 
   // Stores the new price
   const [newPrice, setNewPrice] = useState('')
+
+  // Stores the selected category
+  const [selectedCategory, setSelectedCategory] = useState('All')
 
   // Manages and validates the Add Item form
   const {
@@ -62,21 +72,37 @@ function StaffMenu({ language, setLanguage }) {
     }
   })
 
+  // Gets menu items from MongoDB
+  useEffect(() => {
+    getMenuAxiosFunction()
+      .then((response) => {
+        setMenuItems(response.data.menu)
+      })
+      .catch((error) => {
+        console.log('Error getting menu items:', error)
+      })
+  }, [])
+
   // Adds a new menu item
   function handleAddItem(data) {
 
     const newItem = {
-      id: Date.now(),
       name: data.name.trim(),
       category: data.category,
-      price: Number(data.price).toFixed(3),
+      price: Number(data.price),
       description: data.description.trim(),
+      image: '',
       available: true
     }
 
-    setMenuItems([...menuItems, newItem])
-
-    reset()
+    addMenuAxiosFunction(newItem)
+      .then((response) => {
+        setMenuItems([...menuItems, response.data.menu])
+        reset()
+      })
+      .catch((error) => {
+        console.log('Error adding menu item:', error)
+      })
   }
 
   // Updates the price of a menu item
@@ -90,42 +116,94 @@ function StaffMenu({ language, setLanguage }) {
       return
     }
 
-    setMenuItems(
-      menuItems.map(item =>
-        item.id === id
-          ? {
-              ...item,
-              price: Number(newPrice).toFixed(3)
-            }
-          : item
-      )
-    )
+    const item = menuItems.find(item => item._id === id)
 
-    setNewPrice('')
+    if (!item) {
+      return
+    }
+
+    updateMenuAxiosFunction(id, {
+      name: item.name,
+      description: item.description,
+      price: Number(newPrice),
+      category: item.category,
+      image: item.image || '',
+      available: item.available
+    })
+      .then((response) => {
+        setMenuItems(
+          menuItems.map(item =>
+            item._id === id ? response.data.menu : item
+          )
+        )
+
+        setNewPrice('')
+      })
+      .catch((error) => {
+        console.log('Error updating price:', error)
+      })
   }
 
   // Deletes a menu item
   function handleDelete(id) {
 
-    setMenuItems(
-      menuItems.filter(item => item.id !== id)
-    )
+    deleteMenuAxiosFunction(id)
+      .then(() => {
+        setMenuItems(
+          menuItems.filter(item => item._id !== id)
+        )
+      })
+      .catch((error) => {
+        console.log('Error deleting menu item:', error)
+      })
   }
 
   // Changes item availability
   function handleAvailability(id) {
 
-    setMenuItems(
-      menuItems.map(item =>
-        item.id === id
-          ? {
-              ...item,
-              available: !item.available
-            }
-          : item
-      )
-    )
+    const item = menuItems.find(item => item._id === id)
+
+    if (!item) {
+      return
+    }
+
+    updateMenuAxiosFunction(id, {
+      name: item.name,
+      description: item.description,
+      price: item.price,
+      category: item.category,
+      image: item.image || '',
+      available: !item.available
+    })
+      .then((response) => {
+        setMenuItems(
+          menuItems.map(item =>
+            item._id === id ? response.data.menu : item
+          )
+        )
+      })
+      .catch((error) => {
+        console.log('Error updating availability:', error)
+      })
   }
+
+  // Menu categories
+  const categories = [
+    'All',
+    'Burgers',
+    'Pizzas',
+    'Pastas',
+    'Desserts',
+    'Coffee',
+    'Drinks',
+    'Sides'
+  ]
+
+  // Filters menu items by category
+  const filteredMenuItems = menuItems.filter(item =>
+    selectedCategory === 'All' ||
+    item.category === selectedCategory
+  )
 
   return (
 
@@ -329,179 +407,225 @@ function StaffMenu({ language, setLanguage }) {
 
           </div>
 
-          {/* ================= MENU TABLE ================= */}
+          {/* ================= CURRENT MENU ================= */}
 
           <div className="staff-menu-items">
 
             <h2 className="text-center">
-              {language === 'EN' ? 'Current Menu' : 'القائمة الحالية'}
+              {language === 'EN' ? 'Manage Menu' : 'إدارة القائمة'}
             </h2>
 
-            <div className="table-responsive">
+            <p className="text-center text-secondary">
+              {language === 'EN'
+                ? 'Select a category to manage your menu items.'
+                : 'اختر فئة لإدارة عناصر القائمة.'}
+            </p>
 
-              <table className="staff-menu-table">
+            {/* Category Filters */}
 
-                <thead>
+            <div className="staff-menu-filters">
 
-                  <tr>
-                    <th>
-                      {language === 'EN' ? 'Food Name' : 'اسم الطعام'}
-                    </th>
+              {categories.map(category => (
 
-                    <th>
-                      {language === 'EN' ? 'Category' : 'الفئة'}
-                    </th>
+                <button
+                  key={category}
+                  type="button"
+                  className={`staff-menu-filter-btn ${
+                    selectedCategory === category ? 'active' : ''
+                  }`}
+                  onClick={() => setSelectedCategory(category)}
+                >
 
-                    <th>
-                      {language === 'EN' ? 'Description' : 'الوصف'}
-                    </th>
+                  {language === 'EN'
+                    ? category
+                    : ({
+                        All: 'الكل',
+                        Burgers: 'برغر',
+                        Pizzas: 'بيتزا',
+                        Pastas: 'معكرونة',
+                        Desserts: 'حلويات',
+                        Coffee: 'قهوة',
+                        Drinks: 'مشروبات',
+                        Sides: 'أطباق جانبية'
+                      }[category])}
 
-                    <th>
-                      {language === 'EN' ? 'Price' : 'السعر'}
-                    </th>
+                </button>
 
-                    <th>
-                      {language === 'EN' ? 'Availability' : 'التوفر'}
-                    </th>
+              ))}
 
-                    <th>
-                      {language === 'EN' ? 'Actions' : 'الإجراءات'}
-                    </th>
-                  </tr>
+            </div>
 
-                </thead>
+            {/* Menu Item Cards */}
 
-                <tbody>
+            <div className="row g-4">
 
-                  {menuItems.length === 0 ? (
+              {filteredMenuItems.length === 0 ? (
 
-                    <tr>
+                <div className="col-12">
 
-                      <td colSpan="6" className="text-center">
-                        {language === 'EN'
-                          ? 'No menu items available.'
-                          : 'لا توجد عناصر في القائمة.'}
-                      </td>
+                  <div className="staff-menu-empty">
 
-                    </tr>
+                    <i className="bi bi-clipboard-x"></i>
 
-                  ) : (
+                    <h5>
+                      {language === 'EN'
+                        ? 'No items in this category'
+                        : 'لا توجد عناصر في هذه الفئة'}
+                    </h5>
 
-                    menuItems.map(item => (
+                    <p className="mb-0">
+                      {language === 'EN'
+                        ? 'Add a new item or select another category.'
+                        : 'أضف عنصرًا جديدًا أو اختر فئة أخرى.'}
+                    </p>
 
-                      <tr key={item.id}>
+                  </div>
 
-                        <td>{item.name}</td>
+                </div>
 
-                        <td>{item.category}</td>
+              ) : (
 
-                        <td>{item.description}</td>
+                filteredMenuItems.map(item => (
 
-                        <td>KWD {item.price}</td>
+                  <div className="col-md-6 col-xl-4" key={item._id}>
 
-                        <td>
+                    <div className="staff-menu-card">
 
-                          <span
-                            className={
-                              item.available
-                                ? 'staff-available'
-                                : 'staff-unavailable'
-                            }
-                          >
+                      {/* Item Details */}
 
-                            {item.available
-                              ? (
+                      <div className="staff-menu-card-top">
+
+                        <div>
+
+                          <h5>{item.name}</h5>
+
+                          <span className="staff-menu-card-category">
+                            {item.category}
+                          </span>
+
+                        </div>
+
+                        <span
+                          className={`staff-menu-card-status ${
+                            item.available
+                              ? 'available'
+                              : 'unavailable'
+                          }`}
+                        >
+
+                          {item.available
+                            ? (
                                 language === 'EN'
                                   ? 'Available'
                                   : 'متاح'
                               )
-                              : (
+                            : (
                                 language === 'EN'
-                                  ? 'Unavailable'
+                                  ? 'Out of Stock'
                                   : 'غير متاح'
                               )}
 
-                          </span>
+                        </span>
 
-                        </td>
+                      </div>
 
-                        <td>
+                      <p className="staff-menu-card-description">
+                        {item.description}
+                      </p>
 
-                          {/* Update Price */}
+                      <div className="staff-menu-card-price">
+                        KWD {Number(item.price).toFixed(3)}
+                      </div>
 
-                          <div className="d-flex gap-2 mb-2">
+                      {/* Update Price */}
 
-                            <input
-                              type="number"
-                              min="0.001"
-                              step="0.001"
-                              className="form-control"
-                              placeholder={
+                      <div className="staff-menu-card-actions">
+
+                        <label>
+                          {language === 'EN'
+                            ? 'Update Price'
+                            : 'تحديث السعر'}
+                        </label>
+
+                        <div className="d-flex gap-2 mb-3">
+
+                          <input
+                            type="number"
+                            min="0.001"
+                            step="0.001"
+                            className="form-control"
+                            placeholder={
+                              language === 'EN'
+                                ? 'New Price'
+                                : 'السعر الجديد'
+                            }
+                            value={newPrice}
+                            onChange={(event) =>
+                              setNewPrice(event.target.value)
+                            }
+                          />
+
+                          <button
+                            type="button"
+                            className="staff-availability-btn"
+                            onClick={() => handleUpdatePrice(item._id)}
+                          >
+
+                            {language === 'EN' ? 'Update' : 'تحديث'}
+
+                          </button>
+
+                        </div>
+
+                        {/* Availability */}
+
+                        <button
+                          type="button"
+                          className="staff-availability-btn w-100 mb-2"
+                          onClick={() => handleAvailability(item._id)}
+                        >
+
+                          <i className="bi bi-toggle-on me-2"></i>
+
+                          {item.available
+                            ? (
                                 language === 'EN'
-                                  ? 'New Price'
-                                  : 'السعر الجديد'
-                              }
-                              value={newPrice}
-                              onChange={(event) =>
-                                setNewPrice(event.target.value)
-                              }
-                            />
+                                  ? 'Mark Out of Stock'
+                                  : 'تحديد كغير متاح'
+                              )
+                            : (
+                                language === 'EN'
+                                  ? 'Mark Available'
+                                  : 'تحديد كمتاح'
+                              )}
 
-                            <button
-                              type="button"
-                              className="staff-availability-btn"
-                              onClick={() => handleUpdatePrice(item.id)}
-                            >
+                        </button>
 
-                              <i className="bi bi-pencil me-1"></i>
+                        {/* Delete */}
 
-                              {language === 'EN' ? 'Update' : 'تحديث'}
+                        <button
+                          type="button"
+                          className="staff-delete-btn w-100"
+                          onClick={() => handleDelete(item._id)}
+                        >
 
-                            </button>
+                          <i className="bi bi-trash me-2"></i>
 
-                          </div>
+                          {language === 'EN'
+                            ? 'Delete Item'
+                            : 'حذف العنصر'}
 
-                          {/* Availability */}
+                        </button>
 
-                          <button
-                            type="button"
-                            className="staff-availability-btn me-2"
-                            onClick={() => handleAvailability(item.id)}
-                          >
+                      </div>
 
-                            <i className="bi bi-toggle-on me-1"></i>
+                    </div>
 
-                            {language === 'EN'
-                              ? 'Availability'
-                              : 'التوفر'}
+                  </div>
 
-                          </button>
+                ))
 
-                          {/* Delete */}
-
-                          <button
-                            type="button"
-                            className="staff-delete-btn"
-                            onClick={() => handleDelete(item.id)}
-                          >
-
-                            <i className="bi bi-trash me-1"></i>
-
-                            {language === 'EN' ? 'Delete' : 'حذف'}
-
-                          </button>
-
-                        </td>
-
-                      </tr>
-
-                    ))
-
-                  )}
-
-                </tbody>
-
-              </table>
+              )}
 
             </div>
 

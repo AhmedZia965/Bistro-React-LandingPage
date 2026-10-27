@@ -1,4 +1,3 @@
-
 import { createBrowserRouter, useOutletContext } from 'react-router-dom'
 
 import App from './App.jsx'
@@ -11,6 +10,7 @@ import Offers from './components/Offers'
 import Footer from './components/Footer'
 import Rewards from './components/Rewards'
 import LearnMore from './components/LearnMore'
+import Location from './components/Location'
 
 import CustomerSignup from './AdminPages/Customer/CustomerSignUp'
 import CustomerLogin from './AdminPages/Customer/CustomerLogin'
@@ -18,12 +18,13 @@ import CustomerFeedback from './AdminPages/Customer/CustomerFeedback'
 import CustomerProfile from './AdminPages/Customer/CustomerProfile'
 import ProfileManagement from './AdminPages/Customer/ProfileManagement'
 import Addresses from './AdminPages/Customer/Addresses'
+import Cart from './AdminPages/Customer/Cart'
+import Checkout from './AdminPages/Customer/Checkout'
 
 import StaffLogin from './AdminPages/Staff/StaffLogin'
 import StaffDashboard from './AdminPages/Staff/StaffDashboard'
 import StaffMenu from './AdminPages/Staff/StaffMenu'
 import StaffOrders from './AdminPages/Staff/StaffOrders'
-import InventoryManagement from './AdminPages/Staff/InventoryManagement.jsx'
 
 import AdminLogin from './AdminPages/Admin/AdminLogin'
 import AdminDashboard, {
@@ -38,11 +39,9 @@ import AdminOfferManagement from './AdminPages/Admin/AdminOfferManagement'
 
 // Gets language and setLanguage from App
 function RouteWrapper({ children }) {
-
   const { language, setLanguage } = useOutletContext()
 
   return children({ language, setLanguage })
-
 }
 
 
@@ -113,6 +112,51 @@ const router = createBrowserRouter([
             {({ language }) => (
               <>
                 <MainMenu language={language} />
+                <Footer language={language} />
+              </>
+            )}
+          </RouteWrapper>
+        )
+      },
+
+      // Cart page
+      {
+        path: 'cart',
+        element: (
+          <RouteWrapper>
+            {({ language }) => (
+              <>
+                <Cart language={language} />
+                <Footer language={language} />
+              </>
+            )}
+          </RouteWrapper>
+        )
+      },
+
+      // Checkout page
+      {
+        path: 'checkout',
+        element: (
+          <RouteWrapper>
+            {({ language }) => (
+              <>
+                <Checkout language={language} />
+                <Footer language={language} />
+              </>
+            )}
+          </RouteWrapper>
+        )
+      },
+
+      // Location page
+      {
+        path: 'location',
+        element: (
+          <RouteWrapper>
+            {({ language }) => (
+              <>
+                <Location language={language} />
                 <Footer language={language} />
               </>
             )}
@@ -272,20 +316,6 @@ const router = createBrowserRouter([
         )
       },
 
-      // Staff Inventory Management
-      {
-        path: 'staff-inventory',
-        element: (
-          <RouteWrapper>
-            {({ language, setLanguage }) => (
-              <InventoryManagement
-                language={language}
-                setLanguage={setLanguage}
-              />
-            )}
-          </RouteWrapper>
-        )
-      },
 
       // ================= ADMIN PAGES =================
 

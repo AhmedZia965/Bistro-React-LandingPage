@@ -9,9 +9,10 @@ import StaffFooter from './StaffFooter'
 
 // Staff login validation rules
 const staffLoginSchema = z.object({
-  staffId: z.string()
+  email: z.string()
     .trim()
-    .min(1, 'Staff ID is required'),
+    .min(1, 'Email is required')
+    .email('Enter a valid email address'),
 
   password: z.string()
     .min(8, 'Password must have at least 8 characters')
@@ -81,30 +82,30 @@ function StaffLogin({ language, setLanguage }) {
 
           <form onSubmit={handleSubmit(handleLogin)}>
 
-            {/* Staff ID */}
+            {/* Email */}
             <div className="staff-input-group">
 
               <label>
                 {language === 'EN'
-                  ? 'Staff ID'
-                  : 'معرف الموظف'}
+                  ? 'Email'
+                  : 'البريد الإلكتروني'}
               </label>
 
               <input
-                type="text"
+                type="email"
                 placeholder={
                   language === 'EN'
-                    ? 'Enter Staff ID'
-                    : 'أدخل معرف الموظف'
+                    ? 'Enter Email'
+                    : 'أدخل البريد الإلكتروني'
                 }
-                {...register('staffId')}
+                {...register('email')}
               />
 
-              {errors.staffId && (
+              {errors.email && (
                 <p className="text-danger mt-1">
                   {language === 'EN'
-                    ? errors.staffId.message
-                    : 'معرف الموظف مطلوب'}
+                    ? errors.email.message
+                    : 'يرجى إدخال بريد إلكتروني صحيح'}
                 </p>
               )}
 

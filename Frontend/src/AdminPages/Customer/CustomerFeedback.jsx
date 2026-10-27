@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { addFeedbackAxiosFunction } from "../../Services/CustomerApi.js";
 
 // Feedback validation
-
 const feedbackSchema = z.object({
   name: z.string()
     .trim()
@@ -59,7 +59,7 @@ function CustomerFeedback({ language }) {
     register,
     handleSubmit: submitForm,
     reset,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm({
     resolver: zodResolver(feedbackSchema),
     defaultValues: {
@@ -70,7 +70,7 @@ function CustomerFeedback({ language }) {
   })
 
   // Handles feedback form submission
-  function handleSubmit(data) {
+  async function handleSubmit(data) {
     if (experience === '') {
       alert(
         language === 'EN'
@@ -81,13 +81,30 @@ function CustomerFeedback({ language }) {
       return
     }
 
-    // Demo submission only
-    console.log('Feedback submitted:', {
-      ...data,
-      experience
-    })
+    const customerId = sessionStorage.getItem('customerId')
 
-    setSubmitted(true)
+    if (!customerId) {
+      setIsLoggedIn(false)
+      navigate('/login', { replace: true })
+      return
+    }
+
+    try {
+      await addFeedbackAxiosFunction(customerId, {
+        ...data,
+        experience: experience
+      })
+
+      setSubmitted(true)
+    } catch (error) {
+      console.error('Feedback submission failed:', error)
+
+      alert(
+        language === 'EN'
+          ? 'Failed to submit feedback. Please try again.'
+          : 'فشل إرسال التقييم. يرجى المحاولة مرة أخرى.'
+      )
+    }
   }
 
   // Prevents the page from displaying when logged out
@@ -453,13 +470,20 @@ function CustomerFeedback({ language }) {
                       <button
                         type="submit"
                         className="btn feedback-submit-btn"
+                        disabled={isSubmitting}
                       >
 
-                        {language === 'EN'
-                          ? 'Submit Feedback'
-                          : 'إرسال التقييم'}
+                        {isSubmitting
+                          ? (language === 'EN'
+                              ? 'Submitting...'
+                              : 'جارٍ الإرسال...')
+                          : (language === 'EN'
+                              ? 'Submit Feedback'
+                              : 'إرسال التقييم')}
 
-                        <i className="bi bi-arrow-right ms-2"></i>
+                        {!isSubmitting && (
+                          <i className="bi bi-arrow-right ms-2"></i>
+                        )}
 
                       </button>
 

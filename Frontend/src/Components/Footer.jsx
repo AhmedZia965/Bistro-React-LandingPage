@@ -88,16 +88,16 @@ function Footer({ language }) {
 
             <p>
               {language === 'EN'
-                ? '📍 Abbottabad'
-                : '📍 أبوت آباد'}
+                ? '📍 XXXXXXXXXXXXXXX'
+                : '📍 XXXXXXXXXXXXXXX'}
             </p>
 
             <p>
-              📞 +92 XXX XXXXXXX
+              📞 +XX XXX XXXXXXX
             </p>
 
             <p>
-              ✉️ info@monarchbistro.com
+              ✉️ XXXX@XXXXXXXXXX.XXX
             </p>
 
           </div>

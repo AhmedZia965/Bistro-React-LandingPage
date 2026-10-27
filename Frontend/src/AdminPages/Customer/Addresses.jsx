@@ -6,7 +6,7 @@ import { z } from 'zod'
 import {
   getCustomerAddressesAxiosFunction,
   saveCustomerAddressesAxiosFunction
-} from '../../Services/api'
+} from '../../Services/CustomerApi.js'
 import './Customer.css'
 
 const MAX_ADDRESSES = 5

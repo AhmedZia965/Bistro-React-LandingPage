@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getCustomerProfileAxiosFunction } from '../Services/api'
+import { getCustomerProfileAxiosFunction } from '../Services/CustomerApi.js'
 
 function Rewards({ language }) {
   const navigate = useNavigate()

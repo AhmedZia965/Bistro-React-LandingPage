@@ -2,7 +2,7 @@
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { signupAxiosFunction } from '../../Services/api.js'
+import { signupAxiosFunction } from '../../Services/CustomerApi.js'
 // Signup validation rules
 
 
@@ -63,7 +63,7 @@ function CustomerSignup({ language }) {
     // Sends signup form data to the backend
     const response = await signupAxiosFunction(data)
 
-    console.log(response.data)
+   console.log(response.data)
 
     alert(
       language === 'EN'

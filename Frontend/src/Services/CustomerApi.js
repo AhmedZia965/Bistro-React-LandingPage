@@ -3,7 +3,7 @@ import axios from "axios";
 
 export async function signupAxiosFunction(data) {
     console.log("signupAxiosFunction called");
-    return await axios.post("http://localhost:3000/signup", data);
+    return await axios.post("http://localhost:3000/signup/register", data);
 }
 
 export async function loginAxiosFunction(data) {
@@ -23,4 +23,9 @@ export async function saveCustomerAddressesAxiosFunction(id, addresses) {
     return await axios.post(`http://localhost:3000/signup/addresses/${id}`, {
         addresses: addresses
     });
+}
+
+export async function addFeedbackAxiosFunction(id, data) {
+    console.log("addFeedbackAxiosFunction called");
+    return await axios.post(`http://localhost:3000/signup/feedback/${id}`, data);
 }
