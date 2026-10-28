@@ -1,8 +1,11 @@
 
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+
+import { staffLoginAxiosFunction } from '../../Services/StaffApi.js'
 
 import StaffNavbar from './StaffNavbar'
 import StaffFooter from './StaffFooter'
@@ -21,6 +24,7 @@ const staffLoginSchema = z.object({
 function StaffLogin({ language, setLanguage }) {
 
   const navigate = useNavigate()
+  const [loginError, setLoginError] = useState('')
 
   const {
     register,
@@ -31,12 +35,33 @@ function StaffLogin({ language, setLanguage }) {
   })
 
   // Handles staff login
-  function handleLogin(data) {
+  async function handleLogin(data) {
 
-    // Demo login: accepts valid form details
-    console.log('Staff login submitted:', data)
+    try {
 
-    navigate('/staff-dashboard')
+      setLoginError('')
+
+      const response = await staffLoginAxiosFunction(
+        data.email,
+        data.password
+      )
+
+      if (response.status === 200) {
+
+        sessionStorage.setItem('staffId', response.data.staffId)
+        sessionStorage.setItem('staffEmail', response.data.email)
+
+        navigate('/staff-dashboard')
+      }
+
+    } catch (error) {
+
+      setLoginError(
+        error.response?.data?.message ||
+        'Login failed. Please try again.'
+      )
+
+    }
   }
 
   return (
@@ -139,6 +164,13 @@ function StaffLogin({ language, setLanguage }) {
               )}
 
             </div>
+
+            {/* Login Error */}
+            {loginError && (
+              <p className="text-danger mt-2">
+                {loginError}
+              </p>
+            )}
 
             {/* Login Button */}
             <button

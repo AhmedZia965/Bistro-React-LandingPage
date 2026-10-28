@@ -1,4 +1,4 @@
-import '../Admin/Admin.css'
+import '../Admin/OfferManagement.css'
 import { useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import { useForm } from 'react-hook-form'

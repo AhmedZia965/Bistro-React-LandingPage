@@ -1,0 +1,435 @@
+
+/* =========================================================
+   MANAGEMENT PAGE
+   ========================================================= */
+
+.admin-management-page {
+    width: 100%;
+    color: #F5F0E6;
+    padding: 10px 0 40px;
+}
+
+.admin-management-page > .container {
+    max-width: 1200px;
+}
+
+/* =========================================================
+   MANAGEMENT PAGE HEADING
+   ========================================================= */
+
+.admin-management-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-management-heading span {
+    display: block;
+    color: #C98F9A;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.admin-management-heading h1 {
+    color: #F5F0E6;
+    font-size: 32px;
+    margin: 0 0 8px;
+}
+
+.admin-management-heading p {
+    color: #AAA39A;
+    margin: 0;
+}
+
+/* =========================================================
+   MANAGEMENT FORM
+   ========================================================= */
+
+.admin-management-form {
+    background-color: #151515;
+    border: 1px solid #302026;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.admin-management-form h2 {
+    color: #F5F0E6;
+    font-size: 22px;
+    margin: 0;
+}
+
+.admin-management-form label {
+    display: block;
+    color: #F5F0E6;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.admin-management-form .form-control {
+    width: 100%;
+    background-color: #111111;
+    color: #F5F0E6;
+    border: 1px solid #302026;
+    border-radius: 8px;
+    padding: 10px 13px;
+}
+
+.admin-management-form .form-control:focus {
+    background-color: #111111;
+    color: #F5F0E6;
+    border-color: #C98F9A;
+    box-shadow: none;
+}
+
+.admin-management-form .form-control::placeholder {
+    color: #77716B;
+}
+
+.admin-management-form select.form-control {
+    color: #F5F0E6;
+}
+
+.admin-management-form select option {
+    background-color: #111111;
+    color: #F5F0E6;
+}
+
+.admin-management-form textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+/* =========================================================
+   MANAGEMENT FORM BUTTONS
+   ========================================================= */
+
+.admin-management-btn {
+    background-color: #C98F9A !important;
+    color: #212121 !important;
+    border: 1px solid #C98F9A !important;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.admin-management-btn:hover {
+    background-color: #F5F0E6 !important;
+    color: #212121 !important;
+    border-color: #F5F0E6 !important;
+}
+
+/* =========================================================
+   MANAGEMENT TABLE
+   ========================================================= */
+
+.admin-management-table {
+    background-color: #151515;
+    border: 1px solid #302026;
+    border-radius: 15px;
+    padding: 25px;
+    overflow: hidden;
+}
+
+.admin-management-table h2 {
+    color: #F5F0E6;
+    font-size: 22px;
+}
+
+.admin-management-table .text-secondary {
+    color: #77716B !important;
+}
+
+/* Responsive table wrapper */
+
+.admin-management-table .Stafftable-responsive {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* =========================================================
+   STAFF TABLE
+   ========================================================= */
+
+.admin-management-table .Stafftable {
+    width: 100%;
+    min-width: 1100px;
+    margin-bottom: 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: left;
+}
+
+.admin-management-table .Stafftable th,
+.admin-management-table .Stafftable td {
+    border-bottom: 1px solid #302026;
+    padding: 13px 12px;
+    vertical-align: middle;
+    overflow-wrap: break-word;
+}
+
+.admin-management-table .Stafftable thead th {
+    background-color: #2A151D;
+    color: #F5F0E6;
+    border-color: #4A2832;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.admin-management-table .Stafftable tbody td {
+    background-color: #151515;
+    color: #AAA39A;
+    border-color: #302026;
+}
+
+.admin-management-table .Stafftable tbody td strong {
+    color: #F5F0E6;
+}
+
+.admin-management-table .Stafftable-hover tbody tr:hover td {
+    background-color: #2A151D;
+    color: #F5F0E6;
+}
+
+.admin-management-table .Stafftable-dark {
+    --bs-table-bg: #151515;
+    --bs-table-color: #AAA39A;
+    --bs-table-border-color: #302026;
+    --bs-table-hover-bg: #2A151D;
+    --bs-table-hover-color: #F5F0E6;
+}
+
+/* Staff Name */
+
+.admin-management-table .Stafftable th:nth-child(1),
+.admin-management-table .Stafftable td:nth-child(1) {
+    width: 16%;
+}
+
+/* Staff ID */
+
+.admin-management-table .Stafftable th:nth-child(2),
+.admin-management-table .Stafftable td:nth-child(2) {
+    width: 13%;
+}
+
+/* Phone */
+
+.admin-management-table .Stafftable th:nth-child(3),
+.admin-management-table .Stafftable td:nth-child(3) {
+    width: 14%;
+}
+
+/* Role */
+
+.admin-management-table .Stafftable th:nth-child(4),
+.admin-management-table .Stafftable td:nth-child(4) {
+    width: 10%;
+}
+
+/* Work Time */
+
+.admin-management-table .Stafftable th:nth-child(5),
+.admin-management-table .Stafftable td:nth-child(5) {
+    width: 12%;
+}
+
+/* Salary */
+
+.admin-management-table .Stafftable th:nth-child(6),
+.admin-management-table .Stafftable td:nth-child(6) {
+    width: 11%;
+    white-space: nowrap;
+}
+
+/* Status */
+
+.admin-management-table .Stafftable th:nth-child(7),
+.admin-management-table .Stafftable td:nth-child(7) {
+    width: 12%;
+}
+
+/* Actions */
+
+.admin-management-table .Stafftable th:nth-child(8),
+.admin-management-table .Stafftable td:nth-child(8) {
+    width: 12%;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   MANAGEMENT EMPTY TABLE STATE
+   ========================================================= */
+
+.admin-management-empty {
+    padding: 45px 20px;
+    text-align: center;
+}
+
+.admin-empty-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    border-radius: 50%;
+}
+
+.admin-empty-icon i {
+    color: #C98F9A;
+    font-size: 25px;
+}
+
+.admin-management-empty h3 {
+    color: #F5F0E6;
+    font-size: 18px;
+    margin: 0 0 8px;
+}
+
+.admin-management-empty p {
+    color: #77716B;
+    margin: 0;
+}
+
+/* =========================================================
+   OFFER / CUSTOMER COUNT
+   ========================================================= */
+
+.admin-offer-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background-color: #2A151D;
+    color: #C98F9A;
+    border: 1px solid #4A2832;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   ACTIVE / INACTIVE STATUS
+   ========================================================= */
+
+.admin-status-active,
+.admin-status-inactive {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.admin-status-active {
+    background-color: #2A151D;
+    color: #C98F9A;
+    border: 1px solid #4A2832;
+}
+
+.admin-status-inactive {
+    background-color: #111111;
+    color: #AAA39A;
+    border: 1px solid #302026;
+}
+
+/* =========================================================
+   TABLE ACTION BUTTONS
+   ========================================================= */
+
+.admin-management-table .btn {
+    min-width: 34px;
+    min-height: 32px;
+    padding: 5px 8px;
+    border-radius: 6px;
+}
+
+.admin-management-table .btn-success,
+.admin-management-table .btn-warning,
+.admin-management-table .btn-info,
+.admin-management-table .btn-secondary,
+.admin-management-table .btn-danger,
+.admin-management-table .btn-primary {
+    background-color: #C98F9A !important;
+    color: #212121 !important;
+    border-color: #C98F9A !important;
+}
+
+.admin-management-table .btn-success:hover,
+.admin-management-table .btn-warning:hover,
+.admin-management-table .btn-info:hover,
+.admin-management-table .btn-secondary:hover,
+.admin-management-table .btn-danger:hover,
+.admin-management-table .btn-primary:hover {
+    background-color: #F5F0E6 !important;
+    color: #212121 !important;
+    border-color: #F5F0E6 !important;
+}
+
+/* Keep action buttons together */
+
+.admin-management-table .Stafftable td:last-child {
+    white-space: nowrap;
+}
+
+.admin-management-table .Stafftable td:last-child .btn {
+    margin: 2px;
+}
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 1200px) {
+
+    .admin-management-page > .container {
+        max-width: 100%;
+    }
+
+}
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .admin-management-heading h1 {
+        font-size: 27px;
+    }
+
+    .admin-management-form,
+    .admin-management-table {
+        padding: 20px;
+    }
+
+}
+
+/* =========================================================
+   RESPONSIVE - SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+    .admin-management-heading h1 {
+        font-size: 24px;
+    }
+
+    .admin-management-table {
+        padding: 15px;
+    }
+
+    .admin-management-table .Stafftable {
+        min-width: 1100px;
+    }
+
+}

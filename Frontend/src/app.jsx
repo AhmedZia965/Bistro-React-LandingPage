@@ -4,7 +4,12 @@ import './App.css'
 import './Components/Component.css'
 import './AdminPages/Customer/Customer.css'
 import './AdminPages/Staff/Staff.css'
-import './AdminPages/Admin/Admin.css'
+
+import './AdminPages/Admin/CustomerManagement.css'
+import './AdminPages/Admin/OfferManagement.css'
+import './AdminPages/Admin/Dashboard.css'
+import './AdminPages/Admin/Adminlogin.css'
+import './AdminPages/Admin/StaffManagement.css'
 
 import { Outlet, useLocation } from 'react-router-dom'
 

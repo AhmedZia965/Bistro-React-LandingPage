@@ -1,4 +1,4 @@
-import '../Admin/Admin.css'
+import '../Admin/Dashboard.css'
 import { useState } from 'react'
 import { NavLink, Outlet, useNavigate, useOutletContext } from 'react-router-dom'
 
@@ -39,7 +39,7 @@ function AdminDashboard({ language }) {
   const links = [
     { to: '.',         end: true, icon: 'bi-grid-1x2-fill',     label: t('Dashboard', 'لوحة التحكم') },
     { to: 'staff',     icon: 'bi-people-fill',       label: t('Staff Management', 'إدارة الموظفين') },
-    { to: 'customers', icon: 'bi-person-lines-fill', label: t('Customer Management', 'إدارة العملاء') },
+    { to: 'customers', icon: 'bi-person-lines-fill', label: t('Customer Feedbacks', 'إدارة الملاحظات') },
     { to: 'offers',    icon: 'bi-tag-fill',          label: t('Offers Management', 'إدارة العروض') },
     { to: 'reports',   icon: 'bi-bar-chart-fill',    label: t('Reports', 'التقارير') },
     { to: 'settings',  icon: 'bi-gear-fill',         label: t('Settings', 'الإعدادات') }

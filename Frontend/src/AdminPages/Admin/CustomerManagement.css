@@ -1,0 +1,250 @@
+/* =========================================================
+   MANAGEMENT PAGE
+   ========================================================= */
+
+.admin-management-page {
+    width: 100%;
+    color: #F5F0E6;
+    padding: 10px 0 40px;
+}
+
+.admin-management-page > .container {
+    max-width: 1200px;
+}
+
+/* =========================================================
+   MANAGEMENT PAGE HEADING
+   ========================================================= */
+
+.admin-management-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.admin-management-heading span {
+    display: block;
+    color: #C98F9A;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.admin-management-heading h1 {
+    color: #F5F0E6;
+    font-size: 32px;
+    margin: 0 0 8px;
+}
+
+.admin-management-heading p {
+    color: #AAA39A;
+    margin: 0;
+}
+
+/* =========================================================
+   MANAGEMENT TABLE
+   ========================================================= */
+
+.admin-management-table {
+    background-color: #151515;
+    border: 1px solid #302026;
+    border-radius: 15px;
+    padding: 25px;
+    overflow: hidden;
+}
+
+.admin-management-table h2 {
+    color: #F5F0E6;
+    font-size: 22px;
+}
+
+.admin-management-table .text-secondary {
+    color: #77716B !important;
+}
+
+.admin-management-table .Customertable-responsive {
+    width: 100%;
+}
+
+.admin-management-table .Customertable {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.admin-management-table .Customertable thead th {
+    background-color: #2A151D;
+    color: #F5F0E6;
+    border-color: #4A2832;
+    padding: 13px;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.admin-management-table .Customertable tbody td {
+    background-color: #151515;
+    color: #AAA39A;
+    border-color: #302026;
+    padding: 13px;
+    vertical-align: middle;
+}
+
+.admin-management-table .Customertable tbody td strong {
+    color: #F5F0E6;
+}
+
+.admin-management-table .Customertable-hover tbody tr:hover td {
+    background-color: #2A151D;
+    color: #F5F0E6;
+}
+
+.admin-management-table .Customertable-dark {
+    --bs-table-bg: #151515;
+    --bs-table-color: #AAA39A;
+    --bs-table-border-color: #302026;
+    --bs-table-hover-bg: #2A151D;
+    --bs-table-hover-color: #F5F0E6;
+}
+
+/* =========================================================
+   MANAGEMENT EMPTY TABLE STATE
+   ========================================================= */
+
+.admin-management-empty {
+    padding: 45px 20px;
+    text-align: center;
+}
+
+.admin-empty-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px;
+    background-color: #2A151D;
+    border: 1px solid #4A2832;
+    border-radius: 50%;
+}
+
+.admin-empty-icon i {
+    color: #C98F9A;
+    font-size: 25px;
+}
+
+.admin-management-empty h3 {
+    color: #F5F0E6;
+    font-size: 18px;
+    margin: 0 0 8px;
+}
+
+.admin-management-empty p {
+    color: #77716B;
+    margin: 0;
+}
+
+/* =========================================================
+   OFFER / CUSTOMER COUNT
+   ========================================================= */
+
+.admin-offer-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background-color: #2A151D;
+    color: #C98F9A;
+    border: 1px solid #4A2832;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 1200px) {
+
+    .admin-management-page > .container {
+        max-width: 100%;
+    }
+
+}
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .admin-management-heading h1 {
+        font-size: 27px;
+    }
+
+    .admin-management-table {
+        padding: 20px;
+    }
+
+}
+
+/* =========================================================
+   RESPONSIVE - SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+    .admin-management-heading h1 {
+        font-size: 24px;
+    }
+
+    .admin-management-table {
+        padding: 15px;
+    }
+
+    .admin-management-table .Customertable {
+        min-width: 850px;
+    }
+
+}
+
+/* =========================================================
+   CUSTOMER FEEDBACK TABLE WIDTHS
+   ========================================================= */
+
+.admin-management-table .Customertable {
+    width: 100%;
+    min-width: 1100px;
+    table-layout: fixed;
+}
+
+.admin-management-table .Customertable th,
+.admin-management-table .Customertable td {
+    padding: 18px 24px;
+    vertical-align: middle;
+}
+
+.admin-management-table .Customertable th:nth-child(1),
+.admin-management-table .Customertable td:nth-child(1) {
+    width: 15%;
+}
+
+.admin-management-table .Customertable th:nth-child(2),
+.admin-management-table .Customertable td:nth-child(2) {
+    width: 12%;
+}
+
+.admin-management-table .Customertable th:nth-child(3),
+.admin-management-table .Customertable td:nth-child(3) {
+    width: 18%;
+}
+
+.admin-management-table .Customertable th:nth-child(4),
+.admin-management-table .Customertable td:nth-child(4) {
+    width: 40%;
+}
+
+.admin-management-table .Customertable td:last-child {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    line-height: 1.7;
+}

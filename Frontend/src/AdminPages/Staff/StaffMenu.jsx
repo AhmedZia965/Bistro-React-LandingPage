@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -26,18 +25,30 @@ const menuItemSchema = z.object({
     'Burgers',
     'Pizzas',
     'Pastas',
-    'Desserts',
-    'Coffee',
-    'Drinks',
-    'Sides'
+    'Cakes & Desserts',
+    'Coffees',
+    'Other Drinks',
+    'Sandwiches',
+    'Sides',
+    'Salads'
   ]),
 
   price: z.string()
     .trim()
     .min(1, 'Price is required')
     .refine(
-      value => Number.isFinite(Number(value)) && Number(value) > 0,
-      'Price must be greater than 0'
+      value => {
+        const price = Number(value)
+
+        return (
+          value !== '' &&
+          Number.isFinite(price) &&
+          price > 0 &&
+          price <= 1000 &&
+          /^\d+(\.\d{1,3})?$/.test(value)
+        )
+      },
+      'Price must be greater than 0 and cannot exceed 1,000 KWD. Maximum 3 decimal places allowed.'
     ),
 
   description: z.string()
@@ -98,7 +109,11 @@ function StaffMenu({ language, setLanguage }) {
 
     addMenuAxiosFunction(newItem)
       .then((response) => {
-        setMenuItems([...menuItems, response.data.menu])
+        setMenuItems(previousItems => [
+          ...previousItems,
+          response.data.menu
+        ])
+
         reset()
       })
       .catch((error) => {
@@ -114,8 +129,13 @@ function StaffMenu({ language, setLanguage }) {
     if (
       !price ||
       !Number.isFinite(Number(price)) ||
-      Number(price) <= 0
+      Number(price) <= 0 ||
+      Number(price) > 1000 ||
+      !/^\d+(\.\d{1,3})?$/.test(price)
     ) {
+      alert(
+        'Price must be greater than 0 and cannot exceed 1,000 KWD. Maximum 3 decimal places allowed.'
+      )
       return
     }
 
@@ -134,8 +154,8 @@ function StaffMenu({ language, setLanguage }) {
       available: item.available
     })
       .then((response) => {
-        setMenuItems(
-          menuItems.map(item =>
+        setMenuItems(previousItems =>
+          previousItems.map(item =>
             item._id === id ? response.data.menu : item
           )
         )
@@ -155,8 +175,8 @@ function StaffMenu({ language, setLanguage }) {
 
     deleteMenuAxiosFunction(id)
       .then(() => {
-        setMenuItems(
-          menuItems.filter(item => item._id !== id)
+        setMenuItems(previousItems =>
+          previousItems.filter(item => item._id !== id)
         )
       })
       .catch((error) => {
@@ -182,8 +202,8 @@ function StaffMenu({ language, setLanguage }) {
       available: !item.available
     })
       .then((response) => {
-        setMenuItems(
-          menuItems.map(item =>
+        setMenuItems(previousItems =>
+          previousItems.map(item =>
             item._id === id ? response.data.menu : item
           )
         )
@@ -198,21 +218,35 @@ function StaffMenu({ language, setLanguage }) {
     'Burgers',
     'Pizzas',
     'Pastas',
-    'Desserts',
-    'Coffee',
-    'Drinks',
-    'Sides'
+    'Cakes & Desserts',
+    'Coffees',
+    'Other Drinks',
+    'Sandwiches',
+    'Sides',
+    'Salads'
   ]
 
+  // Arabic category names
+  const categoryTranslations = {
+    Burgers: 'برغر',
+    Pizzas: 'بيتزا',
+    Pastas: 'معكرونة',
+    'Cakes & Desserts': 'الكعك والحلويات',
+    Coffees: 'القهوة',
+    'Other Drinks': 'مشروبات أخرى',
+    Sandwiches: 'شطائر',
+    Sides: 'أطباق جانبية',
+    Salads: 'سلطات'
+  }
+
   // Filters menu items by category
-const filteredMenuItems = menuItems.filter(item =>
-  item.category === selectedCategory
-)
+  const filteredMenuItems = menuItems.filter(item =>
+    item.category === selectedCategory
+  )
 
   return (
     <>
       {/* Staff Navbar */}
-
       <StaffNavbar
         language={language}
         setLanguage={setLanguage}
@@ -255,7 +289,6 @@ const filteredMenuItems = menuItems.filter(item =>
               <div className="row g-3">
 
                 {/* Food Name */}
-
                 <div className="col-md-4">
 
                   <label>
@@ -280,7 +313,6 @@ const filteredMenuItems = menuItems.filter(item =>
                 </div>
 
                 {/* Category */}
-
                 <div className="col-md-3">
 
                   <label>
@@ -292,33 +324,13 @@ const filteredMenuItems = menuItems.filter(item =>
                     {...register('category')}
                   >
 
-                    <option value="Burgers">
-                      {language === 'EN' ? 'Burgers' : 'برغر'}
-                    </option>
-
-                    <option value="Pizzas">
-                      {language === 'EN' ? 'Pizzas' : 'بيتزا'}
-                    </option>
-
-                    <option value="Pastas">
-                      {language === 'EN' ? 'Pastas' : 'معكرونة'}
-                    </option>
-
-                    <option value="Desserts">
-                      {language === 'EN' ? 'Desserts' : 'حلويات'}
-                    </option>
-
-                    <option value="Coffee">
-                      {language === 'EN' ? 'Coffee' : 'قهوة'}
-                    </option>
-
-                    <option value="Drinks">
-                      {language === 'EN' ? 'Drinks' : 'مشروبات'}
-                    </option>
-
-                    <option value="Sides">
-                      {language === 'EN' ? 'Sides' : 'أطباق جانبية'}
-                    </option>
+                    {categories.map(category => (
+                      <option key={category} value={category}>
+                        {language === 'EN'
+                          ? category
+                          : categoryTranslations[category]}
+                      </option>
+                    ))}
 
                   </select>
 
@@ -331,7 +343,6 @@ const filteredMenuItems = menuItems.filter(item =>
                 </div>
 
                 {/* Price */}
-
                 <div className="col-md-2">
 
                   <label>
@@ -341,6 +352,7 @@ const filteredMenuItems = menuItems.filter(item =>
                   <input
                     type="number"
                     min="0.001"
+                    max="1000"
                     step="0.001"
                     className="form-control"
                     placeholder={
@@ -358,7 +370,6 @@ const filteredMenuItems = menuItems.filter(item =>
                 </div>
 
                 {/* Add Button */}
-
                 <div className="col-md-3">
 
                   <label>&nbsp;</label>
@@ -377,7 +388,6 @@ const filteredMenuItems = menuItems.filter(item =>
                 </div>
 
                 {/* Description */}
-
                 <div className="col-12">
 
                   <label>
@@ -424,7 +434,6 @@ const filteredMenuItems = menuItems.filter(item =>
             </p>
 
             {/* Category Filters */}
-
             <div className="staff-menu-filters">
 
               {categories.map(category => (
@@ -440,16 +449,7 @@ const filteredMenuItems = menuItems.filter(item =>
 
                   {language === 'EN'
                     ? category
-                    : ({
-                        All: 'الكل',
-                        Burgers: 'برغر',
-                        Pizzas: 'بيتزا',
-                        Pastas: 'معكرونة',
-                        Desserts: 'حلويات',
-                        Coffee: 'قهوة',
-                        Drinks: 'مشروبات',
-                        Sides: 'أطباق جانبية'
-                      }[category])}
+                    : categoryTranslations[category]}
 
                 </button>
 
@@ -458,7 +458,6 @@ const filteredMenuItems = menuItems.filter(item =>
             </div>
 
             {/* Menu Item Cards */}
-
             <div className="row g-4">
 
               {filteredMenuItems.length === 0 ? (
@@ -494,7 +493,6 @@ const filteredMenuItems = menuItems.filter(item =>
                     <div className="staff-menu-card">
 
                       {/* Item Details */}
-
                       <div className="staff-menu-card-top">
 
                         <div>
@@ -502,7 +500,9 @@ const filteredMenuItems = menuItems.filter(item =>
                           <h5>{item.name}</h5>
 
                           <span className="staff-menu-card-category">
-                            {item.category}
+                            {language === 'EN'
+                              ? item.category
+                              : categoryTranslations[item.category] || item.category}
                           </span>
 
                         </div>
@@ -540,7 +540,6 @@ const filteredMenuItems = menuItems.filter(item =>
                       </div>
 
                       {/* Update Price */}
-
                       <div className="staff-menu-card-actions">
 
                         <label>
@@ -554,6 +553,7 @@ const filteredMenuItems = menuItems.filter(item =>
                           <input
                             type="number"
                             min="0.001"
+                            max="1000"
                             step="0.001"
                             className="form-control"
                             placeholder={
@@ -583,7 +583,6 @@ const filteredMenuItems = menuItems.filter(item =>
                         </div>
 
                         {/* Availability */}
-
                         <button
                           type="button"
                           className="staff-availability-btn w-100 mb-2"
@@ -607,7 +606,6 @@ const filteredMenuItems = menuItems.filter(item =>
                         </button>
 
                         {/* Delete */}
-
                         <button
                           type="button"
                           className="staff-delete-btn w-100"
@@ -661,7 +659,6 @@ const filteredMenuItems = menuItems.filter(item =>
       </div>
 
       {/* Staff Footer */}
-
       <StaffFooter language={language} />
 
     </>

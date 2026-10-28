@@ -1,8 +1,18 @@
-import '../Admin/Admin.css'
+
+import '../Admin/StaffManagement.css'
+
+import { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+
+import {
+  getStaffAxiosFunction,
+  addStaffAxiosFunction,
+  deleteStaffAxiosFunction,
+  updateStaffAxiosFunction
+} from '../../Services/AdminApi.js'
 
 
 const staffSchema = z.object({
@@ -15,9 +25,10 @@ const staffSchema = z.object({
 
   id: z.string()
     .trim()
-    .min(3, 'Staff ID must have at least 3 characters')
-    .max(15, 'Staff ID cannot exceed 15 characters')
-    .regex(/^[A-Za-z0-9-]+$/, 'Use letters, numbers or hyphens only'),
+    .regex(
+      /^(WT|CH|CL)\d{3,13}$/,
+      'Staff ID must start with WT, CH or CL followed by 3-13 digits'
+    ),
 
   email: z.string()
     .trim()
@@ -25,11 +36,18 @@ const staffSchema = z.object({
     .email('Enter a valid email address')
     .max(254, 'Email cannot exceed 254 characters'),
 
+  password: z.string()
+    .min(8, 'Password must have at least 8 characters')
+    .max(128, 'Password cannot exceed 128 characters')
+    .regex(/[A-Z]/, 'Password must contain an uppercase letter')
+    .regex(/[a-z]/, 'Password must contain a lowercase letter')
+    .regex(/[0-9]/, 'Password must contain a number')
+    .regex(/[^A-Za-z0-9]/, 'Password must contain a special character'),
+
   phone: z.string()
     .trim()
-    .max(12, 'Phone number cannot exceed 12 characters')
     .regex(
-      /^(?:\+[0-9]{8,11}|[0-9]{8,12})$/,
+      /^\+?[0-9]{8,12}$/,
       'Enter a valid phone number (8-12 digits, optional +)'
     ),
 
@@ -44,21 +62,58 @@ const staffSchema = z.object({
       const number = Number(value)
       return Number.isFinite(number) && number > 0
     }, 'Salary must be greater than zero')
-    .refine(value => {
-      return /^\d+(?:\.\d{1,3})?$/.test(value)
-    }, 'Enter a valid salary with up to 3 decimal places'),
+    .refine(value => Number(value) <= 1000, 'Salary cannot exceed 1000 KWD')
+    .refine(
+      value => /^\d+(?:\.\d{1,3})?$/.test(value),
+      'Enter a valid salary with up to 3 decimal places'
+    ),
 
   status: z.enum(['Active', 'Inactive'])
+
+}).superRefine((data, ctx) => {
+
+  const rolePrefixes = {
+    Waiter: 'WT',
+    Chef: 'CH',
+    Cleaner: 'CL'
+  }
+
+  if (
+    data.role &&
+    data.id &&
+    !data.id.startsWith(rolePrefixes[data.role])
+  ) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['id'],
+      message: `Staff ID must start with ${rolePrefixes[data.role]} for the selected role`
+    })
+  }
 
 })
 
 
+const emptyForm = {
+  name: '',
+  id: '',
+  email: '',
+  password: '',
+  phone: '',
+  role: 'Waiter',
+  workTime: 'Morning',
+  salary: '',
+  status: 'Active'
+}
 
-// staff + setStaff come from AdminDashboard so the data
-// survives page switches and the dashboard can show the total.
+
 function StaffManagement() {
 
-  const { language, staff, setStaff } = useOutletContext()
+  const { language } = useOutletContext()
+
+  // This state displays the records fetched from MongoDB.
+  const [staff, setStaff] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [editingId, setEditingId] = useState(null)
 
   const t = (en, ar) => (language === 'EN' ? en : ar)
 
@@ -70,58 +125,190 @@ function StaffManagement() {
     formState: { errors }
   } = useForm({
     resolver: zodResolver(staffSchema),
-    defaultValues: {
-      name: '',
-      id: '',
-      email: '',
-      phone: '',
-      role: 'Waiter',
-      workTime: 'Morning',
-      salary: '',
-      status: 'Active'
-    },
+    defaultValues: emptyForm,
     mode: 'onBlur'
   })
 
 
-  // ================= ADD STAFF =================
+  // ================= FETCH STAFF FROM DATABASE =================
 
-  function handleAddStaff(data) {
+  async function loadStaff() {
+
+    try {
+
+      const res = await getStaffAxiosFunction()
+
+      setStaff(res.data)
+
+    } catch (error) {
+
+      console.error('Failed to fetch staff:', error)
+
+      alert(
+        t(
+          'Failed to load staff members from the database.',
+          'فشل تحميل الموظفين من قاعدة البيانات.'
+        )
+      )
+
+    } finally {
+
+      setLoading(false)
+
+    }
+  }
+
+
+  // Fetch staff whenever this page loads.
+  useEffect(() => {
+    loadStaff()
+  }, [])
+
+
+  // ================= ADD / UPDATE STAFF =================
+
+  async function handleSaveStaff(data) {
+
+    const body = {
+      name: data.name.trim(),
+      id: data.id.trim(),
+      email: data.email.trim(),
+      password: data.password,
+      phone: data.phone.trim(),
+      role: data.role,
+      workTime: data.workTime,
+      salary: data.salary,
+      status: data.status
+    }
+
+    // ---------- UPDATE STAFF IN DATABASE ----------
+
+    if (editingId) {
+
+      try {
+
+        await updateStaffAxiosFunction(editingId, body)
+
+        // Reload the records from MongoDB.
+        await loadStaff()
+
+        setEditingId(null)
+        reset(emptyForm)
+
+      } catch (error) {
+
+        console.error('Failed to update staff:', error)
+
+        alert(
+          error.response?.data?.message || 'Failed to update staff'
+        )
+
+      }
+
+      return
+    }
+
+
+    // ---------- CHECK DUPLICATE ID ----------
 
     const duplicateId = staff.some(
-      member => member.id.toLowerCase() === data.id.trim().toLowerCase()
+      member => member.id.toLowerCase() === body.id.toLowerCase()
     )
 
     if (duplicateId) {
+
       setError('id', {
         type: 'manual',
         message: 'This Staff ID already exists'
       })
+
       return
     }
 
-    setStaff([
-      ...staff,
-      {
-        name: data.name.trim(),
-        id: data.id.trim(),
-        email: data.email.trim(),
-        phone: data.phone.trim(),
-        role: data.role,
-        workTime: data.workTime,
-        salary: data.salary,
-        status: data.status
-      }
-    ])
 
-    reset()
+    // ---------- ADD STAFF TO DATABASE ----------
+
+    try {
+
+      await addStaffAxiosFunction(body)
+
+      // Reload the records from MongoDB.
+      await loadStaff()
+
+      reset(emptyForm)
+
+    } catch (error) {
+
+      const message =
+        error.response?.data?.message || 'Failed to add staff'
+
+      if (error.response?.status === 400) {
+
+        if (message.toLowerCase().includes('email')) {
+
+          setError('email', {
+            type: 'manual',
+            message
+          })
+
+        } else if (message.toLowerCase().includes('id')) {
+
+          setError('id', {
+            type: 'manual',
+            message
+          })
+
+        } else {
+
+          alert(message)
+
+        }
+
+      } else {
+
+        console.error('Failed to add staff:', error)
+        alert(message)
+
+      }
+
+    }
+  }
+
+
+  // ================= START EDIT =================
+
+  function handleEditStaff(member) {
+
+    setEditingId(member.id)
+
+    reset({
+      name: member.name,
+      id: member.id,
+      email: member.email,
+      password: member.password, 
+      role: member.role,
+      workTime: member.workTime,
+      salary: String(member.salary),
+      status: member.status,
+      phone: member.phone
+    })
 
   }
 
 
-  // ================= REMOVE STAFF =================
+  // ================= CANCEL EDIT =================
 
-  function handleRemoveStaff(index) {
+  function handleCancelEdit() {
+
+    setEditingId(null)
+    reset(emptyForm)
+
+  }
+
+
+  // ================= REMOVE STAFF FROM DATABASE =================
+
+  async function handleRemoveStaff(id) {
 
     if (
       window.confirm(
@@ -131,13 +318,34 @@ function StaffManagement() {
         )
       )
     ) {
-      setStaff(staff.filter((member, i) => i !== index))
-    }
 
+      try {
+
+        await deleteStaffAxiosFunction(id)
+
+        // Reload the records from MongoDB.
+        await loadStaff()
+
+        if (editingId === id) {
+          handleCancelEdit()
+        }
+
+      } catch (error) {
+
+        console.error('Failed to delete staff:', error)
+
+        alert(
+          error.response?.data?.message || 'Failed to delete staff'
+        )
+
+      }
+
+    }
   }
 
 
-  // Small helper to show a validation message under a field
+  // ================= VALIDATION MESSAGE =================
+
   const fieldError = (name) =>
     errors[name] && (
       <small className="text-danger d-block mt-1">
@@ -152,30 +360,33 @@ function StaffManagement() {
 
       <div className="container">
 
-
         {/* Page Heading */}
 
         <div className="admin-management-heading text-center">
-
           <span>{t('ADMIN PORTAL', 'بوابة المسؤول')}</span>
-
           <h1>{t('Staff Management', 'إدارة الموظفين')}</h1>
-
-          <p>{t('Add and manage restaurant staff members.', 'إضافة وإدارة موظفي المطعم.')}</p>
-
+          <p>
+            {t(
+              'Add and manage restaurant staff members.',
+              'إضافة وإدارة موظفي المطعم.'
+            )}
+          </p>
         </div>
 
 
-        {/* Add Staff Form */}
+        {/* Add / Edit Staff Form */}
 
         <div className="admin-management-form">
 
-          <h2>{t('Add Staff Member', 'إضافة موظف')}</h2>
+          <h2>
+            {editingId
+              ? t('Edit Staff Member', 'تعديل الموظف')
+              : t('Add Staff Member', 'إضافة موظف')}
+          </h2>
 
-          <form onSubmit={handleSubmit(handleAddStaff)} noValidate>
+          <form onSubmit={handleSubmit(handleSaveStaff)} noValidate>
 
             <div className="row g-3">
-
 
               {/* Staff Name */}
 
@@ -199,6 +410,7 @@ function StaffManagement() {
                   type="text"
                   className="form-control"
                   placeholder={t('Enter staff ID', 'أدخل رقم الموظف')}
+                  readOnly={!!editingId}
                   {...register('id')}
                 />
                 {fieldError('id')}
@@ -230,6 +442,20 @@ function StaffManagement() {
                   {...register('email')}
                 />
                 {fieldError('email')}
+              </div>
+
+
+              {/* Password */}
+
+              <div className="col-md-6">
+                <label>{t('Password', 'كلمة المرور')}</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder={t('Enter password', 'أدخل password')}
+                  {...register('password')}
+                />
+                {fieldError('password')}
               </div>
 
 
@@ -288,10 +514,33 @@ function StaffManagement() {
             </div>
 
 
-            <button type="submit" className="admin-management-btn mt-4">
-              <i className="bi bi-person-plus me-2"></i>
-              {t('Add Staff', 'إضافة موظف')}
+            <button
+              type="submit"
+              className="admin-management-btn mt-4"
+              disabled={loading}
+            >
+              <i
+                className={
+                  editingId
+                    ? 'bi bi-check-lg me-2'
+                    : 'bi bi-person-plus me-2'
+                }
+              ></i>
+
+              {editingId
+                ? t('Update Staff', 'تحديث الموظف')
+                : t('Add Staff', 'إضافة موظف')}
             </button>
+
+            {editingId && (
+              <button
+                type="button"
+                className="btn btn-secondary mt-4 ms-2"
+                onClick={handleCancelEdit}
+              >
+                {t('Cancel', 'إلغاء')}
+              </button>
+            )}
 
           </form>
 
@@ -303,8 +552,9 @@ function StaffManagement() {
         <div className="admin-management-table">
 
           <div className="d-flex justify-content-between align-items-center mb-4">
-
-            <h2 className="mb-0">{t('Staff Members', 'الموظفون')}</h2>
+            <h2 className="mb-0">
+              {t('Staff Members', 'الموظفون')}
+            </h2>
 
             <span className="admin-offer-count">
               {staff.length}{' '}
@@ -312,13 +562,12 @@ function StaffManagement() {
                 ? staff.length === 1 ? 'Member' : 'Members'
                 : 'موظفون'}
             </span>
-
           </div>
 
 
-          <div className="table-responsive">
+          <div className="Stafftable-responsive">
 
-            <table className="table table-dark table-hover align-middle">
+            <table className="Stafftable Stafftable-dark Stafftable-hover align-middle">
 
               <thead>
                 <tr>
@@ -333,25 +582,47 @@ function StaffManagement() {
                 </tr>
               </thead>
 
+
               <tbody>
 
-                {staff.length === 0 ? (
+                {loading ? (
+
+                  <tr>
+                    <td colSpan="8" className="text-center p-4">
+                      {t('Loading staff...', 'جارٍ تحميل الموظفين...')}
+                    </td>
+                  </tr>
+
+                ) : staff.length === 0 ? (
 
                   <tr>
                     <td colSpan="8" className="text-center">
+
                       <div className="admin-management-empty">
+
                         <div className="admin-empty-icon">
                           <i className="bi bi-people"></i>
                         </div>
-                        <h3>{t('No Staff Members Yet', 'لا يوجد موظفون بعد')}</h3>
-                        <p>{t('Add a staff member using the form above.', 'أضف موظفاً باستخدام النموذج أعلاه.')}</p>
+
+                        <h3>
+                          {t('No Staff Members Yet', 'لا يوجد موظفون بعد')}
+                        </h3>
+
+                        <p>
+                          {t(
+                            'Add a staff member using the form above.',
+                            'أضف موظفاً باستخدام النموذج أعلاه.'
+                          )}
+                        </p>
+
                       </div>
+
                     </td>
                   </tr>
 
                 ) : (
 
-                  staff.map((member, index) => (
+                  staff.map((member) => (
 
                     <tr key={member.id}>
 
@@ -377,6 +648,7 @@ function StaffManagement() {
                                 : 'bi bi-x-circle me-1'
                             }
                           ></i>
+
                           {member.status === 'Active'
                             ? t('Active', 'نشط')
                             : t('Inactive', 'غير نشط')}
@@ -386,8 +658,17 @@ function StaffManagement() {
                       <td>
                         <button
                           type="button"
+                          className="btn btn-sm btn-warning me-2"
+                          onClick={() => handleEditStaff(member)}
+                          title={t('Edit Staff', 'تعديل الموظف')}
+                        >
+                          <i className="bi bi-pencil"></i>
+                        </button>
+
+                        <button
+                          type="button"
                           className="btn btn-sm btn-danger"
-                          onClick={() => handleRemoveStaff(index)}
+                          onClick={() => handleRemoveStaff(member.id)}
                           title={t('Remove Staff', 'إزالة الموظف')}
                         >
                           <i className="bi bi-person-dash"></i>
@@ -413,7 +694,6 @@ function StaffManagement() {
     </div>
 
   )
-
 }
 
 export default StaffManagement

@@ -4,6 +4,8 @@ import cors from "cors";
 
 import customerRoutes from "./Routes/customerRoutes.js";
 import menuRoutes from "./Routes/menuRoutes.js";
+import adminRoutes from "./Routes/adminRoutes.js";
+import staffRoutes from "./Routes/staffRoutes.js";
 
 const app = express();
 
@@ -15,6 +17,13 @@ app.use("/signup", customerRoutes);
 
 // Menu routes
 app.use("/menu", menuRoutes);
+
+    // Admin routes
+app.use("/admin", adminRoutes);
+
+// Staff routes
+app.use("/staff", staffRoutes);
+
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");

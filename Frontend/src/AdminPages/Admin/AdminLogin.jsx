@@ -1,9 +1,9 @@
-
-import './Admin.css'
+import './Adminlogin.css'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { adminLoginAxiosFunction } from '../../Services/AdminApi.js'
 
 // Admin login validation rules
 const adminLoginSchema = z.object({
@@ -32,12 +32,17 @@ function AdminLogin({ language, setLanguage }) {
   })
 
   // Handles Admin Login
-  function handleLogin(data) {
+  async function handleLogin(data) {
+    try {
+      const response = await adminLoginAxiosFunction(data)
 
-    // Temporary login until authentication is connected
-    console.log('Admin login submitted:', data)
+      alert(response.data.message)
 
-    navigate('/admin-dashboard')
+      navigate('/admin-dashboard')
+
+    } catch (error) {
+      alert(error.response?.data?.message || 'Admin login failed')
+    }
   }
 
   return (
