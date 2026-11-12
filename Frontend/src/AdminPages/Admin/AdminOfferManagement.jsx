@@ -1,9 +1,16 @@
+
 import '../Admin/OfferManagement.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+
+import {
+  getOffersAxiosFunction,
+  addOfferAxiosFunction,
+  deleteOfferAxiosFunction
+} from '../../Services/AdminApi.js'
 
 const offerSchema = z.object({
 
@@ -37,17 +44,13 @@ const emptyOffer = {
   status: 'Active'
 }
 
-
-// offers + setOffers come from AdminDashboard so the data
-// survives page switches.
 function AdminOfferManagement() {
 
   const { language, offers, setOffers } = useOutletContext()
 
   const t = (en, ar) => (language === 'EN' ? en : ar)
 
-  // Index of the offer being edited (null = adding a new one)
-  const [editIndex, setEditIndex] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const {
     register,
@@ -60,65 +63,58 @@ function AdminOfferManagement() {
     mode: 'onBlur'
   })
 
+  // ================= GET ALL OFFERS =================
 
-  // ================= ADD / UPDATE OFFER =================
+  useEffect(() => {
+
+    getOffersAxiosFunction()
+      .then((response) => {
+        setOffers(response.data)
+      })
+      .catch((error) => {
+        console.log('Error fetching offers:', error)
+      })
+
+  }, [setOffers])
+
+  // ================= ADD OFFER =================
 
   function handleOfferSubmit(data) {
 
     const newOffer = {
       name: data.name.trim(),
       description: data.description.trim(),
-      discount: data.discount,
+      discount: Number(data.discount),
       status: data.status
     }
 
-    if (editIndex === null) {
-      setOffers([...offers, newOffer])
-    } else {
-      setOffers(
-        offers.map((offer, index) =>
-          index === editIndex ? newOffer : offer
-        )
-      )
-    }
+    setLoading(true)
 
-    reset(emptyOffer)
-    setEditIndex(null)
+    addOfferAxiosFunction(newOffer)
+      .then((response) => {
 
-  }
+        setOffers((previousOffers) => [
+          ...previousOffers,
+          response.data.offer
+        ])
 
+        reset(emptyOffer)
 
-  // ================= EDIT OFFER =================
+      })
+      .catch((error) => {
 
-  function handleEdit(index) {
+        console.log('Error adding offer:', error)
 
-    const selectedOffer = offers[index]
-
-    reset({
-      name: selectedOffer.name,
-      description: selectedOffer.description,
-      discount: String(selectedOffer.discount),
-      status: selectedOffer.status
-    })
-
-    setEditIndex(index)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
 
   }
-
-
-  // ================= CANCEL EDIT =================
-
-  function handleCancelEdit() {
-
-    reset(emptyOffer)
-    setEditIndex(null)
-
-  }
-
 
   // ================= DELETE OFFER =================
 
-  function handleDelete(index) {
+  function handleDelete(offer) {
 
     if (
       window.confirm(
@@ -129,18 +125,25 @@ function AdminOfferManagement() {
       )
     ) {
 
-      setOffers(offers.filter((offer, i) => i !== index))
+      deleteOfferAxiosFunction(offer._id)
+        .then(() => {
 
-      if (editIndex === index) {
-        handleCancelEdit()
-      } else if (editIndex !== null && editIndex > index) {
-        setEditIndex(editIndex - 1)
-      }
+          setOffers((previousOffers) =>
+            previousOffers.filter(
+              (item) => item._id !== offer._id
+            )
+          )
+
+        })
+        .catch((error) => {
+
+          console.log('Error deleting offer:', error)
+
+        })
 
     }
 
   }
-
 
   const fieldError = (name) =>
     errors[name] && (
@@ -149,13 +152,11 @@ function AdminOfferManagement() {
       </small>
     )
 
-
   return (
 
     <div className="admin-management-page">
 
       <div className="container">
-
 
         {/* Page Heading */}
 
@@ -165,10 +166,14 @@ function AdminOfferManagement() {
 
           <h1>{t('Offers Management', 'إدارة العروض')}</h1>
 
-          <p>{t('Create, update and manage restaurant offers.', 'إنشاء وتحديث وإدارة عروض المطعم.')}</p>
+          <p>
+            {t(
+              'Create and manage restaurant offers.',
+              'إنشاء وإدارة عروض المطعم.'
+            )}
+          </p>
 
         </div>
-
 
         {/* Offer Form */}
 
@@ -177,44 +182,38 @@ function AdminOfferManagement() {
           <div className="d-flex justify-content-between align-items-center mb-4">
 
             <h2 className="mb-0">
-              {editIndex === null
-                ? t('Add New Offer', 'إضافة عرض جديد')
-                : t('Update Offer', 'تحديث العرض')}
+              {t('Add New Offer', 'إضافة عرض جديد')}
             </h2>
-
-            {editIndex !== null && (
-              <span className="admin-edit-label">
-                <i className="bi bi-pencil-square me-1"></i>
-                {t('Editing Offer', 'تعديل العرض')}
-              </span>
-            )}
 
           </div>
 
-
-          <form onSubmit={handleSubmit(handleOfferSubmit)} noValidate>
+          <form onSubmit={handleSubmit(handleOfferSubmit)} >
 
             <div className="row g-3">
-
 
               {/* Offer Name */}
 
               <div className="col-md-6">
+
                 <label>{t('Offer Name', 'اسم العرض')}</label>
+
                 <input
                   type="text"
                   className="form-control"
                   placeholder={t('Enter offer name', 'أدخل اسم العرض')}
                   {...register('name')}
                 />
-                {fieldError('name')}
-              </div>
 
+                {fieldError('name')}
+
+              </div>
 
               {/* Discount */}
 
               <div className="col-md-3">
+
                 <label>{t('Discount (%)', 'الخصم (%)')}</label>
+
                 <input
                   type="number"
                   className="form-control"
@@ -223,65 +222,75 @@ function AdminOfferManagement() {
                   max="100"
                   {...register('discount')}
                 />
-                {fieldError('discount')}
-              </div>
 
+                {fieldError('discount')}
+
+              </div>
 
               {/* Status */}
 
               <div className="col-md-3">
-                <label>{t('Status', 'الحالة')}</label>
-                <select className="form-control" {...register('status')}>
-                  <option value="Active">{t('Active', 'نشط')}</option>
-                  <option value="Inactive">{t('Inactive', 'غير نشط')}</option>
-                </select>
-                {fieldError('status')}
-              </div>
 
+                <label>{t('Status', 'الحالة')}</label>
+
+                <select
+                  className="form-control"
+                  {...register('status')}
+                >
+
+                  <option value="Active">
+                    {t('Active', 'نشط')}
+                  </option>
+
+                  <option value="Inactive">
+                    {t('Inactive', 'غير نشط')}
+                  </option>
+
+                </select>
+
+                {fieldError('status')}
+
+              </div>
 
               {/* Description */}
 
               <div className="col-12">
+
                 <label>{t('Description', 'الوصف')}</label>
+
                 <textarea
                   className="form-control"
                   rows="3"
-                  placeholder={t('Enter offer description', 'أدخل وصف العرض')}
+                  placeholder={t(
+                    'Enter offer description',
+                    'أدخل وصف العرض'
+                  )}
                   {...register('description')}
                 ></textarea>
+
                 {fieldError('description')}
+
               </div>
 
             </div>
 
-
-            {/* Form Buttons */}
+            {/* Form Button */}
 
             <div className="mt-4">
 
-              <button type="submit" className="admin-management-btn">
-                <i
-                  className={
-                    editIndex === null
-                      ? 'bi bi-plus-circle me-2'
-                      : 'bi bi-pencil-square me-2'
-                  }
-                ></i>
-                {editIndex === null
-                  ? t('Add Offer', 'إضافة عرض')
-                  : t('Update Offer', 'تحديث العرض')}
-              </button>
+              <button
+                type="submit"
+                className="admin-management-btn"
+                disabled={loading}
+              >
 
-              {editIndex !== null && (
-                <button
-                  type="button"
-                  className="admin-cancel-btn ms-2"
-                  onClick={handleCancelEdit}
-                >
-                  <i className="bi bi-x-circle me-2"></i>
-                  {t('Cancel', 'إلغاء')}
-                </button>
-              )}
+                <i className="bi bi-plus-circle me-2"></i>
+
+                {loading
+                  ? t('Adding...', 'جاري الإضافة...')
+                  : t('Add Offer', 'إضافة عرض')}
+
+              </button>
 
             </div>
 
@@ -289,30 +298,34 @@ function AdminOfferManagement() {
 
         </div>
 
-
         {/* Offers Table */}
 
         <div className="admin-management-table">
 
           <div className="d-flex justify-content-between align-items-center mb-4">
 
-            <h2 className="mb-0">{t('Current Offers', 'العروض الحالية')}</h2>
+            <h2 className="mb-0">
+              {t('Current Offers', 'العروض الحالية')}
+            </h2>
 
             <span className="admin-offer-count">
+
               {offers.length}{' '}
+
               {language === 'EN'
                 ? offers.length === 1 ? 'Offer' : 'Offers'
                 : 'عروض'}
+
             </span>
 
           </div>
-
 
           <div className="table-responsive">
 
             <table className="table table-dark table-hover align-middle">
 
               <thead>
+
                 <tr>
                   <th>{t('Offer Name', 'اسم العرض')}</th>
                   <th>{t('Description', 'الوصف')}</th>
@@ -320,6 +333,7 @@ function AdminOfferManagement() {
                   <th>{t('Status', 'الحالة')}</th>
                   <th>{t('Actions', 'الإجراءات')}</th>
                 </tr>
+
               </thead>
 
               <tbody>
@@ -327,24 +341,41 @@ function AdminOfferManagement() {
                 {offers.length === 0 ? (
 
                   <tr>
+
                     <td colSpan="5" className="text-center">
+
                       <div className="admin-management-empty">
+
                         <div className="admin-empty-icon">
                           <i className="bi bi-tags"></i>
                         </div>
-                        <h3>{t('No Offers Yet', 'لا توجد عروض بعد')}</h3>
-                        <p>{t('Add an offer using the form above.', 'أضف عرضاً باستخدام النموذج أعلاه.')}</p>
+
+                        <h3>
+                          {t('No Offers Yet', 'لا توجد عروض بعد')}
+                        </h3>
+
+                        <p>
+                          {t(
+                            'Add an offer using the form above.',
+                            'أضف عرضاً باستخدام النموذج أعلاه.'
+                          )}
+                        </p>
+
                       </div>
+
                     </td>
+
                   </tr>
 
                 ) : (
 
-                  offers.map((offer, index) => (
+                  offers.map((offer) => (
 
-                    <tr key={index}>
+                    <tr key={offer._id}>
 
-                      <td><strong>{offer.name}</strong></td>
+                      <td>
+                        <strong>{offer.name}</strong>
+                      </td>
 
                       <td>{offer.description}</td>
 
@@ -355,6 +386,7 @@ function AdminOfferManagement() {
                       </td>
 
                       <td>
+
                         <span
                           className={
                             offer.status === 'Active'
@@ -362,6 +394,7 @@ function AdminOfferManagement() {
                               : 'admin-status-inactive'
                           }
                         >
+
                           <i
                             className={
                               offer.status === 'Active'
@@ -369,27 +402,21 @@ function AdminOfferManagement() {
                                 : 'bi bi-x-circle me-1'
                             }
                           ></i>
+
                           {offer.status === 'Active'
                             ? t('Active', 'نشط')
                             : t('Inactive', 'غير نشط')}
+
                         </span>
+
                       </td>
 
                       <td>
 
                         <button
                           type="button"
-                          className="btn btn-sm btn-warning me-2"
-                          onClick={() => handleEdit(index)}
-                          title={t('Edit Offer', 'تعديل العرض')}
-                        >
-                          <i className="bi bi-pencil"></i>
-                        </button>
-
-                        <button
-                          type="button"
                           className="btn btn-sm btn-danger"
-                          onClick={() => handleDelete(index)}
+                          onClick={() => handleDelete(offer)}
                           title={t('Delete Offer', 'حذف العرض')}
                         >
                           <i className="bi bi-trash"></i>

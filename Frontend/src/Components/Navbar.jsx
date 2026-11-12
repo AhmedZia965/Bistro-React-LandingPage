@@ -1,3 +1,5 @@
+
+import { useEffect, useState } from 'react'
 import '../App.css'
 import { Link, useLocation } from 'react-router-dom'
 
@@ -5,6 +7,18 @@ function Navbar({ language, setLanguage }) {
 
   // Gets the current URL
   const location = useLocation()
+
+  // Stores the user's login status
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    sessionStorage.getItem('isLoggedIn') === 'true'
+  )
+
+  // Checks login status whenever the user navigates
+  useEffect(() => {
+    setIsLoggedIn(
+      sessionStorage.getItem('isLoggedIn') === 'true'
+    )
+  }, [location.pathname])
 
   // Checks current pages
   const isSignupPage = location.pathname === '/signup'
@@ -48,79 +62,49 @@ function Navbar({ language, setLanguage }) {
 
             {/* Home */}
             <li className="nav-item">
-
-              <Link
-                className="nav-link"
-                to="/"
-              >
+              <Link className="nav-link" to="/">
                 {language === 'EN' ? 'Home' : 'الرئيسية'}
               </Link>
-
             </li>
 
 
             {/* Rewards */}
             <li className="nav-item">
-
-              <Link
-                className="nav-link"
-                to="/rewards"
-              >
+              <Link className="nav-link" to="/rewards">
                 {language === 'EN' ? 'Rewards' : 'المكافآت'}
               </Link>
-
             </li>
 
 
             {/* Menu */}
             <li className="nav-item">
-
-              <Link
-                className="nav-link"
-                to="/menu"
-              >
+              <Link className="nav-link" to="/menu">
                 {language === 'EN' ? 'Menu' : 'القائمة'}
               </Link>
-
             </li>
 
 
             {/* Location */}
             <li className="nav-item">
-
-              <Link
-                className="nav-link"
-                to="/location"
-              >
+              <Link className="nav-link" to="/location">
                 {language === 'EN' ? 'Location' : 'الموقع'}
               </Link>
-
             </li>
 
 
             {/* Feedback */}
             <li className="nav-item">
-
-              <Link
-                className="nav-link"
-                to="/feedback"
-              >
+              <Link className="nav-link" to="/feedback">
                 {language === 'EN' ? 'Feedback' : 'التقييمات'}
               </Link>
-
             </li>
 
 
             {/* Profile */}
             <li className="nav-item">
-
-              <Link
-                className="nav-link"
-                to="/profile"
-              >
+              <Link className="nav-link" to="/profile">
                 {language === 'EN' ? 'Profile' : 'الملف الشخصي'}
               </Link>
-
             </li>
 
           </ul>
@@ -130,41 +114,44 @@ function Navbar({ language, setLanguage }) {
 
           <ul className="navbar-nav ms-auto">
 
-
             {/* Login Button */}
-            <li className="nav-item d-flex align-items-center">
+            {!isLoggedIn && (
+              <li className="nav-item d-flex align-items-center">
 
-              <Link
-                to="/login"
-                className="Loginbtn"
-                style={{
-                  pointerEvents: isLoginPage ? 'none' : 'auto'
-                }}
-              >
-                {language === 'EN'
-                  ? 'Login'
-                  : 'تسجيل الدخول'}
-              </Link>
+                <Link
+                  to="/login"
+                  className="Loginbtn"
+                  style={{
+                    pointerEvents: isLoginPage ? 'none' : 'auto'
+                  }}
+                >
+                  {language === 'EN'
+                    ? 'Login'
+                    : 'تسجيل الدخول'}
+                </Link>
 
-            </li>
+              </li>
+            )}
 
 
             {/* Signup Button */}
-            <li className="nav-item d-flex align-items-center">
+            {!isLoggedIn && (
+              <li className="nav-item d-flex align-items-center">
 
-              <Link
-                to="/signup"
-                className="Signupbtn"
-                style={{
-                  pointerEvents: isSignupPage ? 'none' : 'auto'
-                }}
-              >
-                {language === 'EN'
-                  ? 'Signup'
-                  : 'إنشاء حساب'}
-              </Link>
+                <Link
+                  to="/signup"
+                  className="Signupbtn"
+                  style={{
+                    pointerEvents: isSignupPage ? 'none' : 'auto'
+                  }}
+                >
+                  {language === 'EN'
+                    ? 'Signup'
+                    : 'إنشاء حساب'}
+                </Link>
 
-            </li>
+              </li>
+            )}
 
 
             {/* Language Dropdown */}
@@ -192,7 +179,6 @@ function Navbar({ language, setLanguage }) {
 
                 {/* English */}
                 <li>
-
                   <button
                     className="dropdown-item"
                     type="button"
@@ -202,13 +188,11 @@ function Navbar({ language, setLanguage }) {
                       ? 'English'
                       : 'الإنجليزية'}
                   </button>
-
                 </li>
 
 
                 {/* Arabic */}
                 <li>
-
                   <button
                     className="dropdown-item"
                     type="button"
@@ -218,7 +202,6 @@ function Navbar({ language, setLanguage }) {
                       ? 'Arabic'
                       : 'العربية'}
                   </button>
-
                 </li>
 
               </ul>

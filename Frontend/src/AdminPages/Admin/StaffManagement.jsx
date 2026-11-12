@@ -135,15 +135,10 @@ function StaffManagement() {
   async function loadStaff() {
 
     try {
-
       const res = await getStaffAxiosFunction()
-
       setStaff(res.data)
-
     } catch (error) {
-
       console.error('Failed to fetch staff:', error)
-
       alert(
         t(
           'Failed to load staff members from the database.',
@@ -384,7 +379,7 @@ function StaffManagement() {
               : t('Add Staff Member', 'إضافة موظف')}
           </h2>
 
-          <form onSubmit={handleSubmit(handleSaveStaff)} noValidate>
+          <form onSubmit={handleSubmit(handleSaveStaff)} >
 
             <div className="row g-3">
 

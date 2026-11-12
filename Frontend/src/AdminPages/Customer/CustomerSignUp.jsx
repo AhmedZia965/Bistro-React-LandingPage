@@ -1,10 +1,10 @@
-
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from 'react-router-dom'
 import { signupAxiosFunction } from '../../Services/CustomerApi.js'
-// Signup validation rules
 
+// Signup validation rules
 
 const signupSchema = z.object({
   firstName: z.string()
@@ -22,13 +22,13 @@ const signupSchema = z.object({
     .email('Enter a valid email address')
     .max(254, 'Email cannot exceed 254 characters'),
 
-phone: z.string()
-  .trim()
-  .max(12, 'Phone number cannot exceed 12 characters')
-  .regex(
-    /^(?:\+[0-9]{8,11}|[0-9]{8,12})$/,
-    'Enter a valid phone number (8-12 digits, optional +)'
-  ),
+  phone: z.string()
+    .trim()
+    .max(12, 'Phone number cannot exceed 12 characters')
+    .regex(
+      /^\+?[0-9]{8,12}$/,
+      'Enter a valid phone number (8-12 digits, optional +)'
+    ),
 
   password: z.string()
     .min(8, 'Password must have at least 8 characters')
@@ -49,6 +49,8 @@ phone: z.string()
 
 function CustomerSignup({ language }) {
 
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -58,28 +60,31 @@ function CustomerSignup({ language }) {
   })
 
   // Handles signup form submission
- async function handleSignup(data) {
-  try {
-    // Sends signup form data to the backend
-    const response = await signupAxiosFunction(data)
+  async function handleSignup(data) {
+    try {
+      // Sends signup form data to the backend
+      const response = await signupAxiosFunction(data)
 
-   console.log(response.data)
+      console.log(response.data)
 
-    alert(
-      language === 'EN'
-        ? 'Form validation successful!'
-        : 'تم التحقق من صحة النموذج بنجاح!'
-    )
-  } catch (error) {
-    console.error('Signup request failed:', error)
+      alert(
+        language === 'EN'
+          ? 'Form validation successful!'
+          : 'تم التحقق من صحة النموذج بنجاح!'
+      )
 
-    alert(
-      language === 'EN'
-        ? 'Could not connect to the server.'
-        : 'تعذر الاتصال بالخادم.'
-    )
+      navigate('/')
+
+    } catch (error) {
+      console.error('Signup request failed:', error)
+
+      alert(
+        language === 'EN'
+          ? 'Could not connect to the server.'
+          : 'تعذر الاتصال بالخادم.'
+      )
+    }
   }
-}
 
   return (
     <>

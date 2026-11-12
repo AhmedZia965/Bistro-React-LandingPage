@@ -1,10 +1,21 @@
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import StaffNavbar from './StaffNavbar'
 import StaffFooter from './StaffFooter'
 
 function StaffDashboard({ language, setLanguage }) {
+
+  const navigate = useNavigate()
+
+  // Handles staff logout
+  function handleLogout() {
+    sessionStorage.removeItem('staffLoggedIn')
+    sessionStorage.removeItem('staffId')
+    sessionStorage.removeItem('staffEmail')
+
+    navigate('/staff-login')
+  }
 
   // ================= DASHBOARD CARDS =================
 
@@ -170,6 +181,7 @@ function StaffDashboard({ language, setLanguage }) {
             <button
               type="button"
               className="staff-logout-btn"
+              onClick={handleLogout}
             >
 
               <i className="bi bi-box-arrow-right me-2"></i>

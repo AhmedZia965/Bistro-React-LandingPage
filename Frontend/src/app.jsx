@@ -25,6 +25,13 @@ function App() {
   // Controls whether the loading screen is shown
   const [loading, setLoading] = useState(true)
 
+  // Clears cart when a guest opens or refreshes the application
+  useEffect(() => {
+    if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+      sessionStorage.removeItem('cartItems')
+    }
+  }, [])
+
   // Changes the page direction when Arabic is selected
   useEffect(() => {
     document.documentElement.dir = language === 'AR' ? 'rtl' : 'ltr'

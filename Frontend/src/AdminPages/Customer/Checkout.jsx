@@ -41,12 +41,13 @@ const checkoutSchema = z.object({
         });
     }
 });
+
 function Checkout() {
     const navigate = useNavigate();
 
     // Get cart items
     const [cartItems] = useState(() => {
-        return JSON.parse(localStorage.getItem("cartItems") || "[]");
+        return JSON.parse(sessionStorage.getItem("cartItems") || "[]");
     });
 
     // Store delivery or pickup option

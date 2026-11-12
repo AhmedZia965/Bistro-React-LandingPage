@@ -164,13 +164,18 @@
     color: #77716B !important;
 }
 
+/* Allow horizontal scrolling when the table needs more space */
+
 .admin-management-table .table-responsive {
     width: 100%;
-    overflow-x: hidden;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .admin-management-table .table {
     width: 100%;
+    min-width: 750px;
     margin-bottom: 0;
     table-layout: fixed;
 }
@@ -181,6 +186,7 @@
     border-color: #4A2832;
     padding: 12px 10px;
     white-space: normal;
+    overflow-wrap: break-word;
     font-size: 13px;
     vertical-align: middle;
 }
@@ -191,12 +197,15 @@
     border-color: #302026;
     padding: 12px 10px;
     vertical-align: middle;
-    overflow-wrap: break-word;
+    white-space: normal;
+    overflow-wrap: anywhere;
     word-break: normal;
+    line-height: 1.6;
 }
 
 .admin-management-table .table tbody td strong {
     color: #F5F0E6;
+    overflow-wrap: anywhere;
 }
 
 .admin-management-table .table-hover tbody tr:hover td {
@@ -218,12 +227,12 @@
 
 .admin-management-table .table th:nth-child(1),
 .admin-management-table .table td:nth-child(1) {
-    width: 22%;
+    width: 20%;
 }
 
 .admin-management-table .table th:nth-child(2),
 .admin-management-table .table td:nth-child(2) {
-    width: 30%;
+    width: 32%;
 }
 
 .admin-management-table .table th:nth-child(3),
@@ -234,13 +243,13 @@
 
 .admin-management-table .table th:nth-child(4),
 .admin-management-table .table td:nth-child(4) {
-    width: 17%;
+    width: 20%;
     text-align: center;
 }
 
 .admin-management-table .table th:nth-child(5),
 .admin-management-table .table td:nth-child(5) {
-    width: 18%;
+    width: 15%;
     text-align: center;
 }
 
@@ -278,7 +287,7 @@
 }
 
 .admin-management-table .table td:last-child {
-    white-space: normal;
+    white-space: nowrap;
 }
 
 .admin-management-table .table td:last-child .btn {
@@ -377,6 +386,7 @@
     border-radius: 20px;
     padding: 5px 10px;
     font-size: 12px;
+    white-space: nowrap;
 }
 
 /* =========================================================
@@ -408,10 +418,6 @@
         padding: 8px 5px;
         font-size: 12px;
     }
-
-    .admin-management-table .table td:last-child .btn {
-        margin: 1px !important;
-    }
 }
 
 /* =========================================================
@@ -429,7 +435,7 @@
 
     .admin-management-table .table thead th,
     .admin-management-table .table tbody td {
-        padding: 7px 3px;
+        padding: 7px 5px;
         font-size: 11px;
     }
 

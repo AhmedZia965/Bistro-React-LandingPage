@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Cart.css";
@@ -9,12 +8,12 @@ function Cart() {
 
     // Get saved cart items
     const [cartItems, setCartItems] = useState(() => {
-        return JSON.parse(localStorage.getItem("cartItems") || "[]");
+        return JSON.parse(sessionStorage.getItem("cartItems") || "[]");
     });
 
     // Save updated cart items
     function saveCart(updatedItems) {
-        localStorage.setItem("cartItems", JSON.stringify(updatedItems));
+        sessionStorage.setItem("cartItems", JSON.stringify(updatedItems));
         setCartItems(updatedItems);
     }
 

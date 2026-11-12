@@ -4,7 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { getCustomerAddressesAxiosFunction } from "../../Services/CustomerApi.js";
+import {
+  getCustomerProfileAxiosFunction,
+  updateCustomerProfileAxiosFunction,
+  getCustomerAddressesAxiosFunction,
+  deleteCustomerAddressAxiosFunction,
+  deleteCustomerAccountAxiosFunction
+} from "../../Services/CustomerApi.js";
 
 // ================= VALIDATION SCHEMAS =================
 
@@ -28,7 +34,7 @@ const profileSchema = z.object({
     .trim()
     .max(12, 'Phone number cannot exceed 12 characters')
     .refine(
-      value => value === '' || /^(?:\+[0-9]{8,11}|[0-9]{8,12})$/.test(value),
+      value => /^(?:\+[0-9]{8,11}|[0-9]{8,12})$/.test(value),
       'Enter a valid phone number (8-12 digits, optional +)'
     )
 })
@@ -77,6 +83,59 @@ function ProfileManagement({ language, type }) {
   const [addresses, setAddresses] = useState([])
   const [addressLoading, setAddressLoading] = useState(false)
   const [addressError, setAddressError] = useState(false)
+  const [profileLoading, setProfileLoading] = useState(true)
+  const [saving, setSaving] = useState(false)
+  const [deletingAddress, setDeletingAddress] = useState('')
+  const [deletingAccount, setDeletingAccount] = useState(false)
+  const [message, setMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  // ================= RETRIEVE PROFILE =================
+
+  const {
+    register: registerProfile,
+    handleSubmit: handleProfileForm,
+    reset: resetProfile,
+    formState: { errors: profileErrors }
+  } = useForm({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: ''
+    }
+  })
+
+  useEffect(() => {
+    const customerId = sessionStorage.getItem('customerId')
+    const loggedIn = sessionStorage.getItem('isLoggedIn') === 'true'
+
+    if (!loggedIn || !customerId) return
+
+    getCustomerProfileAxiosFunction(customerId)
+      .then((response) => {
+        const customer = response.data.customer ?? response.data
+
+        resetProfile({
+          firstName: customer.firstName ?? '',
+          lastName: customer.lastName ?? '',
+          email: customer.email ?? '',
+          phone: customer.phone ?? ''
+        })
+      })
+      .catch((error) => {
+        console.error('Error retrieving profile:', error)
+        setErrorMessage(
+          language === 'EN'
+            ? 'Could not load your profile.'
+            : 'تعذر تحميل الملف الشخصي.'
+        )
+      })
+      .finally(() => {
+        setProfileLoading(false)
+      })
+  }, [resetProfile, language])
 
   // ================= RETRIEVE ADDRESSES =================
 
@@ -105,21 +164,48 @@ function ProfileManagement({ language, type }) {
       })
   }, [])
 
-  // ================= PROFILE FORM =================
+  // ================= SUBMIT PROFILE =================
 
-  const {
-    register: registerProfile,
-    handleSubmit: handleProfileForm,
-    formState: { errors: profileErrors }
-  } = useForm({
-    resolver: zodResolver(profileSchema),
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: ''
+  async function handleProfileSubmit(data) {
+    const customerId = sessionStorage.getItem('customerId')
+
+    setMessage('')
+    setErrorMessage('')
+    setSaving(true)
+
+    try {
+      const response = await updateCustomerProfileAxiosFunction(
+        customerId,
+        data
+      )
+
+      const customer = response.data.customer ?? response.data
+
+      resetProfile({
+        firstName: customer.firstName ?? data.firstName,
+        lastName: customer.lastName ?? data.lastName,
+        email: customer.email ?? data.email,
+        phone: customer.phone ?? data.phone
+      })
+
+      setMessage(
+        language === 'EN'
+          ? 'Profile updated successfully.'
+          : 'تم تحديث الملف الشخصي بنجاح.'
+      )
+    } catch (error) {
+      console.error('Error updating profile:', error)
+
+      setErrorMessage(
+        error.response?.data?.message ||
+        (language === 'EN'
+          ? 'Could not update profile.'
+          : 'تعذر تحديث الملف الشخصي.')
+      )
+    } finally {
+      setSaving(false)
     }
-  })
+  }
 
   // ================= PASSWORD FORM =================
 
@@ -136,16 +222,92 @@ function ProfileManagement({ language, type }) {
     }
   })
 
-  // ================= SUBMIT PROFILE =================
-
-  function handleProfileSubmit(data) {
-    console.log('Profile Data:', data)
-  }
-
   // ================= SUBMIT PASSWORD =================
 
   function handlePasswordSubmit(data) {
     console.log('Password Form Submitted')
+  }
+
+  // ================= DELETE ADDRESS =================
+
+  async function handleDeleteAddress(addressId) {
+    const confirmed = window.confirm(
+      language === 'EN'
+        ? 'Are you sure you want to delete this address?'
+        : 'هل أنت متأكد أنك تريد حذف هذا العنوان؟'
+    )
+
+    if (!confirmed) return
+
+    const customerId = sessionStorage.getItem('customerId')
+
+    setMessage('')
+    setErrorMessage('')
+    setDeletingAddress(addressId)
+
+    try {
+      await deleteCustomerAddressAxiosFunction(customerId, addressId)
+
+      setAddresses(previousAddresses =>
+        previousAddresses.filter(address => address._id !== addressId)
+      )
+
+      setMessage(
+        language === 'EN'
+          ? 'Address deleted successfully.'
+          : 'تم حذف العنوان بنجاح.'
+      )
+    } catch (error) {
+      console.error('Error deleting address:', error)
+
+      setErrorMessage(
+        error.response?.data?.message ||
+        (language === 'EN'
+          ? 'Could not delete address.'
+          : 'تعذر حذف العنوان.')
+      )
+    } finally {
+      setDeletingAddress('')
+    }
+  }
+
+  // ================= DELETE ACCOUNT =================
+
+  async function handleDeleteAccount() {
+    const confirmed = window.confirm(
+      language === 'EN'
+        ? 'Are you sure you want to permanently delete your account? This action cannot be undone.'
+        : 'هل أنت متأكد أنك تريد حذف حسابك نهائياً؟ لا يمكن التراجع عن هذا الإجراء.'
+    )
+
+    if (!confirmed) return
+
+    const customerId = sessionStorage.getItem('customerId')
+
+    setMessage('')
+    setErrorMessage('')
+    setDeletingAccount(true)
+
+    try {
+      await deleteCustomerAccountAxiosFunction(customerId)
+
+      sessionStorage.removeItem('isLoggedIn')
+      sessionStorage.removeItem('customerId')
+
+      setIsLoggedIn(false)
+      navigate('/', { replace: true })
+    } catch (error) {
+      console.error('Error deleting account:', error)
+
+      setErrorMessage(
+        error.response?.data?.message ||
+        (language === 'EN'
+          ? 'Could not delete account.'
+          : 'تعذر حذف الحساب.')
+      )
+
+      setDeletingAccount(false)
+    }
   }
 
   // ================= LOGOUT =================
@@ -192,7 +354,11 @@ function ProfileManagement({ language, type }) {
           <button
             type="button"
             className={section === 'profile' ? 'management-option active' : 'management-option'}
-            onClick={() => setSection('profile')}
+            onClick={() => {
+              setSection('profile')
+              setMessage('')
+              setErrorMessage('')
+            }}
           >
             <i className="bi bi-person me-2"></i>
             {language === 'EN' ? 'Edit Profile' : 'تعديل الملف الشخصي'}
@@ -219,13 +385,31 @@ function ProfileManagement({ language, type }) {
           <button
             type="button"
             className={section === 'addresses' ? 'management-option active' : 'management-option'}
-            onClick={() => setSection('addresses')}
+            onClick={() => {
+              setSection('addresses')
+              setMessage('')
+              setErrorMessage('')
+            }}
           >
             <i className="bi bi-geo-alt me-2"></i>
             {language === 'EN' ? 'Addresses' : 'العناوين'}
           </button>
 
         </div>
+
+        {/* ================= STATUS MESSAGES ================= */}
+
+        {message && (
+          <div className="alert alert-success mt-4" role="status">
+            {message}
+          </div>
+        )}
+
+        {errorMessage && (
+          <div className="alert alert-danger mt-4" role="alert">
+            {errorMessage}
+          </div>
+        )}
 
         {/* ================= EDIT PROFILE ================= */}
 
@@ -239,69 +423,81 @@ function ProfileManagement({ language, type }) {
                 : 'قم بتحديث معلوماتك الشخصية.'}
             </p>
 
-            <form onSubmit={handleProfileForm(handleProfileSubmit)}>
+            {profileLoading ? (
+              <p>
+                {language === 'EN' ? 'Loading profile...' : 'جارٍ تحميل الملف الشخصي...'}
+              </p>
+            ) : (
+              <form onSubmit={handleProfileForm(handleProfileSubmit)}>
 
-              <div className="mb-3">
-                <label className="form-label">
-                  {language === 'EN' ? 'First Name' : 'الاسم الأول'}
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  {...registerProfile('firstName')}
-                />
-                {profileErrors.firstName && (
-                  <small className="text-danger">{profileErrors.firstName.message}</small>
-                )}
-              </div>
+                <div className="mb-3">
+                  <label className="form-label">
+                    {language === 'EN' ? 'First Name' : 'الاسم الأول'}
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    {...registerProfile('firstName')}
+                  />
+                  {profileErrors.firstName && (
+                    <small className="text-danger">{profileErrors.firstName.message}</small>
+                  )}
+                </div>
 
-              <div className="mb-3">
-                <label className="form-label">
-                  {language === 'EN' ? 'Last Name' : 'اسم العائلة'}
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  {...registerProfile('lastName')}
-                />
-                {profileErrors.lastName && (
-                  <small className="text-danger">{profileErrors.lastName.message}</small>
-                )}
-              </div>
+                <div className="mb-3">
+                  <label className="form-label">
+                    {language === 'EN' ? 'Last Name' : 'اسم العائلة'}
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    {...registerProfile('lastName')}
+                  />
+                  {profileErrors.lastName && (
+                    <small className="text-danger">{profileErrors.lastName.message}</small>
+                  )}
+                </div>
 
-              <div className="mb-3">
-                <label className="form-label">
-                  {language === 'EN' ? 'Email' : 'البريد الإلكتروني'}
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  {...registerProfile('email')}
-                />
-                {profileErrors.email && (
-                  <small className="text-danger">{profileErrors.email.message}</small>
-                )}
-              </div>
+                <div className="mb-3">
+                  <label className="form-label">
+                    {language === 'EN' ? 'Email' : 'البريد الإلكتروني'}
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    {...registerProfile('email')}
+                  />
+                  {profileErrors.email && (
+                    <small className="text-danger">{profileErrors.email.message}</small>
+                  )}
+                </div>
 
-              <div className="mb-3">
-                <label className="form-label">
-                  {language === 'EN' ? 'Phone' : 'رقم الهاتف'}
-                </label>
-                <input
-                  type="tel"
-                  className="form-control"
-                  {...registerProfile('phone')}
-                />
-                {profileErrors.phone && (
-                  <small className="text-danger">{profileErrors.phone.message}</small>
-                )}
-              </div>
+                <div className="mb-3">
+                  <label className="form-label">
+                    {language === 'EN' ? 'Phone' : 'رقم الهاتف'}
+                  </label>
+                  <input
+                    type="tel"
+                    className="form-control"
+                    {...registerProfile('phone')}
+                  />
+                  {profileErrors.phone && (
+                    <small className="text-danger">{profileErrors.phone.message}</small>
+                  )}
+                </div>
 
-              <button type="submit" className="profile-management-btn">
-                {language === 'EN' ? 'Save Changes' : 'حفظ التغييرات'}
-              </button>
+                <button
+                  type="submit"
+                  className="profile-management-btn"
+                  disabled={saving}
+                >
+                  {saving
+                    ? (language === 'EN' ? 'Saving...' : 'جارٍ الحفظ...')
+                    : (language === 'EN' ? 'Save Changes' : 'حفظ التغييرات')}
+                </button>
 
-            </form>
+              </form>
+            )}
           </div>
         )}
 
@@ -518,6 +714,18 @@ function ProfileManagement({ language, type }) {
                           </span>
                         </div>
                       ))}
+
+                      <button
+                        type="button"
+                        className="btn btn-outline-danger btn-sm mt-3"
+                        disabled={deletingAddress === address._id}
+                        onClick={() => handleDeleteAddress(address._id)}
+                      >
+                        <i className="bi bi-trash me-2"></i>
+                        {deletingAddress === address._id
+                          ? (language === 'EN' ? 'Deleting...' : 'جارٍ الحذف...')
+                          : (language === 'EN' ? 'Delete Address' : 'حذف العنوان')}
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -546,15 +754,27 @@ function ProfileManagement({ language, type }) {
           </div>
         )}
 
-        {/* ================= LOGOUT BUTTON ================= */}
+        {/* ================= LOGOUT AND DELETE ACCOUNT ================= */}
 
-        <div className="text-center mt-4">
+        <div className="text-center mt-4 d-flex justify-content-center flex-wrap gap-3">
           <button
             type="button"
             className="profile-management-btn"
             onClick={handleLogout}
           >
             {language === 'EN' ? 'Logout' : 'تسجيل الخروج'}
+          </button>
+
+          <button
+            type="button"
+            className="btn btn-outline-danger"
+            disabled={deletingAccount}
+            onClick={handleDeleteAccount}
+          >
+            <i className="bi bi-trash me-2"></i>
+            {deletingAccount
+              ? (language === 'EN' ? 'Deleting Account...' : 'جارٍ حذف الحساب...')
+              : (language === 'EN' ? 'Delete Account' : 'حذف الحساب')}
           </button>
         </div>
 

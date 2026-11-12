@@ -48,6 +48,7 @@ function StaffLogin({ language, setLanguage }) {
 
       if (response.status === 200) {
 
+        sessionStorage.setItem('staffLoggedIn', 'true')
         sessionStorage.setItem('staffId', response.data.staffId)
         sessionStorage.setItem('staffEmail', response.data.email)
 
